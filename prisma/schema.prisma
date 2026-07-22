@@ -1,0 +1,404 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Authentication ──────────────────────────────────────────
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String
+  role            Role      @default(MEMBER)
+  emailVerified   Boolean   @default(false)
+  twoFactorEnabled Boolean  @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  profile         MemberProfile?
+  sessions        Session[]
+  passwordResets  PasswordReset[]
+  contributions   Contribution[]
+  attendanceRecords AttendanceRecord[]
+  messages        Message[]
+  aiConversations AIConversation[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]       @relation("AuditUser")
+}
+
+enum Role {
+  MEMBER
+  SUPER_ADMIN
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ── Members ─────────────────────────────────────────────────
+model MemberProfile {
+  id            String         @id @default(cuid())
+  userId        String         @unique
+  fullName      String
+  phone         String
+  country       String
+  photoUrl      String?
+  memberType    MemberType     @default(LOCAL)
+  employment    Employment     @default(EMPLOYED)
+  approvalStatus ApprovalStatus @default(PENDING)
+  approvedBy    String?
+  approvedAt    DateTime?
+  joinedDate    DateTime       @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([approvalStatus])
+  @@index([memberType])
+  @@index([country])
+}
+
+enum MemberType {
+  LOCAL
+  DIASPORA
+}
+
+enum Employment {
+  STUDENT
+  EMPLOYED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+// ── Contributions ───────────────────────────────────────────
+model ContributionType {
+  id                String  @id @default(cuid())
+  name              String
+  description       String?
+  category          String
+  localStudentAmt   Decimal @default(0)
+  localEmployedAmt  Decimal @default(0)
+  diasporaStudentAmt Decimal @default(0)
+  diasporaEmployedAmt Decimal @default(0)
+  localCurrency     String  @default("RWF")
+  diasporaCurrency  String  @default("USD")
+  recurring         Boolean @default(false)
+  active            Boolean @default(true)
+  icon              String?
+  color             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  contributions Contribution[]
+}
+
+model Contribution {
+  id                String           @id @default(cuid())
+  userId            String
+  contributionTypeId String
+  amount            Decimal
+  currency          String
+  status            ContributionStatus @default(PENDING)
+  approvedBy        String?
+  approvedAt        DateTime?
+  rejectionReason   String?
+  notes             String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  user              User             @relation(fields: [userId], references: [id])
+  contributionType  ContributionType @relation(fields: [contributionTypeId], references: [id])
+  payment           Payment?
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ContributionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DUPLICATE
+  FRAUD_ALERT
+}
+
+// ── Payments (MTN MoMo) ─────────────────────────────────────
+model Payment {
+  id                String        @id @default(cuid())
+  contributionId    String        @unique
+  transactionRef    String        @unique
+  externalRef       String?
+  phone             String
+  amount            Decimal
+  currency          String
+  provider          String        @default("MTN_MOMO")
+  status            PaymentStatus @default(INITIATED)
+  callbackPayload   Json?
+  verifiedAt        DateTime?
+  failureReason     String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  contribution Contribution @relation(fields: [contributionId], references: [id])
+
+  @@index([transactionRef])
+  @@index([phone])
+  @@index([status])
+}
+
+enum PaymentStatus {
+  INITIATED
+  PENDING
+  SUCCESSFUL
+  FAILED
+  CANCELLED
+  TIMEOUT
+}
+
+// ── Campaigns ───────────────────────────────────────────────
+model Campaign {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  goal        Decimal
+  raised      Decimal        @default(0)
+  currency    String         @default("RWF")
+  startDate   DateTime
+  endDate     DateTime
+  status      CampaignStatus @default(ACTIVE)
+  featured    Boolean        @default(false)
+  imageUrl    String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  donations CampaignDonation[]
+  images    CampaignImage[]
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+model CampaignDonation {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  amount     Decimal
+  currency   String
+  createdAt  DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+
+  @@index([campaignId])
+}
+
+model CampaignImage {
+  id         String @id @default(cuid())
+  campaignId String
+  url        String
+  caption    String?
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+}
+
+// ── Attendance ──────────────────────────────────────────────
+model AttendanceEvent {
+  id            String   @id @default(cuid())
+  title         String
+  qrCode        String   @unique
+  qrExpiration  DateTime
+  gpsLatitude   Float?
+  gpsLongitude  Float?
+  gpsRadius     Int      @default(100)
+  startTime     DateTime
+  endTime       DateTime
+  createdAt     DateTime @default(now())
+
+  records AttendanceRecord[]
+}
+
+model AttendanceRecord {
+  id              String   @id @default(cuid())
+  attendanceEventId String
+  userId          String
+  scannedAt       DateTime @default(now())
+  gpsLatitude     Float?
+  gpsLongitude    Float?
+  locationVerified Boolean @default(false)
+
+  event AttendanceEvent @relation(fields: [attendanceEventId], references: [id])
+  user  User            @relation(fields: [userId], references: [id])
+
+  @@unique([attendanceEventId, userId])
+}
+
+// ── Events & Calendar ───────────────────────────────────────
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  location    String?
+  imageUrl    String?
+  category    String
+  startTime   DateTime
+  endTime     DateTime?
+  recurring   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Messages ────────────────────────────────────────────────
+model Conversation {
+  id        String    @id @default(cuid())
+  subject   String
+  status    String    @default("open")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  messages Message[]
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  sender       User         @relation(fields: [senderId], references: [id])
+
+  @@index([conversationId])
+}
+
+// ── Announcements ───────────────────────────────────────────
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  priority    String   @default("normal")
+  imageUrl    String?
+  publishDate DateTime @default(now())
+  expiryDate  DateTime?
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── AI Assistant ────────────────────────────────────────────
+model AIConversation {
+  id        String      @id @default(cuid())
+  userId    String
+  createdAt DateTime    @default(now())
+
+  user     User         @relation(fields: [userId], references: [id])
+  messages AIMessage[]
+}
+
+model AIMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  role           String
+  content        String
+  createdAt      DateTime @default(now())
+
+  conversation AIConversation @relation(fields: [conversationId], references: [id])
+}
+
+// ── Notifications ───────────────────────────────────────────
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  body      String
+  type      String
+  read      Boolean  @default(false)
+  data      Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, read])
+}
+
+// ── Feedback ────────────────────────────────────────────────
+model Feedback {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String
+  content       String
+  rating        Int?
+  adminResponse String?
+  status        String   @default("open")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ── Audit & System ──────────────────────────────────────────
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  details   Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user User? @relation("AuditUser", fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model SystemSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  type  String @default("string")
+
+  @@index([key])
+}
+
+model BackupRecord {
+  id        String   @id @default(cuid())
+  type      String
+  size      BigInt?
+  path      String
+  status    String
+  createdAt DateTime @default(now())
+}

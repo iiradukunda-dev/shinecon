@@ -4,86 +4,131 @@ import { useRouter } from 'next/navigation';
 import {
   formatCurrency, formatDate,
   MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
-  CONTRIBUTION_BY_CATEGORY,
 } from '@/lib/demo-data';
+import { IconUsers, IconGive, IconDollar, IconHourglass } from '@/components/icons';
 
 export default function AdminDashboard() {
   const { stats, members, contributions, events } = useApp();
   const router = useRouter();
 
   const kpis = [
-    { label: 'Total Members', value: stats.totalMembers, icon: '👥', change: '+12%', positive: true, bg: 'rgba(212,168,67,0.1)', color: 'var(--gold)' },
-    { label: 'Monthly (RWF)', value: formatCurrency(stats.monthlyRWF, 'RWF'), icon: '💰', change: '+8%', positive: true, bg: 'rgba(43,138,62,0.1)', color: 'var(--emerald)' },
-    { label: 'Monthly (USD)', value: formatCurrency(stats.monthlyUSD, 'USD'), icon: '💵', change: '+15%', positive: true, bg: 'rgba(59,91,219,0.1)', color: 'var(--royal-blue)' },
-    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, icon: '⏳', change: 'Action needed', positive: false, bg: 'rgba(245,159,0,0.1)', color: 'var(--amber)' },
+    { label: 'Total Members', value: stats.totalMembers, icon: <IconUsers size={24} color="#D4A843" />, change: '+12% this month', positive: true, bg: 'rgba(212,168,67,0.15)', color: 'var(--gold)' },
+    { label: 'Monthly Contributions (RWF)', value: formatCurrency(stats.monthlyRWF, 'RWF'), icon: <IconGive size={24} color="#40C057" />, change: '+8% vs last month', positive: true, bg: 'rgba(43,138,62,0.15)', color: 'var(--emerald)' },
+    { label: 'Monthly Contributions (USD)', value: formatCurrency(stats.monthlyUSD, 'USD'), icon: <IconDollar size={24} color="#4C6EF5" />, change: '+15% vs last month', positive: true, bg: 'rgba(59,91,219,0.15)', color: 'var(--royal-blue)' },
+    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, icon: <IconHourglass size={24} color="#FAB005" />, change: 'Requires Action', positive: false, bg: 'rgba(245,159,0,0.15)', color: 'var(--amber)' },
   ];
 
   const pendingContributions = contributions.filter(c => c.status === 'pending');
   const pendingMembers = members.filter(m => m.status === 'pending');
 
   return (
-    <div>
-      {/* KPI Cards */}
-      <div className="grid grid-4" style={{ marginBottom: 'var(--space-xl)' }}>
+    <div className="flex-col gap-xl">
+      <style>{`
+        .admin-hero-card {
+          background: rgba(15, 15, 22, 0.85);
+          backdrop-filter: blur(40px);
+          -webkit-backdrop-filter: blur(40px);
+          border-radius: 28px;
+          padding: 28px;
+          border: 1px solid rgba(212, 168, 67, 0.35);
+          box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+        }
+
+        .scroll-admin-row {
+          display: flex;
+          gap: 20px;
+          overflow-x: auto;
+          padding: 4px 4px 16px 4px;
+          scroll-snap-type: x mandatory;
+        }
+        .scroll-admin-row::-webkit-scrollbar {
+          height: 6px;
+        }
+        .scroll-admin-row::-webkit-scrollbar-thumb {
+          background: rgba(212, 168, 67, 0.4);
+          border-radius: 999px;
+        }
+
+        .admin-scroll-card {
+          min-width: 280px;
+          max-width: 320px;
+          flex-shrink: 0;
+          scroll-snap-align: start;
+          background: rgba(18, 18, 26, 0.85);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(212, 168, 67, 0.3);
+          border-radius: 24px;
+          padding: 20px;
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+        }
+      `}</style>
+
+      {/* KPI Big Clear Cards */}
+      <div className="grid grid-4" style={{ gap: 20 }}>
         {kpis.map((kpi, i) => (
-          <div key={kpi.label} className={`stat-card glass-card-static animate-fade-in-up stagger-${i + 1}`}>
-            <div className="stat-icon" style={{ background: kpi.bg }}>
-              <span>{kpi.icon}</span>
+          <div key={kpi.label} className="admin-hero-card">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+              <div style={{ width: 48, height: 48, borderRadius: 16, background: kpi.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                {kpi.icon}
+              </div>
+              <span className={`badge ${kpi.positive ? 'badge-gold' : 'badge-amber'}`} style={{ fontSize: 11 }}>
+                {kpi.positive ? '↑' : '⚡'} {kpi.change}
+              </span>
             </div>
-            <div className="stat-value">{kpi.value}</div>
-            <div className="stat-label">{kpi.label}</div>
-            <div className={`stat-change ${kpi.positive ? 'positive' : 'negative'}`}>
-              {kpi.positive ? '↑' : '⚡'} {kpi.change}
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, color: '#D4A843', marginBottom: 4 }}>
+              {kpi.value}
+            </div>
+            <div style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.75)', fontWeight: 500 }}>
+              {kpi.label}
             </div>
           </div>
         ))}
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-2" style={{ marginBottom: 'var(--space-xl)' }}>
+      <div className="grid grid-2" style={{ gap: 20 }}>
         {/* Contribution Trend */}
-        <div className="glass-card-static animate-fade-in-up stagger-3" style={{ padding: 'var(--space-lg)' }}>
-          <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>Contribution Trend</h3>
-            <span className="badge badge-gold">2026</span>
+        <div className="admin-hero-card">
+          <div className="flex-between" style={{ marginBottom: 20 }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Contribution Trend</h3>
+            <span className="badge badge-gold">2026 Fiscal</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, height: 140 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 12, height: 160 }}>
             {MONTHLY_CONTRIBUTION_DATA.labels.map((label, i) => {
               const maxVal = Math.max(...MONTHLY_CONTRIBUTION_DATA.local);
               const height = (MONTHLY_CONTRIBUTION_DATA.local[i] / maxVal) * 100;
               const isLast = i === MONTHLY_CONTRIBUTION_DATA.labels.length - 1;
               return (
                 <div key={label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 10, color: 'var(--text-tertiary)', fontWeight: 500 }}>
+                  <span style={{ fontSize: 10, color: '#D4A843', fontWeight: 600 }}>
                     {(MONTHLY_CONTRIBUTION_DATA.local[i] / 1000).toFixed(0)}K
                   </span>
                   <div style={{
                     width: '100%', height: `${height}%`, borderRadius: '8px 8px 4px 4px',
                     background: isLast
-                      ? 'linear-gradient(180deg, var(--gold), var(--gold-dark))'
-                      : 'linear-gradient(180deg, rgba(212,168,67,0.3), rgba(212,168,67,0.1))',
-                    transition: 'height 1.2s var(--ease-out)',
+                      ? 'linear-gradient(180deg, #E8C876 0%, #B08A2E 100%)'
+                      : 'linear-gradient(180deg, rgba(212,168,67,0.4), rgba(212,168,67,0.15))',
                     minHeight: 8,
                   }} />
-                  <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>{label}</span>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>{label}</span>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Member Growth */}
-        <div className="glass-card-static animate-fade-in-up stagger-4" style={{ padding: 'var(--space-lg)' }}>
-          <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>Member Growth</h3>
-            <span className="badge badge-green">+12 this month</span>
+        {/* Member Growth Chart */}
+        <div className="admin-hero-card">
+          <div className="flex-between" style={{ marginBottom: 20 }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Member Growth Rate</h3>
+            <span className="badge badge-green">+12 New Members</span>
           </div>
-          <div style={{ position: 'relative', height: 140 }}>
+          <div style={{ position: 'relative', height: 160 }}>
             <svg viewBox="0 0 700 140" style={{ width: '100%', height: '100%' }}>
               <defs>
-                <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--emerald)" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="var(--emerald)" stopOpacity="0" />
+                <linearGradient id="adminLineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#D4A843" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#D4A843" stopOpacity="0" />
                 </linearGradient>
               </defs>
               {(() => {
@@ -93,182 +138,51 @@ export default function AdminDashboard() {
                 const areaPoints = points + ` 700,140 0,140`;
                 return (
                   <>
-                    <polygon points={areaPoints} fill="url(#lineGrad)" />
-                    <polyline points={points} fill="none" stroke="var(--emerald)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    <polygon points={areaPoints} fill="url(#adminLineGrad)" />
+                    <polyline points={points} fill="none" stroke="#D4A843" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                     {data.map((v, i) => (
-                      <circle key={i} cx={(i / (data.length - 1)) * 700} cy={140 - (v / max) * 130} r="4" fill="var(--emerald)" stroke="var(--bg-secondary)" strokeWidth="2" />
+                      <circle key={i} cx={(i / (data.length - 1)) * 700} cy={140 - (v / max) * 130} r="5" fill="#FFFFFF" stroke="#D4A843" strokeWidth="3" />
                     ))}
                   </>
                 );
               })()}
             </svg>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
               {MEMBER_GROWTH.labels.map(l => (
-                <span key={l} style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>{l}</span>
+                <span key={l} style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>{l}</span>
               ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Quick Stats Row */}
-      <div className="grid grid-3" style={{ marginBottom: 'var(--space-xl)' }}>
-        {/* Local vs Diaspora */}
-        <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)' }}>
-          <h4 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Local vs Diaspora</h4>
-          <div style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'center' }}>
-            <div style={{ position: 'relative', width: 80, height: 80 }}>
-              <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                <circle cx="18" cy="18" r="16" fill="none" stroke="var(--border-light)" strokeWidth="3" />
-                <circle cx="18" cy="18" r="16" fill="none" stroke="var(--gold)" strokeWidth="3"
-                  strokeDasharray={`${(stats.localMembers / stats.totalMembers) * 100} ${100 - (stats.localMembers / stats.totalMembers) * 100}`}
-                  strokeLinecap="round" />
-              </svg>
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--gold)' }} />
-                <span style={{ fontSize: 'var(--text-sm)' }}>Local: {stats.localMembers}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--royal-blue)' }} />
-                <span style={{ fontSize: 'var(--text-sm)' }}>Diaspora: {stats.diasporaMembers}</span>
-              </div>
-            </div>
-          </div>
+      {/* Upcoming Events (Horizontal Scroll Row) */}
+      <div>
+        <div className="flex-between" style={{ marginBottom: 16 }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 20, color: '#FFFFFF' }}>
+            Upcoming Ministry Events
+          </h3>
+          <button className="btn btn-ghost" style={{ color: '#D4A843' }} onClick={() => router.push('/admin/events')}>
+            Manage Events →
+          </button>
         </div>
 
-        {/* Student vs Employed */}
-        <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)' }}>
-          <h4 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Employment Status</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-            {[
-              { label: 'Employed', count: stats.employedMembers, pct: Math.round((stats.employedMembers / stats.totalMembers) * 100), color: 'var(--emerald)' },
-              { label: 'Students', count: stats.studentMembers, pct: Math.round((stats.studentMembers / stats.totalMembers) * 100), color: 'var(--royal-blue)' },
-            ].map(item => (
-              <div key={item.label}>
-                <div className="flex-between" style={{ marginBottom: 4, fontSize: 'var(--text-sm)' }}>
-                  <span>{item.label}</span>
-                  <span style={{ fontWeight: 600 }}>{item.count} ({item.pct}%)</span>
-                </div>
-                <div className="progress-bar">
-                  <div className="progress-bar-fill" style={{ width: `${item.pct}%`, background: item.color }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Attendance */}
-        <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)' }}>
-          <h4 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Attendance</h4>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 80 }}>
-            {ATTENDANCE_TREND.data.map((v, i) => {
-              const max = Math.max(...ATTENDANCE_TREND.data);
-              return (
-                <div key={i} style={{
-                  flex: 1, height: `${(v / max) * 100}%`, borderRadius: '4px 4px 2px 2px',
-                  background: i === ATTENDANCE_TREND.data.length - 1
-                    ? 'linear-gradient(180deg, var(--royal-blue), var(--royal-blue-light))'
-                    : 'rgba(59,91,219,0.15)',
-                  minHeight: 4,
-                }} />
-              );
-            })}
-          </div>
-          <div className="flex-between" style={{ marginTop: 8 }}>
-            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>Jan</span>
-            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>Jul</span>
-          </div>
-          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginTop: 8 }}>
-            Avg: <strong>{Math.round(ATTENDANCE_TREND.data.reduce((a, b) => a + b) / ATTENDANCE_TREND.data.length)}</strong> per service
-          </p>
-        </div>
-      </div>
-
-      {/* Pending Actions */}
-      <div className="grid grid-2" style={{ marginBottom: 'var(--space-xl)' }}>
-        {/* Pending Members */}
-        <div className="glass-card-static animate-fade-in-up" style={{ padding: 'var(--space-lg)' }}>
-          <div className="flex-between" style={{ marginBottom: 'var(--space-md)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>Pending Members</h3>
-            <span className="badge badge-amber">{pendingMembers.length}</span>
-          </div>
-          {pendingMembers.length === 0 ? (
-            <p style={{ color: 'var(--text-tertiary)', fontSize: 'var(--text-sm)' }}>No pending approvals 🎉</p>
-          ) : pendingMembers.map(m => (
-            <div key={m.id} style={{
-              display: 'flex', alignItems: 'center', gap: 'var(--space-sm)',
-              padding: 'var(--space-sm) 0', borderBottom: '1px solid var(--border-light)',
-            }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: '50%',
-                background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', fontSize: 12, fontWeight: 700,
-              }}>{m.name.split(' ').map(n => n[0]).join('')}</div>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{m.name}</p>
-                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{m.email}</p>
-              </div>
-              <button className="btn btn-gold btn-sm" onClick={() => router.push('/admin/members')}>
-                Review
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {/* Pending Contributions */}
-        <div className="glass-card-static animate-fade-in-up" style={{ padding: 'var(--space-lg)' }}>
-          <div className="flex-between" style={{ marginBottom: 'var(--space-md)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>Pending Contributions</h3>
-            <span className="badge badge-amber">{pendingContributions.length}</span>
-          </div>
-          {pendingContributions.length === 0 ? (
-            <p style={{ color: 'var(--text-tertiary)', fontSize: 'var(--text-sm)' }}>All caught up! 🎉</p>
-          ) : pendingContributions.map(c => (
-            <div key={c.id} style={{
-              display: 'flex', alignItems: 'center', gap: 'var(--space-sm)',
-              padding: 'var(--space-sm) 0', borderBottom: '1px solid var(--border-light)',
-            }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: 'var(--radius-md)',
-                background: 'rgba(245,159,0,0.1)', display: 'flex',
-                alignItems: 'center', justifyContent: 'center', fontSize: 18,
-              }}>💰</div>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{c.memberName}</p>
-                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{c.type} • {formatDate(c.date)}</p>
-              </div>
-              <span style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--gold-dark)' }}>
-                {formatCurrency(c.amount, c.currency)}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Upcoming Events */}
-      <div className="glass-card-static animate-fade-in-up" style={{ padding: 'var(--space-lg)' }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
-          Upcoming Events
-        </h3>
-        <div style={{ display: 'flex', gap: 'var(--space-md)', overflowX: 'auto', paddingBottom: 4 }}>
-          {events.slice(0, 4).map(event => {
+        <div className="scroll-admin-row">
+          {events.map(event => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} style={{
-                minWidth: 200, padding: 'var(--space-md)', borderRadius: 'var(--radius-lg)',
-                background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
-              }}>
-                <div className="flex-between" style={{ marginBottom: 'var(--space-sm)' }}>
+              <div key={event.id} className="admin-scroll-card">
+                <div className="flex-between" style={{ marginBottom: 12 }}>
                   <span className="badge badge-gold">{event.category}</span>
-                  <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{event.time}</span>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{event.time}</span>
                 </div>
-                <p style={{ fontWeight: 600, fontSize: 'var(--text-sm)', marginBottom: 4 }}>{event.title}</p>
-                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>
-                  {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • {event.location}
+                <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>{event.title}</p>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
+                  📅 {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • 📍 {event.location}
                 </p>
+                <button className="btn btn-secondary" style={{ width: '100%', padding: '8px 14px', fontSize: 13 }} onClick={() => router.push('/admin/events')}>
+                  Event Details
+                </button>
               </div>
             );
           })}

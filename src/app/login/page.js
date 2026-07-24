@@ -51,20 +51,42 @@ export default function LoginPage() {
           position: fixed;
           inset: 0;
           z-index: 0;
-          background: linear-gradient(135deg, #F5E6C8 0%, #E8C876 100%);
+          background: #0A0A0E;
+        }
+        .auth-bg-glow {
+          position: absolute;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
+          top: 20%;
+          left: 50%;
+          transform: translateX(-50%);
+          pointer-events: none;
+          filter: blur(50px);
         }
         .auth-card-custom {
           width: 100%;
-          max-width: 440px;
+          max-width: 460px;
           padding: 48px 40px;
-          border-radius: 32px;
+          border-radius: 36px;
           position: relative;
           z-index: 1;
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(15, 15, 20, 0.75);
           backdrop-filter: blur(40px);
           -webkit-backdrop-filter: blur(40px);
-          border: 1px solid rgba(255, 255, 255, 0.5);
-          box-shadow: 0 32px 64px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          
+          /* Refractive border gradient for 3D liquid glass effect */
+          border: 1px solid transparent;
+          background-image: 
+            linear-gradient(rgba(15, 15, 20, 0.75), rgba(15, 15, 20, 0.75)), 
+            linear-gradient(135deg, rgba(212, 168, 67, 0.7) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.05) 70%, rgba(212, 168, 67, 0.7) 100%);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+
+          box-shadow: 
+            0 32px 64px rgba(0, 0, 0, 0.8), 
+            inset 0 0 24px rgba(212, 168, 67, 0.06),
+            inset 0 1px 1px rgba(255, 255, 255, 0.25);
           color: #fff;
           overflow: hidden;
           animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -76,30 +98,31 @@ export default function LoginPage() {
           transform: translate(-50%, -50%);
           font-size: 320px;
           line-height: 1;
-          color: rgba(0, 0, 0, 0.03);
+          color: rgba(212, 168, 67, 0.04);
           z-index: -1;
           pointer-events: none;
           font-family: serif;
         }
         .auth-logo-custom {
-          width: 80px;
-          height: 80px;
+          width: 84px;
+          height: 84px;
           margin: 0 auto 16px;
           display: flex;
           align-items: center;
           justify-content: center;
+          filter: drop-shadow(0 0 12px rgba(212, 168, 67, 0.4));
         }
         .auth-title-custom {
           text-align: center;
           font-family: var(--font-display);
           font-size: 28px;
           font-weight: 700;
-          color: var(--text-primary);
+          color: var(--gold);
           margin-bottom: 4px;
         }
         .auth-subtitle-custom {
           text-align: center;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.7);
           font-size: 14px;
           margin-bottom: 32px;
         }
@@ -108,7 +131,7 @@ export default function LoginPage() {
         }
         .auth-label-custom {
           display: block;
-          color: var(--text-primary);
+          color: rgba(255, 255, 255, 0.9);
           font-size: 14px;
           font-weight: 600;
           margin-bottom: 8px;
@@ -122,37 +145,43 @@ export default function LoginPage() {
           left: 16px;
           top: 50%;
           transform: translateY(-50%);
-          color: var(--text-tertiary);
+          color: var(--gold);
           display: flex;
+          opacity: 0.85;
         }
         .auth-input-custom {
           width: 100%;
           padding: 14px 20px 14px 44px;
-          background: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(212, 168, 67, 0.3);
           border-radius: 999px;
-          color: var(--text-primary);
+          color: #FFFFFF;
           font-size: 15px;
           outline: none;
           transition: all 0.2s;
+          backdrop-filter: blur(10px);
         }
         .auth-input-custom::placeholder {
-          color: var(--text-tertiary);
+          color: rgba(255, 255, 255, 0.4);
         }
         .auth-input-custom:focus {
-          background: rgba(255, 255, 255, 0.8);
+          background: rgba(255, 255, 255, 0.12);
           border-color: var(--gold);
+          box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.25);
         }
         .auth-btn-custom {
           width: 100%;
           padding: 16px;
-          background: linear-gradient(135deg, var(--gold), var(--gold-light));
-          border: none;
+          background: linear-gradient(180deg, #D4A843 0%, #A37A24 100%);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-top-color: rgba(255, 255, 255, 0.4);
           border-radius: 999px;
-          color: #fff;
+          color: #FFFFFF;
           font-size: 16px;
           font-weight: 700;
-          box-shadow: 0 4px 14px rgba(212, 168, 67, 0.3);
+          box-shadow: 
+            0 8px 24px rgba(212, 168, 67, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
           cursor: pointer;
           transition: all 0.2s;
           margin-top: 12px;
@@ -161,9 +190,9 @@ export default function LoginPage() {
           align-items: center;
         }
         .auth-btn-custom:hover:not(:disabled) {
-          background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+          background: linear-gradient(180deg, #E8C876 0%, #B08A2E 100%);
           transform: translateY(-1px);
-          box-shadow: 0 6px 20px rgba(212, 168, 67, 0.4);
+          box-shadow: 0 12px 28px rgba(212, 168, 67, 0.4);
         }
         .auth-btn-custom:disabled {
           opacity: 0.7;
@@ -180,7 +209,7 @@ export default function LoginPage() {
           display: flex;
           align-items: center;
           gap: 8px;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
           font-size: 14px;
           cursor: pointer;
         }
@@ -188,9 +217,9 @@ export default function LoginPage() {
           appearance: none;
           width: 16px;
           height: 16px;
-          border: 1px solid rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(212, 168, 67, 0.4);
           border-radius: 4px;
-          background: rgba(255, 255, 255, 0.6);
+          background: rgba(255, 255, 255, 0.1);
           position: relative;
           cursor: pointer;
         }
@@ -209,17 +238,20 @@ export default function LoginPage() {
           transform: translate(-50%, -50%);
         }
         .auth-forgot {
-          color: var(--gold-dark);
+          color: var(--gold-light);
           font-size: 14px;
           text-decoration: none;
           font-weight: 600;
+        }
+        .auth-forgot:hover {
+          text-decoration: underline;
         }
         .auth-divider-custom {
           display: flex;
           align-items: center;
           gap: 16px;
           margin: 32px 0 24px;
-          color: var(--text-tertiary);
+          color: rgba(255, 255, 255, 0.5);
           font-size: 13px;
         }
         .auth-divider-custom::before,
@@ -227,26 +259,43 @@ export default function LoginPage() {
           content: '';
           flex: 1;
           height: 1px;
-          background: rgba(0, 0, 0, 0.1);
+          background: rgba(212, 168, 67, 0.25);
         }
         .auth-demo-btn {
-          background: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          color: var(--text-secondary);
-          padding: 10px 16px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(212, 168, 67, 0.3);
+          color: rgba(255, 255, 255, 0.9);
+          padding: 10px 18px;
           border-radius: 999px;
           font-size: 13px;
-          font-weight: 500;
+          font-weight: 600;
           transition: all 0.2s;
         }
-        .auth-demo-btn:hover {
-          background: rgba(255, 255, 255, 0.8);
-          border-color: rgba(0, 0, 0, 0.2);
-          color: var(--text-primary);
+        .auth-signup-container {
+          margin-top: 28px;
+          text-align: center;
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.75);
+          padding-top: 20px;
+          border-top: 1px solid rgba(212, 168, 67, 0.2);
+        }
+        .auth-signup-link {
+          color: #D4A843;
+          font-weight: 700;
+          text-decoration: none;
+          margin-left: 6px;
+          transition: color 0.2s ease;
+          cursor: pointer;
+        }
+        .auth-signup-link:hover {
+          color: #E8C876;
+          text-decoration: underline;
         }
       `}</style>
 
-      <div className="auth-bg" />
+      <div className="auth-bg">
+        <div className="auth-bg-glow" />
+      </div>
       
       <div className="auth-card-custom">
         <div className="auth-card-bg-icon">&#9833;</div>
@@ -341,6 +390,13 @@ export default function LoginPage() {
           </button>
           <button onClick={() => fillDemo('member')} className="auth-demo-btn">
             Member Demo
+          </button>
+        </div>
+
+        <div className="auth-signup-container">
+          Don&apos;t have an account?
+          <button className="auth-signup-link" onClick={() => router.push('/register')}>
+            Sign Up
           </button>
         </div>
       </div>

@@ -2,24 +2,28 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useApp } from '@/context/app-context';
 import { useEffect, useState } from 'react';
+import {
+  IconChart, IconUsers, IconGive, IconTarget, IconClipboard, IconCalendar,
+  IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield
+} from '@/components/icons';
 
 const NAV_SECTIONS = [
   { label: 'OVERVIEW', items: [
-    { href: '/admin/dashboard', icon: '📊', label: 'Dashboard' },
-    { href: '/admin/analytics', icon: '📈', label: 'Analytics' },
+    { href: '/admin/dashboard', icon: <IconChart size={18} />, label: 'Dashboard' },
+    { href: '/admin/analytics', icon: <IconShield size={18} />, label: 'Analytics' },
   ]},
   { label: 'MANAGEMENT', items: [
-    { href: '/admin/members', icon: '👥', label: 'Members', badge: 2 },
-    { href: '/admin/contributions', icon: '💰', label: 'Contributions', badge: 3 },
-    { href: '/admin/campaigns', icon: '🎯', label: 'Campaigns' },
-    { href: '/admin/attendance', icon: '📋', label: 'Attendance' },
-    { href: '/admin/events', icon: '📅', label: 'Events' },
-    { href: '/admin/announcements', icon: '📢', label: 'Announcements' },
-    { href: '/admin/messages', icon: '💬', label: 'Messages', badge: 2 },
+    { href: '/admin/members', icon: <IconUsers size={18} />, label: 'Members', badge: 2 },
+    { href: '/admin/contributions', icon: <IconGive size={18} />, label: 'Contributions', badge: 3 },
+    { href: '/admin/campaigns', icon: <IconTarget size={18} />, label: 'Campaigns' },
+    { href: '/admin/attendance', icon: <IconClipboard size={18} />, label: 'Attendance' },
+    { href: '/admin/events', icon: <IconCalendar size={18} />, label: 'Events' },
+    { href: '/admin/announcements', icon: <IconMegaphone size={18} />, label: 'Announcements' },
+    { href: '/admin/messages', icon: <IconMessage size={18} />, label: 'Messages', badge: 2 },
   ]},
   { label: 'SYSTEM', items: [
-    { href: '/admin/reports', icon: '📄', label: 'Reports' },
-    { href: '/admin/settings', icon: '⚙️', label: 'Settings' },
+    { href: '/admin/reports', icon: <IconFileText size={18} />, label: 'Reports' },
+    { href: '/admin/settings', icon: <IconSettings size={18} />, label: 'Settings' },
   ]},
 ];
 

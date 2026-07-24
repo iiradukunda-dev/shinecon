@@ -21,7 +21,11 @@ export default function CampaignsPage() {
                   ? 'linear-gradient(135deg, rgba(43,138,62,0.15), rgba(43,138,62,0.05))'
                   : 'linear-gradient(135deg, rgba(212,168,67,0.15), rgba(245,230,200,0.08))',
               }}>
-                <span>{campaign.image}</span>
+                {typeof campaign.image === 'string' && campaign.image.startsWith('http') ? (
+                  <img src={campaign.image} alt="" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                ) : (
+                  <span>{campaign.image}</span>
+                )}
                 {campaign.featured && (
                   <span className="badge badge-gold" style={{ position: 'absolute', top: 12, right: 12 }}>
                     ⭐ Featured

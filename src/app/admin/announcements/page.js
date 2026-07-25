@@ -34,7 +34,7 @@ export default function AdminAnnouncementsPage() {
       </div>
 
       <div className="grid grid-auto animate-fade-in-up stagger-1">
-        {announcements.map(ann => (
+        {[...announcements].sort((a, b) => new Date(b.date || b.createdAt || 0) - new Date(a.date || a.createdAt || 0)).map(ann => (
           <div key={ann.id} className="glass-card-static" style={{ padding: 'var(--space-lg)' }}>
             <div className="flex-between" style={{ marginBottom: 'var(--space-sm)' }}>
               <OnlineLogoIcon name={ann.image || 'megaphone'} size={28} color="var(--gold)" />

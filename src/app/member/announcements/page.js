@@ -13,7 +13,7 @@ export default function AnnouncementsPage() {
       </div>
 
       <div className="flex-col gap-md">
-        {announcements.map((ann, i) => (
+        {[...announcements].sort((a, b) => new Date(b.date || b.createdAt || 0) - new Date(a.date || a.createdAt || 0)).map((ann, i) => (
           <div key={ann.id} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-lg)' }}>
             <div style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'flex-start' }}>
               <div style={{ width: 48, height: 48, borderRadius: 14, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

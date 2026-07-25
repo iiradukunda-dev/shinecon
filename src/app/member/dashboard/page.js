@@ -257,7 +257,7 @@ export default function MemberDashboard() {
         </div>
 
         <div className="scroll-row-container">
-          {announcements.map(ann => (
+          {[...announcements].sort((a, b) => new Date(b.date || b.createdAt || 0) - new Date(a.date || a.createdAt || 0)).map(ann => (
             <div key={ann.id} className="big-scroll-card" style={{ minWidth: 320, maxWidth: 360 }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

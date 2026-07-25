@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/demo-data';
+import { OnlineLogoIcon } from '@/components/icons';
 
-const EMPTY = { title: '', description: '', category: 'News', priority: 'normal', image: '📣' };
-const ICONS = ['📣', '🏗️', '🙏', '⛺', '🌟', '🎵', '📢', '💡', '🎉', '❤️'];
+const EMPTY = { title: '', description: '', category: 'News', priority: 'normal', image: 'megaphone' };
+const ICONS = ['megaphone', 'church', 'users', 'tent', 'star', 'music', 'bell', 'lightbulb', 'party-popper', 'heart'];
 
 export default function AdminAnnouncementsPage() {
   const { announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement } = useApp();
@@ -36,11 +37,11 @@ export default function AdminAnnouncementsPage() {
         {announcements.map(ann => (
           <div key={ann.id} className="glass-card-static" style={{ padding: 'var(--space-lg)' }}>
             <div className="flex-between" style={{ marginBottom: 'var(--space-sm)' }}>
-              <span style={{ fontSize: 28 }}>{ann.image}</span>
+              <OnlineLogoIcon name={ann.image || 'megaphone'} size={28} color="var(--gold)" />
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                 <span className={`badge ${ann.priority === 'high' ? 'badge-red' : ann.priority === 'normal' ? 'badge-blue' : 'badge-gray'}`}>{ann.priority}</span>
-                <button className="btn btn-ghost btn-sm" onClick={() => openEdit(ann)}>✏️</button>
-                <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(ann)} style={{ color: 'var(--soft-red)' }}>🗑</button>
+                <button className="btn btn-ghost btn-sm" onClick={() => openEdit(ann)}><OnlineLogoIcon name="pencil" size={16} /></button>
+                <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(ann)} style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} /></button>
               </div>
             </div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-sm)', fontSize: 'var(--text-base)' }}>{ann.title}</h3>
@@ -54,7 +55,7 @@ export default function AdminAnnouncementsPage() {
       </div>
 
       {announcements.length === 0 && (
-        <div className="empty-state"><div className="empty-state-icon">📢</div><p className="empty-state-title">No announcements</p>
+        <div className="empty-state"><div className="empty-state-icon"><OnlineLogoIcon name="megaphone" size={48} color="var(--gold)" /></div><p className="empty-state-title">No announcements</p>
           <button className="btn btn-gold" onClick={openCreate}>Create First Announcement</button></div>
       )}
 
@@ -86,7 +87,7 @@ export default function AdminAnnouncementsPage() {
                       border: editData.image === icon ? '2px solid var(--gold)' : '1px solid var(--border-light)',
                       background: editData.image === icon ? 'rgba(212,168,67,0.1)' : 'var(--bg-secondary)',
                       cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>{icon}</button>
+                    }}><OnlineLogoIcon name={icon} size={20} /></button>
                   ))}
                 </div>
               </div>

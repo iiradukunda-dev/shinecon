@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatCurrency, formatDate } from '@/lib/demo-data';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function ContributionsPage() {
   const { user, contributions, contributionTypes, addContribution, addToast } = useApp();
@@ -106,7 +107,7 @@ export default function ContributionsPage() {
 
           {paymentStep === 3 && (
             <div className="animate-scale-in" style={{ padding: 'var(--space-xl)' }}>
-              <div style={{ fontSize: 64, marginBottom: 'var(--space-md)' }}>🎉</div>
+              <div style={{ fontSize: 64, marginBottom: 'var(--space-md)' }}><OnlineLogoIcon name="party-popper" size={64} color="var(--emerald)" /></div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 4 }}>Payment Submitted!</h3>
               <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-lg)' }}>
                 Pending admin approval. You&apos;ll receive a receipt once approved.
@@ -132,7 +133,7 @@ export default function ContributionsPage() {
             color: view === tab ? '#fff' : 'var(--text-secondary)',
             fontWeight: 600, fontSize: 'var(--text-sm)', transition: 'all 0.2s',
           }}>
-            {tab === 'types' ? '💰 Contribute' : '📜 History'}
+            {tab === 'types' ? <><OnlineLogoIcon name="wallet" size={16} /> Contribute</> : <><OnlineLogoIcon name="history" size={16} /> History</>}
           </button>
         ))}
       </div>
@@ -151,7 +152,7 @@ export default function ContributionsPage() {
                 width: 48, height: 48, borderRadius: 'var(--radius-lg)',
                 background: `${ct.color}18`, display: 'flex', alignItems: 'center',
                 justifyContent: 'center', fontSize: 24, flexShrink: 0,
-              }}>{ct.icon}</div>
+              }}><OnlineLogoIcon name={ct.icon || 'wallet'} size={24} color={ct.color} /></div>
               <div style={{ flex: 1 }}>
                 <p style={{ fontWeight: 600 }}>{ct.name}</p>
                 <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)' }}>{ct.category}</p>

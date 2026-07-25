@@ -4,7 +4,7 @@ import { useApp } from '@/context/app-context';
 import { useEffect, useState } from 'react';
 import {
   IconChart, IconUsers, IconGive, IconTarget, IconClipboard, IconCalendar,
-  IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield
+  IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield, OnlineLogoIcon
 } from '@/components/icons';
 
 const NAV_SECTIONS = [
@@ -76,7 +76,7 @@ export default function AdminLayout({ children }) {
 
         <div style={{ padding: 'var(--space-md)', borderTop: '1px solid var(--border-light)' }}>
           <button className="sidebar-link" onClick={() => { logout(); router.push('/'); }} style={{ width: '100%', color: 'var(--soft-red)' }}>
-            <span className="link-icon">🚪</span>
+            <span className="link-icon"><OnlineLogoIcon name="log-out" /></span>
             Logout
           </button>
         </div>
@@ -87,21 +87,21 @@ export default function AdminLayout({ children }) {
         <div className="topbar-left">
           <button className="btn btn-icon" onClick={() => setSidebarOpen(!sidebarOpen)}
             style={{ display: 'none' }} id="sidebar-toggle">
-            ☰
+            <OnlineLogoIcon name="menu" size={24} />
           </button>
           <style>{`@media (max-width: 1024px) { #sidebar-toggle { display: flex !important; } }`}</style>
           <h1 className="topbar-title">{currentPage?.label || 'Dashboard'}</h1>
         </div>
         <div className="topbar-right">
           <div className="topbar-search">
-            <span>🔍</span>
+            <span><OnlineLogoIcon name="search" size={16} color="var(--text-tertiary)" /></span>
             <input placeholder="Search..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
           </div>
           <button className="btn btn-icon" onClick={toggleTheme} title="Toggle theme">
-            {theme === 'dark' ? '☀️' : '🌙'}
+            {theme === 'dark' ? <OnlineLogoIcon name="sun" size={20} /> : <OnlineLogoIcon name="moon" size={20} />}
           </button>
           <button className="btn btn-icon" style={{ position: 'relative' }}>
-            🔔
+            <OnlineLogoIcon name="bell" size={20} />
             <span style={{
               position: 'absolute', top: 4, right: 4, width: 8, height: 8,
               borderRadius: '50%', background: 'var(--soft-red)',
@@ -134,7 +134,10 @@ export default function AdminLayout({ children }) {
             <div key={t.id} className="toast" style={{
               borderLeft: `4px solid ${t.type === 'success' ? 'var(--emerald)' : t.type === 'error' ? 'var(--soft-red)' : t.type === 'warning' ? 'var(--amber)' : 'var(--gold)'}`,
             }}>
-              {t.type === 'success' ? '✅' : t.type === 'error' ? '❌' : t.type === 'warning' ? '⚠️' : 'ℹ️'} {t.message}
+              {t.type === 'success' ? <OnlineLogoIcon name="check-circle" size={16} color="var(--emerald)" /> : 
+               t.type === 'error' ? <OnlineLogoIcon name="x-circle" size={16} color="var(--soft-red)" /> : 
+               t.type === 'warning' ? <OnlineLogoIcon name="alert-triangle" size={16} color="var(--amber)" /> : 
+               <OnlineLogoIcon name="info" size={16} color="var(--gold)" />} <span style={{ marginLeft: 8 }}>{t.message}</span>
             </div>
           ))}
         </div>

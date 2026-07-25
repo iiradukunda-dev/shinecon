@@ -5,7 +5,7 @@ import {
   formatCurrency, formatDate,
   MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
 } from '@/lib/demo-data';
-import { IconUsers, IconGive, IconDollar, IconHourglass } from '@/components/icons';
+import { IconUsers, IconGive, IconDollar, IconHourglass, OnlineLogoIcon } from '@/components/icons';
 
 export default function AdminDashboard() {
   const { stats, members, contributions, events } = useApp();
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
                 {kpi.icon}
               </div>
               <span className={`badge ${kpi.positive ? 'badge-gold' : 'badge-amber'}`} style={{ fontSize: 11 }}>
-                {kpi.positive ? '↑' : '⚡'} {kpi.change}
+                {kpi.positive ? <OnlineLogoIcon name="arrow-up" size={12} color="var(--gold)" /> : <OnlineLogoIcon name="zap" size={12} color="var(--amber)" />} {kpi.change}
               </span>
             </div>
             <div style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, color: '#D4A843', marginBottom: 4 }}>
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
                 </div>
                 <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>{event.title}</p>
                 <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
-                  📅 {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • 📍 {event.location}
+                  <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--emerald)" /> {event.location}
                 </p>
                 <button className="btn btn-secondary" style={{ width: '100%', padding: '8px 14px', fontSize: 13 }} onClick={() => router.push('/admin/events')}>
                   Event Details

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatCurrency } from '@/lib/demo-data';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY = { title: '', description: '', goal: 0, currency: 'RWF', startDate: '', endDate: '', featured: false, image: '🎯' };
 
@@ -39,15 +40,15 @@ export default function AdminCampaignsPage() {
             <div key={campaign.id} className="glass-card-static" style={{ padding: 'var(--space-lg)' }}>
               <div className="flex-between" style={{ marginBottom: 'var(--space-md)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
-                  <span style={{ fontSize: 32 }}>{campaign.image}</span>
+                  <OnlineLogoIcon name={campaign.image || 'church'} size={32} color="var(--gold)" />
                   <div>
                     <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{campaign.title}</h3>
                     <span className={`badge ${campaign.status === 'active' ? 'badge-green' : campaign.status === 'completed' ? 'badge-blue' : 'badge-gray'}`}>{campaign.status}</span>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 4 }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => openEdit(campaign)}>✏️</button>
-                  <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(campaign)} style={{ color: 'var(--soft-red)' }}>🗑</button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => openEdit(campaign)}><OnlineLogoIcon name="pencil" size={16} /></button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(campaign)} style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} /></button>
                 </div>
               </div>
               <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
@@ -102,7 +103,7 @@ export default function AdminCampaignsPage() {
                   <input className="input" type="date" value={editData.endDate} onChange={e => setEditData(p => ({ ...p, endDate: e.target.value }))} /></div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
-                <div className="input-group"><label className="input-label">Icon Emoji</label>
+                <div className="input-group"><label className="input-label">Icon Name</label>
                   <input className="input" value={editData.image} onChange={e => setEditData(p => ({ ...p, image: e.target.value }))} /></div>
                 {modal === 'edit' && (
                   <div className="input-group"><label className="input-label">Status</label>

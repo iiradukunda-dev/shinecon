@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { formatCurrency } from '@/lib/demo-data';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function CampaignsPage() {
   const { campaigns } = useApp();
@@ -21,19 +22,15 @@ export default function CampaignsPage() {
                   ? 'linear-gradient(135deg, rgba(43,138,62,0.15), rgba(43,138,62,0.05))'
                   : 'linear-gradient(135deg, rgba(212,168,67,0.15), rgba(245,230,200,0.08))',
               }}>
-                {typeof campaign.image === 'string' && campaign.image.startsWith('http') ? (
-                  <img src={campaign.image} alt="" style={{ width: 48, height: 48, objectFit: 'contain' }} />
-                ) : (
-                  <span>{campaign.image}</span>
-                )}
+                <OnlineLogoIcon name={campaign.image || 'church'} size={48} color={campaign.status === 'completed' ? 'var(--emerald)' : 'var(--gold)'} />
                 {campaign.featured && (
                   <span className="badge badge-gold" style={{ position: 'absolute', top: 12, right: 12 }}>
-                    ⭐ Featured
+                    <OnlineLogoIcon name="star" size={12} color="var(--gold)" /> Featured
                   </span>
                 )}
                 {campaign.status === 'completed' && (
                   <span className="badge badge-green" style={{ position: 'absolute', top: 12, right: 12 }}>
-                    ✅ Completed
+                    <OnlineLogoIcon name="check" size={12} color="var(--emerald)" /> Completed
                   </span>
                 )}
               </div>

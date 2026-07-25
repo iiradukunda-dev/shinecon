@@ -62,7 +62,7 @@ export async function GET() {
       status: camp.status.toLowerCase(),
       featured: camp.featured,
       contributors: camp.donations.length,
-      image: camp.imageUrl || '🏛️',
+      image: camp.imageUrl || 'church',
     }));
 
     // 4. Contribution Types
@@ -79,7 +79,7 @@ export async function GET() {
       currency: t.currency,
       recurring: t.recurring,
       active: t.active,
-      icon: t.icon || '💰',
+      icon: t.icon || 'wallet',
       color: t.color || '#D4A843',
     }));
 
@@ -105,7 +105,7 @@ export async function GET() {
       priority: a.priority,
       date: a.publishDate ? new Date(a.publishDate).toISOString().split('T')[0] : '',
       description: a.description,
-      image: a.imageUrl || '📣',
+      image: a.imageUrl || 'megaphone',
     }));
 
     // 7. Attendance

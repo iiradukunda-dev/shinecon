@@ -208,9 +208,7 @@ export default function MemberDashboard() {
               <div key={campaign.id} className="big-scroll-card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{ fontSize: 38, width: 56, height: 56, borderRadius: 16, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {typeof campaign.image === 'string' && campaign.image.startsWith('http') ? (
-                      <img src={campaign.image} alt={campaign.title} style={{ width: 30, height: 30, objectFit: 'contain' }} />
-                    ) : campaign.image}
+                    <OnlineLogoIcon name={campaign.image || "church"} size={30} color="var(--gold)" />
                   </div>
                   <div style={{ flex: 1 }}>
                     <p style={{ fontWeight: 700, fontSize: 17, color: '#FFFFFF', marginBottom: 2 }}>{campaign.title}</p>
@@ -300,13 +298,9 @@ export default function MemberDashboard() {
           {announcements.map(ann => (
             <div key={ann.id} className="big-scroll-card" style={{ minWidth: 320, maxWidth: 360 }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-                {typeof ann.image === 'string' && ann.image.startsWith('http') ? (
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <img src={ann.image} alt="" style={{ width: 26, height: 26, objectFit: 'contain' }} />
-                  </div>
-                ) : (
-                  <span style={{ fontSize: 32 }}>{ann.image}</span>
-                )}
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <OnlineLogoIcon name={ann.image || "megaphone"} size={24} color={ann.priority === 'high' ? 'var(--soft-red)' : 'var(--gold)'} />
+                </div>
                 <div>
                   <span className={`badge ${ann.priority === 'high' ? 'badge-red' : 'badge-gold'}`}>
                     {ann.priority.toUpperCase()} PRIORITY

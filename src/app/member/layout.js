@@ -3,7 +3,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useApp } from '@/context/app-context';
 import { useEffect, useState } from 'react';
 import {
-  IconHome, IconGive, IconTarget, IconClipboard, IconMegaphone, IconSparkles, IconUser
+  IconHome, IconGive, IconTarget, IconClipboard, IconMegaphone, IconSparkles, IconUser, OnlineLogoIcon
 } from '@/components/icons';
 
 const NAV_ITEMS = [
@@ -238,7 +238,7 @@ export default function MemberLayout({ children }) {
           </button>
 
           <button className="mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? '✕' : '☰'}
+            {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>
         </div>
       </header>
@@ -272,7 +272,7 @@ export default function MemberLayout({ children }) {
             <div key={t.id} className="toast" style={{
               borderLeft: `4px solid ${t.type === 'success' ? 'var(--emerald)' : t.type === 'error' ? 'var(--soft-red)' : 'var(--gold)'}`,
             }}>
-              {t.type === 'success' ? '✅' : t.type === 'error' ? '❌' : 'ℹ️'} {t.message}
+              {t.type === 'success' ? <OnlineLogoIcon name="check-circle" size={16} color="var(--emerald)" /> : t.type === 'error' ? <OnlineLogoIcon name="x-circle" size={16} color="var(--soft-red)" /> : <OnlineLogoIcon name="info" size={16} color="var(--gold)" />} <span style={{ marginLeft: 8 }}>{t.message}</span>
             </div>
           ))}
         </div>

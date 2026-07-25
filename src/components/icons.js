@@ -2,7 +2,8 @@
 
 export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = '' }) {
   const cleanColor = String(color).replace('#', '').replace('var(--gold)', 'D4A843').replace('var(--emerald)', '40C057').replace('var(--royal-blue)', '4C6EF5').replace('var(--amber)', 'FAB005');
-  const iconUrl = `https://api.iconify.design/lucide:${name}.svg?color=%23${cleanColor}`;
+  const isUrl = String(name).startsWith('http');
+  const iconUrl = isUrl ? name : `https://api.iconify.design/lucide:${name}.svg?color=%23${cleanColor}`;
 
   return (
     <img

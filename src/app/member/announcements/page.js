@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/demo-data';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AnnouncementsPage() {
   const { announcements } = useApp();
@@ -15,13 +16,9 @@ export default function AnnouncementsPage() {
         {announcements.map((ann, i) => (
           <div key={ann.id} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-lg)' }}>
             <div style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'flex-start' }}>
-              {typeof ann.image === 'string' && ann.image.startsWith('http') ? (
-                <div style={{ width: 48, height: 48, borderRadius: 14, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <img src={ann.image} alt="" style={{ width: 28, height: 28, objectFit: 'contain' }} />
-                </div>
-              ) : (
-                <span style={{ fontSize: 36 }}>{ann.image}</span>
-              )}
+              <div style={{ width: 48, height: 48, borderRadius: 14, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <OnlineLogoIcon name={ann.image || 'megaphone'} size={28} color={ann.priority === 'high' ? 'var(--soft-red)' : 'var(--gold)'} />
+              </div>
               <div style={{ flex: 1 }}>
                 <div className="flex-between" style={{ marginBottom: 'var(--space-sm)' }}>
                   <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-base)' }}>

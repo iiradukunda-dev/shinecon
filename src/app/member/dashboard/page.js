@@ -5,7 +5,7 @@ import {
   getGreeting, formatCurrency, formatDate,
   MONTHLY_CONTRIBUTION_DATA,
 } from '@/lib/utils';
-import { IconGive, IconTarget, IconClipboard, IconSparkles } from '@/components/icons';
+import { IconGive, IconTarget, IconClipboard, IconSparkles, OnlineLogoIcon } from '@/components/icons';
 
 export default function MemberDashboard() {
   const { user, contributions, campaigns, events, announcements } = useApp();

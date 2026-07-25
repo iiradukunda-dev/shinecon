@@ -53,6 +53,13 @@ export default function MemberLayout({ children }) {
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
           }
 
+          .member-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+          }
+
           .member-nav-links {
             display: flex;
             align-items: center;
@@ -182,6 +189,13 @@ export default function MemberLayout({ children }) {
         `}</style>
 
 
+        {/* Brand Avatar */}
+        <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="View Profile">
+          <div className="avatar-circle" style={{ width: 38, height: 38, fontSize: 18 }}>
+            {(user?.name || 'M')[0]}
+          </div>
+        </div>
+
         {/* Desktop Nav Links */}
         <nav className="member-nav-links">
           {NAV_ITEMS.map(item => (
@@ -198,13 +212,6 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <div className="user-avatar-pill" onClick={() => router.push('/member/profile')} title="View Profile">
-            <div className="avatar-circle">
-              {(user?.name || 'M')[0]}
-            </div>
-            <span className="avatar-name">{user?.name?.split(' ')[0] || 'Member'}</span>
-          </div>
-
           <button className="btn-logout-nav" onClick={() => { logout(); router.push('/login'); }}>
             Logout
           </button>

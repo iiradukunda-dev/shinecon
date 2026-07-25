@@ -2,9 +2,11 @@
 import { useApp } from '@/context/app-context';
 import { formatCurrency } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
+import { useRouter } from 'next/navigation';
 
 export default function CampaignsPage() {
   const { campaigns } = useApp();
+  const router = useRouter();
   return (
     <div className="page-member-content">
       <div className="page-header animate-fade-in-up">
@@ -56,7 +58,7 @@ export default function CampaignsPage() {
                     👥 {campaign.contributors} contributors
                   </span>
                   {campaign.status === 'active' && (
-                    <button className="btn btn-gold btn-sm">Contribute</button>
+                    <button className="btn btn-gold btn-sm" onClick={() => router.push('/member/contributions')}>Contribute</button>
                   )}
                 </div>
               </div>

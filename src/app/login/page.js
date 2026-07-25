@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/app-context';
+import { OnlineLogoIcon } from '@/components/icons';
+import ParticlesBackground from '@/components/ParticlesBackground';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -292,11 +294,9 @@ export default function LoginPage() {
           text-decoration: underline;
         }
       `}</style>
-
-      <div className="auth-bg">
-        <div className="auth-bg-glow" />
-      </div>
       
+      <ParticlesBackground />
+
       <div className="auth-card-custom">
         <div className="auth-card-bg-icon">&#9833;</div>
         

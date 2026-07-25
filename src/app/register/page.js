@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/app-context';
+import ParticlesBackground from '@/components/ParticlesBackground';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-page">
-      <div className="auth-bg" />
+      <ParticlesBackground />
       <div className="auth-card glass-heavy" style={{ borderRadius: 'var(--radius-2xl)', maxWidth: 480 }}>
         <div className="auth-logo" onClick={() => router.push(user ? (user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard') : '/')} style={{ cursor: 'pointer' }}><img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /></div>
         <h1 className="auth-title">Join SM Connect</h1>

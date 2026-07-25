@@ -157,4 +157,4 @@ docker-compose up -d
 
 © 2026 Shining Ministries. All rights reserved.
 
-Built with ❤️ and faith.
+Built with  and faith.

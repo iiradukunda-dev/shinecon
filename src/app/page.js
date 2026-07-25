@@ -203,7 +203,7 @@ export default function SplashPage() {
           background: linear-gradient(180deg, #E8C876 0%, #B08A2E 100%);
         }
         .btn-connect:active {
-          animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+          animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         /* Footer */

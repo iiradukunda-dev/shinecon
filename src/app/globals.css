@@ -317,7 +317,7 @@ body {
 }
 .btn:active::after { opacity: 1; transition: opacity 0s; }
 .btn:active, button:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-gold {
@@ -330,7 +330,7 @@ body {
   box-shadow: 0 6px 20px rgba(212, 168, 67, 0.45);
 }
 .btn-gold:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-primary {
@@ -343,7 +343,7 @@ body {
   box-shadow: 0 6px 20px rgba(59, 91, 219, 0.4);
 }
 .btn-primary:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-secondary {
@@ -358,7 +358,7 @@ body {
   transform: translateY(-1px);
 }
 .btn-secondary:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-ghost {
@@ -370,7 +370,7 @@ body {
   color: var(--text-primary);
 }
 .btn-ghost:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-danger {
@@ -379,7 +379,7 @@ body {
   box-shadow: 0 4px 14px rgba(224, 49, 49, 0.3);
 }
 .btn-danger:active {
-  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-sm { padding: 6px 12px; font-size: var(--text-xs); }

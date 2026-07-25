@@ -42,7 +42,7 @@ export function AppProvider({ children }) {
   }, []);
 
   // ── Bootstrap (Load all data from DB) ─────────────────
-  const bootstrap = useCallback(async () => {
+  const bootstrap = useCallback(async (silent = false) => {
     try {
       const res = await fetch('/api/bootstrap?_t=' + Date.now(), { cache: 'no-store' });
       if (res.ok) {
@@ -55,16 +55,20 @@ export function AppProvider({ children }) {
         if (data.announcements) setAnnouncements(data.announcements);
         if (data.messages) setMessages(data.messages);
         if (data.attendance) setAttendance(data.attendance);
-      } else {
+      } else if (!silent) {
         addToast('Failed to connect to database. Running in offline/fallback mode.', 'warning');
       }
     } catch (error) {
-      console.error('Failed to load database entries:', error);
+      if (!silent) console.error('Failed to load database entries:', error);
     }
   }, [addToast]);
 
   useEffect(() => {
-    bootstrap();
+    bootstrap(false);
+    const interval = setInterval(() => {
+      bootstrap(true);
+    }, 10000);
+    return () => clearInterval(interval);
   }, [bootstrap]);
 
   // ── Auth ─────────────────────────────────────────────

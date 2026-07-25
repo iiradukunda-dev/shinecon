@@ -60,6 +60,11 @@ export default function SplashPage() {
             opacity: 0;
           }
         }
+        
+        @keyframes spinThorns {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
 
         /* Ambient background glow */
         .ambient-glow {
@@ -124,10 +129,23 @@ export default function SplashPage() {
           margin-bottom: 24px;
         }
         .logo-circle {
-          width: 80px;
-          height: 80px;
-          margin-bottom: 8px;
+          width: 64px;
+          height: 64px;
+          margin-bottom: 4px;
           filter: drop-shadow(0 0 16px rgba(212, 168, 67, 0.45));
+          position: relative;
+        }
+        .thorns-bg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 180%;
+          height: 180%;
+          transform: translate(-50%, -50%);
+          object-fit: contain;
+          opacity: 0.8;
+          z-index: 0;
+          animation: spinThorns 20s linear infinite;
         }
 
         /* Text Content */
@@ -223,7 +241,8 @@ export default function SplashPage() {
         {/* Logo Section */}
         <div className="logo-section">
           <div className="logo-circle">
-            <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <img src="/thorns.png" alt="Thorns" className="thorns-bg" />
+            <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
           </div>
         </div>
 

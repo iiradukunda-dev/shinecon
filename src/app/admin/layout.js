@@ -45,7 +45,7 @@ export default function AdminLayout({ children }) {
     <div className="layout-root admin-layout">
 
       {/* Sidebar */}
-      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`} style={{ top: 28 }}>
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`} style={{ top: 0 }}>
         {/* Brand Avatar */}
         <div className="sidebar-brand" style={{ padding: 'var(--space-lg)', borderBottom: '1px solid var(--border-light)', display: 'flex', alignItems: 'center' }}>
           <div className="avatar-circle" style={{ width: 40, height: 40, fontSize: 18, background: 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
@@ -82,7 +82,7 @@ export default function AdminLayout({ children }) {
       </aside>
 
       {/* Top Bar */}
-      <header className="topbar" style={{ top: 28 }}>
+      <header className="topbar" style={{ top: 0 }}>
         <div className="topbar-left">
           <button className="btn btn-icon" onClick={() => setSidebarOpen(!sidebarOpen)}
             style={{ display: 'none' }} id="sidebar-toggle">

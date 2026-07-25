@@ -37,7 +37,7 @@ export default function MemberLayout({ children }) {
         <style>{`
           .member-top-nav {
             position: fixed;
-            top: 28px;
+            top: 0;
             left: 0;
             right: 0;
             height: 68px;
@@ -240,7 +240,7 @@ export default function MemberLayout({ children }) {
       )}
 
       {/* Main Content */}
-      <main style={{ paddingTop: 112, paddingBottom: 48, maxWidth: 1200, margin: '0 auto', paddingLeft: 24, paddingRight: 24 }}>
+      <main style={{ paddingTop: 84, paddingBottom: 48, maxWidth: 1200, margin: '0 auto', paddingLeft: 24, paddingRight: 24 }}>
         {children}
       </main>
 

@@ -95,7 +95,7 @@ export default function SplashPage() {
             inset 0 0 24px rgba(212, 168, 67, 0.06),
             inset 0 1px 1px rgba(255, 255, 255, 0.25);
           border-radius: 40px;
-          padding: 64px 48px;
+          padding: 32px 32px;
           display: flex;
           flex-direction: column;
           align-items: center;

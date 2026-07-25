@@ -1209,7 +1209,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xl);
+  padding: var(--space-md);
   position: relative;
   overflow: hidden;
 }
@@ -1233,7 +1233,7 @@ body {
 .auth-card {
   width: 100%;
   max-width: 440px;
-  padding: var(--space-2xl);
+  padding: var(--space-xl);
   border-radius: var(--radius-2xl);
   position: relative;
   z-index: 1;

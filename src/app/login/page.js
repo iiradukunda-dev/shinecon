@@ -67,7 +67,7 @@ export default function LoginPage() {
         .auth-card-custom {
           width: 100%;
           max-width: 460px;
-          padding: 48px 40px;
+          padding: 32px 32px;
           border-radius: 36px;
           position: relative;
           z-index: 1;

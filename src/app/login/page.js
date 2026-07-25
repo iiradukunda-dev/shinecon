@@ -40,23 +40,7 @@ export default function LoginPage() {
   return (
     <div className="auth-page">
       <style>{`
-        .auth-bg {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background: #0A0A0E;
-        }
-        .auth-bg-glow {
-          position: absolute;
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
-          top: 20%;
-          left: 50%;
-          transform: translateX(-50%);
-          pointer-events: none;
-          filter: blur(50px);
-        }
+
         .auth-card-custom {
           width: 100%;
           max-width: 460px;

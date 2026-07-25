@@ -1,5 +1,4 @@
-# SM Connect — Digital Ministry Platform
-
+# SM Connect
 <div align="center">
 
 ###  Shining Ministries 

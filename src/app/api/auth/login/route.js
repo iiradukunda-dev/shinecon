@@ -24,24 +24,24 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Incorrect password' }, { status: 401 });
     }
 
-    if (user.profile?.approvalStatus !== 'APPROVED') {
+    if (user.role !== 'SUPER_ADMIN' && user.profile?.approvalStatus !== 'APPROVED') {
       return NextResponse.json({ success: false, error: 'Account is pending approval or suspended' }, { status: 403 });
     }
 
     return NextResponse.json({
       success: true,
-      role: 'member',
+      role: user.role === 'SUPER_ADMIN' ? 'admin' : 'member',
       user: {
         id: user.id,
-        name: user.profile.fullName,
+        name: user.profile?.fullName || 'System Admin',
         email: user.email,
-        phone: user.profile.phone,
-        country: user.profile.country,
-        photo: user.profile.photoUrl,
-        type: user.profile.memberType.toLowerCase(),
-        employment: user.profile.employment.toLowerCase(),
-        status: user.profile.approvalStatus.toLowerCase(),
-        joinedDate: user.profile.joinedDate ? new Date(user.profile.joinedDate).toISOString().split('T')[0] : '',
+        phone: user.profile?.phone || '',
+        country: user.profile?.country || '',
+        photo: user.profile?.photoUrl || null,
+        type: user.profile?.memberType?.toLowerCase() || 'local',
+        employment: user.profile?.employment?.toLowerCase() || 'employed',
+        status: user.profile?.approvalStatus?.toLowerCase() || 'approved',
+        joinedDate: user.profile?.joinedDate ? new Date(user.profile.joinedDate).toISOString().split('T')[0] : '',
       },
     });
   } catch (error) {

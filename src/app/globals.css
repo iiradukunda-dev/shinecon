@@ -282,6 +282,14 @@ body {
 .font-semibold { font-weight: 600; }
 .font-bold { font-weight: 700; }
 
+@keyframes shakeOnActive {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px) rotate(-1deg); }
+  50% { transform: translateX(4px) rotate(1deg); }
+  75% { transform: translateX(-4px) rotate(-1deg); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Buttons ───────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
@@ -308,6 +316,9 @@ body {
   transition: opacity 0.4s;
 }
 .btn:active::after { opacity: 1; transition: opacity 0s; }
+.btn:active, button:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
 
 .btn-gold {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
@@ -318,7 +329,9 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(212, 168, 67, 0.45);
 }
-.btn-gold:active { transform: translateY(0); }
+.btn-gold:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
 
 .btn-primary {
   background: linear-gradient(135deg, var(--royal-blue), var(--royal-blue-light));
@@ -328,6 +341,9 @@ body {
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(59, 91, 219, 0.4);
+}
+.btn-primary:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-secondary {
@@ -341,6 +357,9 @@ body {
   background: var(--glass-bg-heavy);
   transform: translateY(-1px);
 }
+.btn-secondary:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
 
 .btn-ghost {
   color: var(--text-secondary);
@@ -350,11 +369,17 @@ body {
   background: var(--glass-bg);
   color: var(--text-primary);
 }
+.btn-ghost:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
 
 .btn-danger {
   background: linear-gradient(135deg, var(--soft-red), #c92a2a);
   color: var(--white);
   box-shadow: 0 4px 14px rgba(224, 49, 49, 0.3);
+}
+.btn-danger:active {
+  animation: shakeOnActive 0.3s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .btn-sm { padding: 6px 12px; font-size: var(--text-xs); }

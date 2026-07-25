@@ -56,7 +56,7 @@ export default function RegisterPage() {
         </p>
 
         {/* Progress */}
-        <div style={{ display: 'flex', gap: 8, marginBottom: 'var(--space-xl)' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 'var(--space-md)' }}>
           {[1, 2].map(s => (
             <div key={s} style={{
               flex: 1, height: 4, borderRadius: 'var(--radius-full)',

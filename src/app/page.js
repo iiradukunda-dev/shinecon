@@ -145,7 +145,7 @@ export default function SplashPage() {
           object-fit: contain;
           opacity: 0.8;
           z-index: 0;
-          animation: spinThorns 20s linear infinite;
+          animation: spinThorns 60s linear infinite;
         }
 
         /* Text Content */

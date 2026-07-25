@@ -133,44 +133,7 @@ export default function MemberDashboard() {
         </p>
       </div>
 
-      {/* Contribution Goal & Progress (Big Clear Card) */}
-      <div className="dash-hero-card" style={{ padding: '32px 36px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
-          <div>
-            <p style={{ fontSize: 12, color: '#D4A843', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, marginBottom: 8 }}>
-              My Contributions Progress
-            </p>
-            <p style={{ fontFamily: 'var(--font-display)', fontSize: 42, fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}>
-              {formatCurrency(myTotal, currency)}
-            </p>
-            <p style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.7)', marginTop: 8 }}>
-              Goal: {formatCurrency(monthlyGoal, currency)} • {myContributions.length} Transactions
-            </p>
-            <button
-              className="btn btn-gold btn-lg"
-              onClick={() => router.push('/member/contributions')}
-              style={{ marginTop: 20 }}
-            >
-              + Make Contribution
-            </button>
-          </div>
 
-          <div className="progress-circle" style={{ width: 140, height: 140 }}>
-            <svg viewBox="0 0 120 120">
-              <circle className="track" cx="60" cy="60" r="52" stroke="rgba(255,255,255,0.1)" strokeWidth="10" />
-              <circle className="fill" cx="60" cy="60" r="52" stroke="#D4A843" strokeWidth="10"
-                strokeDasharray={circumference}
-                strokeDashoffset={circumference - (circumference * progress / 100)}
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="value" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: 28, fontWeight: 800, color: '#FFFFFF' }}>{progress}%</span>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase' }}>Achieved</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Quick Actions Grid */}
       <div>
@@ -179,7 +142,6 @@ export default function MemberDashboard() {
         </div>
         <div className="grid grid-4" style={{ gap: 16 }}>
           {[
-            { icon: <IconGive size={26} color="#D4A843" />, label: 'Give Now', href: '/member/contributions', bg: 'rgba(212,168,67,0.2)' },
             { icon: <IconTarget size={26} color="#4C6EF5" />, label: 'Campaigns', href: '/member/campaigns', bg: 'rgba(59,91,219,0.2)' },
             { icon: <IconClipboard size={26} color="#40C057" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(43,138,62,0.2)' },
             { icon: <IconSparkles size={26} color="#CC5DE8" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(156,54,181,0.2)' },

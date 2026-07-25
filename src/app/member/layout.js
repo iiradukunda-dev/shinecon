@@ -8,7 +8,6 @@ import {
 
 const NAV_ITEMS = [
   { href: '/member/dashboard', icon: <IconHome size={18} />, label: 'Home' },
-  { href: '/member/contributions', icon: <IconGive size={18} />, label: 'Give' },
   { href: '/member/campaigns', icon: <IconTarget size={18} />, label: 'Campaigns' },
   { href: '/member/attendance', icon: <IconClipboard size={18} />, label: 'Attendance' },
   { href: '/member/announcements', icon: <IconMegaphone size={18} />, label: 'Announcements' },

@@ -357,8 +357,8 @@ body {
   box-shadow: 0 4px 14px rgba(224, 49, 49, 0.3);
 }
 
-.btn-sm { padding: 8px 16px; font-size: var(--text-xs); }
-.btn-lg { padding: 16px 32px; font-size: var(--text-base); }
+.btn-sm { padding: 6px 12px; font-size: var(--text-xs); }
+.btn-lg { padding: 12px 24px; font-size: var(--text-base); }
 .btn-icon {
   width: 40px;
   height: 40px;
@@ -373,7 +373,7 @@ body {
 }
 
 /* ── Inputs ────────────────────────────────────────────────── */
-.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-group { display: flex; flex-direction: column; gap: 4px; }
 
 .input-label {
   font-size: var(--text-sm);
@@ -383,7 +383,7 @@ body {
 
 .input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -416,7 +416,7 @@ body {
 .select {
   appearance: none;
   width: 100%;
-  padding: 12px 40px 12px 16px;
+  padding: 8px 32px 8px 12px;
   background: var(--glass-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8.5L1 3.5h10L6 8.5z' fill='%23737373'/%3E%3C/svg%3E") no-repeat right 14px center;
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-medium);
@@ -1233,21 +1233,21 @@ body {
 .auth-card {
   width: 100%;
   max-width: 440px;
-  padding: var(--space-xl);
-  border-radius: var(--radius-2xl);
+  padding: var(--space-lg);
+  border-radius: var(--radius-xl);
   position: relative;
   z-index: 1;
   animation: fadeInUp 0.8s var(--ease-out);
 }
 
 .auth-logo {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-lg);
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto var(--space-lg);
+  margin: 0 auto var(--space-md);
   overflow: hidden;
   animation: scaleIn 0.6s var(--ease-spring);
 }
@@ -1261,7 +1261,7 @@ body {
 .auth-title {
   text-align: center;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: var(--text-xl);
   font-weight: 700;
   margin-bottom: 4px;
 }
@@ -1270,7 +1270,7 @@ body {
   text-align: center;
   color: var(--text-secondary);
   font-size: var(--text-sm);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .auth-form {

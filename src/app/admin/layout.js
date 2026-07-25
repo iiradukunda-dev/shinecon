@@ -32,6 +32,13 @@ export default function AdminLayout({ children }) {
   const pathname = usePathname();
   const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isInitialized && (!user || user.role !== 'admin')) router.push('/login');
@@ -82,7 +89,7 @@ export default function AdminLayout({ children }) {
       </aside>
 
       {/* Top Bar */}
-      <header className="topbar" style={{ top: 0 }}>
+      <header className={`topbar ${isScrolled ? 'scrolled' : ''}`} style={{ top: 0 }}>
         <div className="topbar-left">
           <button className="btn btn-icon" onClick={() => setSidebarOpen(!sidebarOpen)}
             style={{ display: 'none' }} id="sidebar-toggle">

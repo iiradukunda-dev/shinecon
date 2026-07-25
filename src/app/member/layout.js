@@ -21,6 +21,13 @@ export default function MemberLayout({ children }) {
   const pathname = usePathname();
   const { user, isInitialized, toasts, logout } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isInitialized && !user) router.push('/login');
@@ -33,7 +40,7 @@ export default function MemberLayout({ children }) {
       {/* DEMO BANNER REMOVED */}
 
       {/* Top Navigation Bar */}
-      <header className="member-top-nav">
+      <header className={`member-top-nav ${isScrolled ? 'scrolled' : ''}`}>
         <style>{`
           .member-top-nav {
             position: fixed;
@@ -46,11 +53,17 @@ export default function MemberLayout({ children }) {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(12, 12, 18, 0.85);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(212, 168, 67, 0.3);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            background: transparent;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          .member-top-nav.scrolled {
+            background: rgba(12, 12, 18, 0.65);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-bottom: 1px solid rgba(212, 168, 67, 0.2);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
           }
 
           .member-brand {

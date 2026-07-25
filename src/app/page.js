@@ -94,8 +94,8 @@ export default function SplashPage() {
             0 32px 64px rgba(0, 0, 0, 0.8), 
             inset 0 0 24px rgba(212, 168, 67, 0.06),
             inset 0 1px 1px rgba(255, 255, 255, 0.25);
-          border-radius: 20px;
-          padding: 16px 16px;
+          border-radius: 32px;
+          padding: 24px 24px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -121,39 +121,39 @@ export default function SplashPage() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom: 12px;
+          margin-bottom: 24px;
         }
         .logo-circle {
-          width: 64px;
-          height: 64px;
-          margin-bottom: 4px;
+          width: 80px;
+          height: 80px;
+          margin-bottom: 8px;
           filter: drop-shadow(0 0 16px rgba(212, 168, 67, 0.45));
         }
 
         /* Text Content */
         .title-text {
           font-family: var(--font-display, 'Outfit'), sans-serif;
-          font-size: 24px;
+          font-size: 28px;
           font-weight: 700;
           color: #D4A843;
-          margin-bottom: 8px;
+          margin-bottom: 16px;
           letter-spacing: 0.5px;
         }
         .quote-kiny {
-          font-size: 14px;
+          font-size: 18px;
           font-style: italic;
           color: #FFFFFF;
           line-height: 1.6;
-          margin-bottom: 4px;
+          margin-bottom: 12px;
           font-weight: 400;
           opacity: 0.95;
         }
         .quote-eng {
-          font-size: 12px;
+          font-size: 14px;
           font-style: italic;
           color: rgba(255, 255, 255, 0.6);
           line-height: 1.6;
-          margin-bottom: 16px;
+          margin-bottom: 24px;
           font-weight: 300;
         }
 

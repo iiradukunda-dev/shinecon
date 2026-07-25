@@ -89,29 +89,29 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', 'Inter', sans-serif; line-height
   --glass-blur:       24px;
   --glass-blur-heavy: 40px;
 
-  /* — Spacing — */
+  /* — Spacing (Compacted for less scrolling) — */
   --space-xs:   4px;
   --space-sm:   8px;
-  --space-md:   16px;
-  --space-lg:   24px;
-  --space-xl:   32px;
-  --space-2xl:  48px;
-  --space-3xl:  64px;
-  --space-4xl:  96px;
+  --space-md:   12px;
+  --space-lg:   16px;
+  --space-xl:   24px;
+  --space-2xl:  32px;
+  --space-3xl:  48px;
+  --space-4xl:  64px;
 
-  /* — Typography (Scaled Up for High Readability) — */
+  /* — Typography (Standard Sizing) — */
   --font-display:     'Outfit', sans-serif;
   --font-body:        'Inter', sans-serif;
-  --text-xs:    0.875rem; /* 14px */
-  --text-sm:    1rem;      /* 16px */
-  --text-base:  1.125rem;  /* 18px */
-  --text-lg:    1.25rem;   /* 20px */
-  --text-xl:    1.5rem;    /* 24px */
-  --text-2xl:   1.875rem;  /* 30px */
-  --text-3xl:   2.25rem;   /* 36px */
-  --text-4xl:   2.75rem;   /* 44px */
-  --text-5xl:   3.25rem;   /* 52px */
-  --text-6xl:   4rem;      /* 64px */
+  --text-xs:    0.75rem;   /* 12px */
+  --text-sm:    0.875rem;  /* 14px */
+  --text-base:  1rem;      /* 16px */
+  --text-lg:    1.125rem;  /* 18px */
+  --text-xl:    1.25rem;   /* 20px */
+  --text-2xl:   1.5rem;    /* 24px */
+  --text-3xl:   1.875rem;  /* 30px */
+  --text-4xl:   2.25rem;   /* 36px */
+  --text-5xl:   2.75rem;   /* 44px */
+  --text-6xl:   3.25rem;   /* 52px */
 
   /* — Radius — */
   --radius-sm:   8px;

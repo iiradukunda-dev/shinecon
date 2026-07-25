@@ -33,6 +33,7 @@ export async function POST(request) {
       role: user.role === 'SUPER_ADMIN' ? 'admin' : 'member',
       user: {
         id: user.id,
+        role: user.role === 'SUPER_ADMIN' ? 'admin' : 'member',
         name: user.profile?.fullName || 'System Admin',
         email: user.email,
         phone: user.profile?.phone || '',

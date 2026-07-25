@@ -46,13 +46,6 @@ export default function AdminLayout({ children }) {
 
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`} style={{ top: 28 }}>
-        <div className="sidebar-brand" onClick={() => router.push('/admin/dashboard')} style={{ cursor: 'pointer' }}>
-          <div className="sidebar-brand-logo"><img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /></div>
-          <div>
-            <div className="sidebar-brand-text">SM Connect</div>
-            <div style={{ fontSize: 10, color: 'var(--text-tertiary)', fontWeight: 500 }}>Admin Portal</div>
-          </div>
-        </div>
 
         <nav className="sidebar-nav">
           {NAV_SECTIONS.map(section => (

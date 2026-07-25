@@ -53,41 +53,19 @@ export default function MemberLayout({ children }) {
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
           }
 
-          .member-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-          }
-          .member-brand-logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            overflow: hidden;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 6px rgba(212, 168, 67, 0.4));
-          }
-          .member-brand-title {
-            font-family: var(--font-display, 'Outfit'), sans-serif;
-            font-weight: 800;
-            font-size: 22px;
-            color: #D4A843;
-            letter-spacing: 0.5px;
-          }
-
           .member-nav-links {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 2px;
           }
 
           .member-nav-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
+            gap: 6px;
+            padding: 8px 12px;
             border-radius: 999px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.85);
             transition: all 0.2s ease;
@@ -95,6 +73,7 @@ export default function MemberLayout({ children }) {
             border: none;
             cursor: pointer;
             text-decoration: none;
+            white-space: nowrap;
           }
           .member-nav-item:hover {
             color: #FFFFFF;
@@ -110,7 +89,7 @@ export default function MemberLayout({ children }) {
           .member-nav-right {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
           }
 
           .user-avatar-pill {
@@ -195,20 +174,13 @@ export default function MemberLayout({ children }) {
             animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
 
-          @media (max-width: 900px) {
+          @media (max-width: 1100px) {
             .member-nav-links { display: none; }
             .user-avatar-pill .avatar-name { display: none; }
             .mobile-toggle-btn { display: flex; }
           }
         `}</style>
 
-        {/* Brand */}
-        <div className="member-brand" onClick={() => router.push('/member/dashboard')}>
-          <div className="member-brand-logo">
-            <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          <span className="member-brand-title">SM Connect</span>
-        </div>
 
         {/* Desktop Nav Links */}
         <nav className="member-nav-links">

@@ -122,7 +122,7 @@ export default function MemberDashboard() {
 
       {/* Welcome Hero Card */}
       <div className="dash-hero-card">
-        <p style={{ color: '#D4A843', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
+        <p suppressHydrationWarning style={{ color: '#D4A843', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
           {getGreeting()} 🌅
         </p>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>

@@ -77,7 +77,7 @@ export default function SplashPage() {
         /* Main Glass Card */
         .splash-card {
           width: 90%;
-          max-width: 580px;
+          max-width: 460px;
           background: rgba(15, 15, 20, 0.7);
           backdrop-filter: blur(40px);
           -webkit-backdrop-filter: blur(40px);

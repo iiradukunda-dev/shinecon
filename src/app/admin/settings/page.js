@@ -1,65 +1,131 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
 
+const DEFAULT_SETTINGS = {
+  'branding.ministryName': 'Shining Ministries',
+  'branding.appName': 'SM Connect',
+  'branding.scripture': 'Isaiah 60:1-6',
+  'localization.defaultLanguage': 'en',
+  'localization.localCurrency': 'RWF',
+  'momo.environment': 'Sandbox',
+  'momo.apiUser': '',
+  'momo.subscriptionKey': '',
+  'momo.callbackUrl': 'https://api.smconnect.org/callback',
+  'notifications.emailProvider': 'SMTP',
+  'notifications.push': 'Enabled',
+  'notifications.reminders': '5 days before due',
+  'security.2fa': 'Enabled',
+  'security.timeout': '30 minutes',
+  'security.ipLogging': 'Enabled',
+  'backup.auto': 'Daily at 02:00 AM',
+  'backup.last': '2026-07-20 02:00 AM',
+  'backup.storage': 'Cloud (3 copies)',
+};
+
 export default function SettingsPage() {
-  const { theme, toggleTheme, language, setLanguage } = useApp();
+  const { theme, toggleTheme, language, setLanguage, addToast } = useApp();
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/settings?_t=' + Date.now(), { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error && Object.keys(data).length > 0) {
+          setSettings(prev => ({ ...prev, ...data }));
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleChange = (key, value) => {
+    setSettings(prev => ({ ...prev, [key]: value }));
+    if (key === 'localization.defaultLanguage') {
+      setLanguage(value);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings),
+      });
+      if (res.ok) {
+        addToast('Settings saved successfully', 'success');
+      } else {
+        addToast('Failed to save settings', 'error');
+      }
+    } catch (err) {
+      addToast('An error occurred while saving', 'error');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const sections = [
     {
       title: '🎨 Branding',
       items: [
-        { label: 'Ministry Name', value: 'Shining Ministries', type: 'text' },
-        { label: 'App Name', value: 'SM Connect', type: 'text' },
-        { label: 'Scripture', value: 'Isaiah 60:1-6', type: 'text' },
+        { label: 'Ministry Name', key: 'branding.ministryName', type: 'text' },
+        { label: 'App Name', key: 'branding.appName', type: 'text' },
+        { label: 'Scripture', key: 'branding.scripture', type: 'text' },
       ],
     },
     {
       title: '🌍 Localization',
       items: [
-        { label: 'Default Language', value: language, type: 'select', options: [
+        { label: 'Default Language', key: 'localization.defaultLanguage', type: 'select', options: [
           { value: 'en', label: 'English' },
           { value: 'fr', label: 'Français' },
           { value: 'sw', label: 'Kiswahili' },
           { value: 'ky', label: 'Kinyarwanda' },
         ]},
-        { label: 'Local Currency', value: 'RWF', type: 'text' },
-        { label: 'Diaspora Currency', value: 'USD', type: 'text' },
+        { label: 'Local Currency', key: 'localization.localCurrency', type: 'text' },
       ],
     },
     {
       title: '💳 MTN MoMo',
       items: [
-        { label: 'Environment', value: 'Sandbox', type: 'text' },
-        { label: 'API User', value: '••••••••••', type: 'text' },
-        { label: 'Subscription Key', value: '••••••••••', type: 'text' },
-        { label: 'Callback URL', value: 'https://api.smconnect.org/callback', type: 'text' },
+        { label: 'Environment', key: 'momo.environment', type: 'select', options: [{ value: 'Sandbox', label: 'Sandbox' }, { value: 'Production', label: 'Production' }] },
+        { label: 'API User', key: 'momo.apiUser', type: 'password' },
+        { label: 'Subscription Key', key: 'momo.subscriptionKey', type: 'password' },
+        { label: 'Callback URL', key: 'momo.callbackUrl', type: 'text' },
       ],
     },
     {
       title: '📧 Notifications',
       items: [
-        { label: 'Email Provider', value: 'SMTP', type: 'text' },
-        { label: 'Push Notifications', value: 'Enabled', type: 'text' },
-        { label: 'Contribution Reminders', value: '5 days before due', type: 'text' },
+        { label: 'Email Provider', key: 'notifications.emailProvider', type: 'text' },
+        { label: 'Push Notifications', key: 'notifications.push', type: 'select', options: [{ value: 'Enabled', label: 'Enabled' }, { value: 'Disabled', label: 'Disabled' }] },
+        { label: 'Contribution Reminders', key: 'notifications.reminders', type: 'text' },
       ],
     },
     {
       title: '🔐 Security',
       items: [
-        { label: 'Two-Factor Auth', value: 'Enabled', type: 'text' },
-        { label: 'Session Timeout', value: '30 minutes', type: 'text' },
-        { label: 'IP Logging', value: 'Enabled', type: 'text' },
+        { label: 'Two-Factor Auth', key: 'security.2fa', type: 'select', options: [{ value: 'Enabled', label: 'Enabled' }, { value: 'Disabled', label: 'Disabled' }] },
+        { label: 'Session Timeout', key: 'security.timeout', type: 'text' },
+        { label: 'IP Logging', key: 'security.ipLogging', type: 'select', options: [{ value: 'Enabled', label: 'Enabled' }, { value: 'Disabled', label: 'Disabled' }] },
       ],
     },
     {
       title: '💾 Backup',
       items: [
-        { label: 'Auto Backup', value: 'Daily at 02:00 AM', type: 'text' },
-        { label: 'Last Backup', value: '2026-07-20 02:00 AM', type: 'text' },
-        { label: 'Storage', value: 'Cloud (3 copies)', type: 'text' },
+        { label: 'Auto Backup', key: 'backup.auto', type: 'text' },
+        { label: 'Last Backup', key: 'backup.last', type: 'text', readOnly: true },
+        { label: 'Storage', key: 'backup.storage', type: 'text' },
       ],
     },
   ];
+
+  if (loading) {
+    return <div style={{ padding: 40, textAlign: 'center' }}>Loading settings...</div>;
+  }
 
   return (
     <div>
@@ -102,18 +168,29 @@ export default function SettingsPage() {
             {section.items.map(item => (
               <div key={item.label} style={{
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '10px 0', borderBottom: '1px solid var(--border-light)',
+                padding: '10px 0', borderBottom: '1px solid var(--border-light)', gap: 16
               }}>
-                <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{item.label}</span>
+                <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', flexShrink: 0 }}>{item.label}</span>
                 {item.type === 'select' ? (
-                  <select className="select" value={item.value} onChange={e => setLanguage(e.target.value)}
-                    style={{ width: 'auto', padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}>
+                  <select 
+                    className="select" 
+                    value={settings[item.key] || ''} 
+                    onChange={e => handleChange(item.key, e.target.value)}
+                    style={{ flex: 1, maxWidth: 200, padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}
+                  >
                     {item.options.map(o => (
                       <option key={o.value} value={o.value}>{o.label}</option>
                     ))}
                   </select>
                 ) : (
-                  <span style={{ fontSize: 'var(--text-sm)', fontWeight: 500 }}>{item.value}</span>
+                  <input 
+                    type={item.type}
+                    className="input"
+                    value={settings[item.key] || ''}
+                    readOnly={item.readOnly}
+                    onChange={e => handleChange(item.key, e.target.value)}
+                    style={{ flex: 1, maxWidth: 200, fontSize: 'var(--text-sm)' }}
+                  />
                 )}
               </div>
             ))}
@@ -125,7 +202,9 @@ export default function SettingsPage() {
       <div style={{ marginTop: 'var(--space-xl)', display: 'flex', gap: 'var(--space-sm)', justifyContent: 'flex-end' }}
         className="animate-fade-in-up">
         <button className="btn btn-secondary">Export Configuration</button>
-        <button className="btn btn-gold">Save Changes</button>
+        <button className="btn btn-gold" onClick={handleSave} disabled={saving}>
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
       </div>
     </div>
   );

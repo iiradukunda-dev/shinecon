@@ -9,7 +9,7 @@ export default function ProfilePage() {
 
   const myContribs = contributions.filter(c => c.memberId === (user?.id || '1') && c.status === 'approved');
   const total = myContribs.reduce((s, c) => s + c.amount, 0);
-  const currency = user?.type === 'diaspora' ? 'USD' : 'RWF';
+  const currency = 'RWF';
 
   const handleLogout = () => {
     logout();

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/demo-data';
+import { QRCodeSVG } from 'qrcode.react';
 
 const EMPTY = { event: '', date: '', total: 0, capacity: 250 };
 
@@ -10,6 +11,7 @@ export default function AdminAttendancePage() {
   const [modal, setModal] = useState(null);
   const [editData, setEditData] = useState(EMPTY);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [viewQr, setViewQr] = useState(null);
 
   const openCreate = () => { setEditData({ ...EMPTY, date: new Date().toISOString().split('T')[0] }); setModal('create'); };
   const openEdit = (a) => { setEditData({ ...a }); setModal('edit'); };
@@ -75,6 +77,7 @@ export default function AdminAttendancePage() {
                   </td>
                   <td>
                     <div style={{ display: 'flex', gap: 4 }}>
+                      <button className="btn btn-ghost btn-sm" onClick={() => setViewQr(att)} title="View QR Code">🔳</button>
                       <button className="btn btn-ghost btn-sm" onClick={() => openEdit(att)} title="Edit">✏️</button>
                       <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(att)} title="Delete" style={{ color: 'var(--soft-red)' }}>🗑</button>
                     </div>
@@ -181,6 +184,68 @@ export default function AdminAttendancePage() {
             <div className="modal-footer">
               <button className="btn btn-secondary" onClick={() => setDeleteTarget(null)}>Cancel</button>
               <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View QR Code Modal */}
+      {viewQr && (
+        <div className="modal-overlay" onClick={() => setViewQr(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 450, textAlign: 'center' }}>
+            <div className="modal-header">
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>Scan to Record Attendance</h3>
+              <button className="btn btn-ghost" onClick={() => setViewQr(null)}>✕</button>
+            </div>
+            <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+              <p style={{ color: 'var(--text-secondary)' }}><strong>{viewQr.event}</strong> on {formatDate(viewQr.date)}</p>
+              
+              <div style={{ background: '#fff', padding: 24, borderRadius: 16, display: 'inline-block', border: '1px solid var(--border-medium)' }}>
+                <QRCodeSVG
+                  value={typeof window !== 'undefined' ? `${window.location.origin}/member/attendance?code=${viewQr.qrCode}` : `https://smconnect.org/member/attendance?code=${viewQr.qrCode}`}
+                  size={240}
+                  level="H"
+                  includeMargin={true}
+                  imageSettings={{
+                    src: '/logo.png',
+                    x: undefined,
+                    y: undefined,
+                    height: 50,
+                    width: 50,
+                    excavate: true,
+                  }}
+                />
+              </div>
+
+              <div style={{ width: '100%', display: 'flex', gap: 8, marginTop: 8 }}>
+                <input 
+                  className="input" 
+                  readOnly 
+                  value={typeof window !== 'undefined' ? `${window.location.origin}/member/attendance?code=${viewQr.qrCode}` : ''}
+                  style={{ flex: 1, fontSize: 'var(--text-xs)', color: 'var(--text-secondary)' }}
+                />
+                <button 
+                  className="btn btn-secondary" 
+                  onClick={() => {
+                    const url = typeof window !== 'undefined' ? `${window.location.origin}/member/attendance?code=${viewQr.qrCode}` : '';
+                    navigator.clipboard.writeText(url);
+                    addToast('Attendance link copied to clipboard!', 'success');
+                  }}
+                >
+                  Copy Link
+                </button>
+              </div>
+
+              <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', maxWidth: '90%' }}>
+                Members can scan this QR code or use the link to automatically verify their presence.
+              </p>
+            </div>
+            <div className="modal-footer" style={{ justifyContent: 'center' }}>
+              <button className="btn btn-gold" onClick={() => {
+                window.print();
+              }}>
+                Print QR Code
+              </button>
             </div>
           </div>
         </div>

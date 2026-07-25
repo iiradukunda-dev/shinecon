@@ -5,6 +5,21 @@ const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('smconnect_user');
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (e) {
+          console.error('Failed to parse saved user state', e);
+        }
+      }
+    }
+    setIsInitialized(true);
+  }, []);
   const [theme, setTheme] = useState('light');
   const [language, setLanguage] = useState('en');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,7 +44,7 @@ export function AppProvider({ children }) {
   // ── Bootstrap (Load all data from DB) ─────────────────
   const bootstrap = useCallback(async () => {
     try {
-      const res = await fetch('/api/bootstrap');
+      const res = await fetch('/api/bootstrap?_t=' + Date.now(), { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         if (data.members) setMembers(data.members);
@@ -63,6 +78,9 @@ export function AppProvider({ children }) {
       const data = await res.json();
       if (res.ok && data.success) {
         setUser(data.user);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('smconnect_user', JSON.stringify(data.user));
+        }
         return { success: true, role: data.role };
       } else {
         return { success: false, error: data.error || 'Authentication failed' };
@@ -73,7 +91,12 @@ export function AppProvider({ children }) {
     }
   }, []);
 
-  const logout = useCallback(() => setUser(null), []);
+  const logout = useCallback(() => {
+    setUser(null);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('smconnect_user');
+    }
+  }, []);
 
   // ── Theme ───────────────────────────────────────────
   const toggleTheme = useCallback(() => {
@@ -547,7 +570,6 @@ export function AppProvider({ children }) {
     totalContributions: contributions.filter(c => c.status === 'approved').length,
     pendingContributions: contributions.filter(c => c.status === 'pending').length,
     monthlyRWF: contributions.filter(c => c.status === 'approved' && c.currency === 'RWF').reduce((s, c) => s + c.amount, 0),
-    monthlyUSD: contributions.filter(c => c.status === 'approved' && c.currency === 'USD').reduce((s, c) => s + c.amount, 0),
     activeCampaigns: campaigns.filter(c => c.status === 'active').length,
     localMembers: members.filter(m => m.type === 'local').length,
     diasporaMembers: members.filter(m => m.type === 'diaspora').length,
@@ -557,7 +579,7 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      user, login, logout,
+      user, isInitialized, login, logout,
       theme, toggleTheme,
       language, setLanguage,
       sidebarOpen, setSidebarOpen,

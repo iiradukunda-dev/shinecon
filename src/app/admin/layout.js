@@ -30,21 +30,19 @@ const NAV_SECTIONS = [
 export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme } = useApp();
+  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') router.push('/login');
-  }, [user, router]);
+    if (isInitialized && (!user || user.role !== 'admin')) router.push('/login');
+  }, [user, isInitialized, router]);
 
-  if (!user || user.role !== 'admin') return null;
+  if (!isInitialized || !user || user.role !== 'admin') return null;
 
   const currentPage = NAV_SECTIONS.flatMap(s => s.items).find(i => i.href === pathname);
 
   return (
-    <div>
-      {/* Demo Banner */}
-      <div className="demo-banner">✦ DEMO MODE — SM Connect Admin ✦</div>
+    <div className="layout-root admin-layout">
 
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`} style={{ top: 28 }}>

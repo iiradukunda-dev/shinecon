@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     // 1. Members
@@ -74,7 +76,7 @@ export async function GET() {
       localEmployed: Number(t.localEmployedAmt),
       diasporaStudent: Number(t.diasporaStudentAmt),
       diasporaEmployed: Number(t.diasporaEmployedAmt),
-      currency: { local: t.localCurrency, diaspora: t.diasporaCurrency },
+      currency: t.currency,
       recurring: t.recurring,
       active: t.active,
       icon: t.icon || '💰',
@@ -116,6 +118,7 @@ export async function GET() {
       date: att.startTime ? new Date(att.startTime).toISOString().split('T')[0] : '',
       total: att.records.length || 187,
       capacity: 250,
+      qrCode: att.qrCode,
     }));
 
     // 8. Messages
@@ -147,6 +150,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Failed to bootstrap application:', error);
-    return NextResponse.json({ error: 'Failed to bootstrap data' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to bootstrap data', details: error.message, stack: error.stack }, { status: 500 });
   }
 }

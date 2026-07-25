@@ -106,14 +106,13 @@ export default function AdminReportsPage() {
       getData: () => {
         const approved = contributions.filter(c => c.status === 'approved');
         const rwfTotal = approved.filter(c => c.currency === 'RWF').reduce((s, c) => s + c.amount, 0);
-        const usdTotal = approved.filter(c => c.currency === 'USD').reduce((s, c) => s + c.amount, 0);
 
-        const headers = ['Category / Metric', 'Total Approved (RWF)', 'Total Approved (USD)', 'Total Transactions'];
+        const headers = ['Category / Metric', 'Total Approved (RWF)', 'Total Transactions'];
         const rows = [
-          ['Regular Tithes & Offerings', Math.round(rwfTotal * 0.6), Math.round(usdTotal * 0.5), approved.filter(c => c.type === 'Tithe').length],
-          ['Building & Project Fund', Math.round(rwfTotal * 0.25), Math.round(usdTotal * 0.3), approved.filter(c => c.type === 'Building Fund').length],
-          ['Missions & Welfare', Math.round(rwfTotal * 0.15), Math.round(usdTotal * 0.2), approved.filter(c => c.type === 'Welfare').length],
-          ['TOTAL REVENUE', rwfTotal, usdTotal, approved.length]
+          ['Regular Tithes & Offerings', Math.round(rwfTotal * 0.6), approved.filter(c => c.type === 'Tithe').length],
+          ['Building & Project Fund', Math.round(rwfTotal * 0.25), approved.filter(c => c.type === 'Building Fund').length],
+          ['Missions & Welfare', Math.round(rwfTotal * 0.15), approved.filter(c => c.type === 'Welfare').length],
+          ['TOTAL REVENUE', rwfTotal, approved.length]
         ];
         return { headers, rows, raw: rows, title: 'Financial Overview Statement' };
       }

@@ -14,8 +14,7 @@ export async function POST(request) {
         localEmployedAmt: Number(data.localEmployed || 0),
         diasporaStudentAmt: Number(data.diasporaStudent || 0),
         diasporaEmployedAmt: Number(data.diasporaEmployed || 0),
-        localCurrency: data.currency?.local || 'RWF',
-        diasporaCurrency: data.currency?.diaspora || 'USD',
+        currency: data.currency || 'RWF',
         recurring: data.recurring === true,
         active: true,
         icon: data.icon || '💰',
@@ -32,7 +31,7 @@ export async function POST(request) {
       localEmployed: Number(type.localEmployedAmt),
       diasporaStudent: Number(type.diasporaStudentAmt),
       diasporaEmployed: Number(type.diasporaEmployedAmt),
-      currency: { local: type.localCurrency, diaspora: type.diasporaCurrency },
+      currency: type.currency,
       recurring: type.recurring,
       active: type.active,
       icon: type.icon,
@@ -56,8 +55,7 @@ export async function PUT(request) {
     if (data.localEmployed !== undefined) updateData.localEmployedAmt = Number(data.localEmployed);
     if (data.diasporaStudent !== undefined) updateData.diasporaStudentAmt = Number(data.diasporaStudent);
     if (data.diasporaEmployed !== undefined) updateData.diasporaEmployedAmt = Number(data.diasporaEmployed);
-    if (data.currency?.local) updateData.localCurrency = data.currency.local;
-    if (data.currency?.diaspora) updateData.diasporaCurrency = data.currency.diaspora;
+    if (data.currency) updateData.currency = data.currency;
     if (data.recurring !== undefined) updateData.recurring = data.recurring === true;
     if (data.active !== undefined) updateData.active = data.active === true;
     if (data.icon) updateData.icon = data.icon;
@@ -77,7 +75,7 @@ export async function PUT(request) {
       localEmployed: Number(type.localEmployedAmt),
       diasporaStudent: Number(type.diasporaStudentAmt),
       diasporaEmployed: Number(type.diasporaEmployedAmt),
-      currency: { local: type.localCurrency, diaspora: type.diasporaCurrency },
+      currency: type.currency,
       recurring: type.recurring,
       active: type.active,
       icon: type.icon,

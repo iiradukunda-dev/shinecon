@@ -23,7 +23,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     await new Promise(r => setTimeout(r, 800));
-    const result = login(email, password);
+    const result = await login(email, password);
     setLoading(false);
 
     if (result.success) {

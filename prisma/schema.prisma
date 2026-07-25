@@ -105,8 +105,7 @@ model ContributionType {
   localEmployedAmt  Decimal @default(0)
   diasporaStudentAmt Decimal @default(0)
   diasporaEmployedAmt Decimal @default(0)
-  localCurrency     String  @default("RWF")
-  diasporaCurrency  String  @default("USD")
+  currency          String  @default("RWF")
   recurring         Boolean @default(false)
   active            Boolean @default(true)
   icon              String?

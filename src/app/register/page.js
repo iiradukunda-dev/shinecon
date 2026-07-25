@@ -23,10 +23,26 @@ export default function RegisterPage() {
       return;
     }
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1500));
-    setLoading(false);
-    addToast('Registration submitted! Pending admin approval.', 'success');
-    router.push('/login');
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
+        addToast(data.message || 'Registration submitted! Pending admin approval.', 'success');
+        router.push('/login');
+      } else {
+        addToast(data.error || 'Failed to register', 'error');
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+      addToast('Network error, please try again', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

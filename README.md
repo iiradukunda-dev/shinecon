@@ -124,23 +124,44 @@ shine/
 
 ---
 
-## 🔧 Database Setup (Optional)
+## 🔧 Database Setup Guide
 
-The app runs in **Demo Mode** by default without a database. To connect PostgreSQL:
+This project uses **PostgreSQL** with **Prisma ORM**. Before proceeding, ensure that you have Node.js and PostgreSQL installed.
+
+### 1. Environment Configuration
+
+In the root folder of your project (where `package.json` is located), create a `.env` file and define your database connection string:
+
+```env
+DATABASE_URL="postgresql://postgres:admin@localhost:5432/smconnect"
+```
+*(If your local PostgreSQL user/password differs, adjust the URL accordingly).*
+
+### 2. Creating and Migrating the Database
+
+Prisma will automatically create the `smconnect` database if it doesn't exist, and apply the required tables based on `prisma/schema.prisma`.
 
 ```bash
-# Set environment variable
-echo "DATABASE_URL=postgresql://user:password@localhost:5432/smconnect" > .env
-
-# Install Prisma dependencies
-npm install prisma @prisma/client --save-dev
-
-# Run migrations
+# Run database migrations
 npx prisma migrate dev --name init
+```
 
-# Seed demo data
+### 3. Seeding Demo Data
+
+To populate the system with predefined members, campaigns, events, and financial data, run the seed script:
+
+```bash
 npx prisma db seed
 ```
+
+### 4. Visualizing the Data
+
+Prisma comes with a built-in visual database editor. To view your tables in a web browser, run:
+
+```bash
+npx prisma studio
+```
+This will launch a GUI at `http://localhost:5555`.
 
 ---
 

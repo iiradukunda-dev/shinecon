@@ -25,6 +25,7 @@ export async function POST(request) {
       date: attendanceEvent.startTime.toISOString().split('T')[0],
       total: Number(data.total || 0),
       capacity: attendanceEvent.gpsRadius,
+      qrCode: attendanceEvent.qrCode,
     });
   } catch (error) {
     console.error('Failed to create attendance event:', error);
@@ -56,6 +57,7 @@ export async function PUT(request) {
       date: attendanceEvent.startTime.toISOString().split('T')[0],
       total: attendanceEvent.records.length || Number(data.total || 0),
       capacity: attendanceEvent.gpsRadius,
+      qrCode: attendanceEvent.qrCode,
     });
   } catch (error) {
     console.error('Failed to update attendance event:', error);

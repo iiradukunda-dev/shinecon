@@ -13,8 +13,8 @@ export default function MemberDashboard() {
 
   const myContributions = contributions.filter(c => c.memberId === (user?.id || '1'));
   const myTotal = myContributions.filter(c => c.status === 'approved').reduce((s, c) => s + c.amount, 0);
-  const monthlyGoal = user?.type === 'diaspora' ? 100 : 15000;
-  const currency = user?.type === 'diaspora' ? 'USD' : 'RWF';
+  const monthlyGoal = 15000;
+  const currency = 'RWF';
   const progress = Math.min(100, Math.round((myTotal / monthlyGoal) * 100));
   const circumference = 2 * Math.PI * 52;
 

@@ -93,7 +93,7 @@ export default function AdminCampaignsPage() {
                   <input className="input" type="number" value={editData.goal} onChange={e => setEditData(p => ({ ...p, goal: e.target.value }))} /></div>
                 <div className="input-group"><label className="input-label">Currency</label>
                   <select className="select" value={editData.currency} onChange={e => setEditData(p => ({ ...p, currency: e.target.value }))}>
-                    <option>RWF</option><option>USD</option><option>EUR</option></select></div>
+                    <option>RWF</option></select></div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group"><label className="input-label">Start Date</label>

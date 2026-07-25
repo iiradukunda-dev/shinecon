@@ -18,7 +18,7 @@ export default function ContributionsPage() {
     if (isLocal) return isStudent ? ct.localStudent : ct.localEmployed;
     return isStudent ? ct.diasporaStudent : ct.diasporaEmployed;
   };
-  const getCurrency = (ct) => isLocal ? ct.currency.local : ct.currency.diaspora;
+  const getCurrency = (ct) => ct.currency || 'RWF';
 
   const handlePay = () => {
     setPaymentStep(2);

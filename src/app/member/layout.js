@@ -19,19 +19,18 @@ const NAV_ITEMS = [
 export default function MemberLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, toasts, logout } = useApp();
+  const { user, isInitialized, toasts, logout } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (!user) router.push('/login');
-  }, [user, router]);
+    if (isInitialized && !user) router.push('/login');
+  }, [user, isInitialized, router]);
 
-  if (!user) return null;
+  if (!isInitialized || !user) return null;
 
   return (
     <div className="page-member" style={{ background: '#0A0A0E', minHeight: '100vh', color: '#FFFFFF' }}>
-      {/* Demo Banner */}
-      <div className="demo-banner">✦ DEMO MODE — SM Connect ✦</div>
+      {/* DEMO BANNER REMOVED */}
 
       {/* Top Navigation Bar */}
       <header className="member-top-nav">

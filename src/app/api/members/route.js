@@ -97,9 +97,27 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
     }
 
-    await prisma.user.delete({
-      where: { id },
-    });
+    const contributions = await prisma.contribution.findMany({ where: { userId: id }, select: { id: true } });
+    const contributionIds = contributions.map(c => c.id);
+
+    const aiConversations = await prisma.aIConversation.findMany({ where: { userId: id }, select: { id: true } });
+    const aiConversationIds = aiConversations.map(c => c.id);
+
+    await prisma.$transaction([
+      prisma.payment.deleteMany({ where: { contributionId: { in: contributionIds } } }),
+      prisma.aIMessage.deleteMany({ where: { conversationId: { in: aiConversationIds } } }),
+      prisma.contribution.deleteMany({ where: { userId: id } }),
+      prisma.campaignDonation.deleteMany({ where: { userId: id } }),
+      prisma.attendanceRecord.deleteMany({ where: { userId: id } }),
+      prisma.message.deleteMany({ where: { senderId: id } }),
+      prisma.aIConversation.deleteMany({ where: { userId: id } }),
+      prisma.notification.deleteMany({ where: { userId: id } }),
+      prisma.session.deleteMany({ where: { userId: id } }),
+      prisma.passwordReset.deleteMany({ where: { userId: id } }),
+      prisma.auditLog.deleteMany({ where: { userId: id } }),
+      prisma.memberProfile.deleteMany({ where: { userId: id } }),
+      prisma.user.delete({ where: { id } }),
+    ]);
 
     return NextResponse.json({ success: true });
   } catch (error) {

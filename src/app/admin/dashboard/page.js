@@ -14,7 +14,6 @@ export default function AdminDashboard() {
   const kpis = [
     { label: 'Total Members', value: stats.totalMembers, icon: <IconUsers size={24} color="#D4A843" />, change: '+12% this month', positive: true, bg: 'rgba(212,168,67,0.15)', color: 'var(--gold)' },
     { label: 'Monthly Contributions (RWF)', value: formatCurrency(stats.monthlyRWF, 'RWF'), icon: <IconGive size={24} color="#40C057" />, change: '+8% vs last month', positive: true, bg: 'rgba(43,138,62,0.15)', color: 'var(--emerald)' },
-    { label: 'Monthly Contributions (USD)', value: formatCurrency(stats.monthlyUSD, 'USD'), icon: <IconDollar size={24} color="#4C6EF5" />, change: '+15% vs last month', positive: true, bg: 'rgba(59,91,219,0.15)', color: 'var(--royal-blue)' },
     { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, icon: <IconHourglass size={24} color="#FAB005" />, change: 'Requires Action', positive: false, bg: 'rgba(245,159,0,0.15)', color: 'var(--amber)' },
   ];
 

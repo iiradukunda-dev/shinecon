@@ -242,7 +242,6 @@ export default function SplashPage() {
         <div className="logo-section">
           <div className="logo-circle">
             <img src="/thorns.png" alt="Thorns" className="thorns-bg" />
-            <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
           </div>
         </div>
 

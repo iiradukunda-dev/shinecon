@@ -1758,7 +1758,23 @@ body {
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
   .sidebar, .topbar, .bottom-nav, .fab-ai, .demo-banner { display: none !important; }
-  .page-admin { margin-left: 0; padding-top: 0; }
+  .page-admin, .page-member { padding-top: 0 !important; }
   body { background: white; }
   .glass, .glass-heavy, .glass-card { backdrop-filter: none; background: white; border: 1px solid #ddd; }
+}
+
+/* ── Page Transitions ───────────────────────────────────────── */
+@keyframes pageTransition {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageTransition 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }

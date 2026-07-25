@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatDate } from '@/lib/demo-data';
+import { formatDate } from '@/lib/utils';
 import { QRCodeSVG } from 'qrcode.react';
 
 const EMPTY = { event: '', date: '', total: 0, capacity: 250 };

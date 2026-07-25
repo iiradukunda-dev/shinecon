@@ -36,15 +36,6 @@ export default function LoginPage() {
     }
   };
 
-  const fillDemo = (type) => {
-    if (type === 'admin') {
-      setEmail('admin@smconnect.org');
-      setPassword('admin123');
-    } else {
-      setEmail('jp.habimana@email.com');
-      setPassword('demo');
-    }
-  };
 
   return (
     <div className="auth-page">
@@ -248,31 +239,7 @@ export default function LoginPage() {
         .auth-forgot:hover {
           text-decoration: underline;
         }
-        .auth-divider-custom {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin: 32px 0 24px;
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 13px;
-        }
-        .auth-divider-custom::before,
-        .auth-divider-custom::after {
-          content: '';
-          flex: 1;
-          height: 1px;
-          background: rgba(212, 168, 67, 0.25);
-        }
-        .auth-demo-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          color: rgba(255, 255, 255, 0.9);
-          padding: 10px 18px;
-          border-radius: 999px;
-          font-size: 13px;
-          font-weight: 600;
-          transition: all 0.2s;
-        }
+
         .auth-signup-container {
           margin-top: 28px;
           text-align: center;
@@ -382,16 +349,6 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="auth-divider-custom">Demo Quick Access</div>
-
-        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-          <button onClick={() => fillDemo('admin')} className="auth-demo-btn">
-            Admin Demo
-          </button>
-          <button onClick={() => fillDemo('member')} className="auth-demo-btn">
-            Member Demo
-          </button>
-        </div>
 
         <div className="auth-signup-container">
           Don&apos;t have an account?

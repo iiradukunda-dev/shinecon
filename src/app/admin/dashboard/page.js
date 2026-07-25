@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import {
   formatCurrency, formatDate,
   MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
-} from '@/lib/demo-data';
+} from '@/lib/utils';
 import { IconUsers, IconGive, IconDollar, IconHourglass, OnlineLogoIcon } from '@/components/icons';
 
 export default function AdminDashboard() {

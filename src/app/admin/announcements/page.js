@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatDate } from '@/lib/demo-data';
+import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY = { title: '', description: '', category: 'News', priority: 'normal', image: 'megaphone' };

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
-import { DEMO_AI_SUGGESTIONS } from '@/lib/demo-data';
+import { AI_SUGGESTIONS } from '@/lib/utils';
 
 const AI_RESPONSES = {
   'how much have i contributed this year': 'Based on your records, you have contributed a total of **8,000 RWF** this year across 2 approved transactions. Your most recent contribution was 5,000 RWF for Monthly Contribution on July 15th. You\'re making great progress! 🙏',
@@ -87,7 +87,7 @@ export default function AIPage() {
           display: 'flex', flexWrap: 'wrap', gap: 'var(--space-xs)',
           marginBottom: 'var(--space-md)', flexShrink: 0,
         }}>
-          {DEMO_AI_SUGGESTIONS.map(s => (
+          {AI_SUGGESTIONS.map(s => (
             <button key={s} className="btn btn-secondary btn-sm" onClick={() => sendMessage(s)}
               style={{ fontSize: 'var(--text-xs)' }}>
               {s}

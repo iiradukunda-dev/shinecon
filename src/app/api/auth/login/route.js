@@ -10,18 +10,6 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json();
 
-    if (email === 'admin@smconnect.org') {
-      const adminHash = hashPassword('admin123');
-      if (hashPassword(password) === adminHash) {
-        return NextResponse.json({
-          success: true,
-          role: 'admin',
-          user: { id: '0', name: 'Super Admin', email, role: 'admin', photo: null },
-        });
-      } else {
-        return NextResponse.json({ success: false, error: 'Invalid admin password' }, { status: 401 });
-      }
-    }
 
     const user = await prisma.user.findUnique({
       where: { email },

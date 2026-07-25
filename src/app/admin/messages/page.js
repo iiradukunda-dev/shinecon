@@ -1,6 +1,6 @@
 'use client';
 import { useApp } from '@/context/app-context';
-import { formatDate } from '@/lib/demo-data';
+import { formatDate } from '@/lib/utils';
 
 export default function AdminMessagesPage() {
   const { messages, deleteMessage, markMessageRead } = useApp();

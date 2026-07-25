@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import {
   getGreeting, formatCurrency, formatDate,
   MONTHLY_CONTRIBUTION_DATA,
-} from '@/lib/demo-data';
+} from '@/lib/utils';
 import { IconGive, IconTarget, IconClipboard, IconSparkles } from '@/components/icons';
 
 export default function MemberDashboard() {

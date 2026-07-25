@@ -2,7 +2,7 @@
 import {
   MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
   CONTRIBUTION_BY_CATEGORY,
-} from '@/lib/demo-data';
+} from '@/lib/utils';
 import { useApp } from '@/context/app-context';
 
 export default function AnalyticsPage() {

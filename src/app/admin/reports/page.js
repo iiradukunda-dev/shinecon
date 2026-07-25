@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatCurrency, formatDate } from '@/lib/demo-data';
+import { formatCurrency, formatDate } from '@/lib/utils';
 import {
   IconGive, IconUsers, IconTarget, IconClipboard, IconChart, IconShield, IconEye, IconDownload
 } from '@/components/icons';

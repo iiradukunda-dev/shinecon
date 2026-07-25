@@ -1,7 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
-import { getInitials, formatCurrency } from '@/lib/demo-data';
+import { getInitials, formatCurrency } from '@/lib/utils';
 
 export default function ProfilePage() {
   const { user, theme, toggleTheme, language, setLanguage, logout, contributions } = useApp();

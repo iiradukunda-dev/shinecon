@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatCurrency, formatDate } from '@/lib/demo-data';
+import { formatCurrency, formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 export default function ContributionsPage() {
@@ -26,7 +26,7 @@ export default function ContributionsPage() {
     setTimeout(() => {
       addContribution({
         memberId: user?.id || '1',
-        memberName: user?.name || 'Demo Member',
+        memberName: user?.name || 'Unknown Member',
         type: selectedType.name,
         amount: getAmount(selectedType),
         currency: getCurrency(selectedType),

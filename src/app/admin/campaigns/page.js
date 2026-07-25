@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatCurrency } from '@/lib/demo-data';
+import { formatCurrency } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY = { title: '', description: '', goal: 0, currency: 'RWF', startDate: '', endDate: '', featured: false, image: '🎯' };

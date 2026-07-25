@@ -1,6 +1,6 @@
 'use client';
 import { useApp } from '@/context/app-context';
-import { formatDate } from '@/lib/demo-data';
+import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AnnouncementsPage() {

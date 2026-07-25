@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { formatCurrency, formatDate } from '@/lib/demo-data';
+import { formatCurrency, formatDate } from '@/lib/utils';
 
 export default function AdminContributionsPage() {
   const { contributions, approveContribution, rejectContribution, deleteContribution, addToast } = useApp();

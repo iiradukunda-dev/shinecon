@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
-import { getInitials, formatDate } from '@/lib/demo-data';
+import { getInitials, formatDate } from '@/lib/utils';
 
 const EMPTY_MEMBER = { name: '', email: '', phone: '', country: 'Rwanda', type: 'local', employment: 'employed' };
 

@@ -97,7 +97,9 @@ export async function GET() {
     }));
 
     // 6. Announcements
-    const dbAnnouncements = await prisma.announcement.findMany();
+    const dbAnnouncements = await prisma.announcement.findMany({
+      orderBy: { publishDate: 'desc' },
+    });
     const announcements = dbAnnouncements.map(a => ({
       id: a.id,
       title: a.title,

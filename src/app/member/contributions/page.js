@@ -46,7 +46,7 @@ export default function ContributionsPage() {
         </button>
 
         <div className="glass-card-static animate-fade-in-up" style={{ padding: 'var(--space-xl)', textAlign: 'center' }}>
-          <span style={{ fontSize: 48, display: 'block', marginBottom: 'var(--space-md)' }}>{selectedType.icon}</span>
+          <span style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-md)' }}><OnlineLogoIcon name={selectedType.icon || 'wallet'} size={48} /></span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 4 }}>{selectedType.name}</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-lg)' }}>
             {selectedType.description}
@@ -84,7 +84,7 @@ export default function ContributionsPage() {
                 background: 'rgba(43,138,62,0.08)', border: '1px solid rgba(43,138,62,0.15)',
                 marginBottom: 'var(--space-lg)', textAlign: 'left', fontSize: 'var(--text-sm)',
               }}>
-                <p style={{ fontWeight: 600, marginBottom: 4 }}>📱 Payment Summary</p>
+                <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600, marginBottom: 4 }}><OnlineLogoIcon name="smartphone" size={16} /> Payment Summary</p>
                 <p>{selectedType.name}: {formatCurrency(amount || 0, curr)}</p>
                 <p>Method: MTN Mobile Money</p>
               </div>
@@ -195,7 +195,7 @@ export default function ContributionsPage() {
           </div>
           {myContributions.length === 0 && (
             <div className="empty-state">
-              <div className="empty-state-icon">💰</div>
+              <div className="empty-state-icon"><OnlineLogoIcon name="wallet" size={32} /></div>
               <p className="empty-state-title">No contributions yet</p>
               <p className="empty-state-description">Start contributing to support the ministry</p>
             </div>

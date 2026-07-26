@@ -1,9 +1,29 @@
 'use client';
 
+const emojiMap = {
+  '📢': 'megaphone',
+  '⛪': 'church',
+  '👥': 'users',
+  '⛺': 'tent',
+  '⭐': 'star',
+  '🎶': 'music',
+  '🔔': 'bell',
+  '💡': 'lightbulb',
+  '🎉': 'party-popper',
+  '❤️': 'heart',
+  '💰': 'wallet',
+  '🏛️': 'church',
+  '📋': 'clipboard-list',
+  '📊': 'bar-chart-2',
+  '🎯': 'target',
+  '💎': 'gem',
+};
+
 export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = '' }) {
-  const cleanColor = String(color).replace('#', '').replace('var(--gold)', 'D4A843').replace('var(--emerald)', '40C057').replace('var(--royal-blue)', '4C6EF5').replace('var(--amber)', 'FAB005');
-  const isUrl = String(name).startsWith('http');
-  const iconUrl = isUrl ? name : `https://api.iconify.design/lucide:${name}.svg?color=%23${cleanColor}`;
+  const cleanColor = 'D4A843'; // Enforce the same gold color for all icons
+  const mappedName = emojiMap[name] || name;
+  const isUrl = String(mappedName).startsWith('http');
+  const iconUrl = isUrl ? mappedName : `https://api.iconify.design/lucide:${mappedName}.svg?color=%23${cleanColor}`;
 
   return (
     <img

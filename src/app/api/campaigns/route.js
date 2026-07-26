@@ -32,7 +32,7 @@ export async function POST(request) {
       status: campaign.status.toLowerCase(),
       featured: campaign.featured,
       contributors: 0,
-      image: campaign.imageUrl || '🏛️',
+      image: campaign.imageUrl || 'church',
     });
   } catch (error) {
     console.error('Failed to create campaign:', error);
@@ -74,7 +74,7 @@ export async function PUT(request) {
       status: campaign.status.toLowerCase(),
       featured: campaign.featured,
       contributors: campaign.donations.length,
-      image: campaign.imageUrl || '🏛️',
+      image: campaign.imageUrl || 'church',
     });
   } catch (error) {
     console.error('Failed to update campaign:', error);

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatCurrency, formatDate } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AdminContributionsPage() {
   const { contributions, approveContribution, rejectContribution, deleteContribution, addToast } = useApp();
@@ -63,7 +64,7 @@ export default function AdminContributionsPage() {
                       </>
                     )}
                     <button className="btn btn-ghost btn-sm" onClick={() => setSelectedContrib(c)}>Details</button>
-                    <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(c)} style={{ color: 'var(--soft-red)' }}>🗑</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(c)} style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                   </div>
                 </td>
               </tr>
@@ -114,7 +115,7 @@ export default function AdminContributionsPage() {
         <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Contribution</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Contribution</h3>
               <button className="btn btn-ghost" onClick={() => setDeleteTarget(null)}>✕</button>
             </div>
             <div className="modal-body" style={{ textAlign: 'center' }}>

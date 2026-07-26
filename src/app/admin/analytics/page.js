@@ -4,6 +4,7 @@ import {
   CONTRIBUTION_BY_CATEGORY,
 } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AnalyticsPage() {
   const { stats } = useApp();
@@ -120,13 +121,13 @@ export default function AnalyticsPage() {
       {/* Summary Stats */}
       <div className="grid grid-4 animate-fade-in-up stagger-4">
         {[
-          { label: 'Avg Contribution (RWF)', value: '3,571 RWF', icon: '📊', color: 'var(--gold)' },
-          { label: 'Attendance Rate', value: '81.2%', icon: '📋', color: 'var(--emerald)' },
-          { label: 'Campaign Success', value: '87%', icon: '🎯', color: 'var(--royal-blue)' },
-          { label: 'Member Retention', value: '94.3%', icon: '💎', color: 'var(--amber)' },
+          { label: 'Avg Contribution (RWF)', value: '3,571 RWF', icon: 'bar-chart-2', color: 'var(--gold)' },
+          { label: 'Attendance Rate', value: '81.2%', icon: 'clipboard-list', color: 'var(--emerald)' },
+          { label: 'Campaign Success', value: '87%', icon: 'target', color: 'var(--royal-blue)' },
+          { label: 'Member Retention', value: '94.3%', icon: 'gem', color: 'var(--amber)' },
         ].map(s => (
           <div key={s.label} className="glass-card-static" style={{ padding: 'var(--space-lg)', textAlign: 'center' }}>
-            <span style={{ fontSize: 32, display: 'block', marginBottom: 'var(--space-sm)' }}>{s.icon}</span>
+            <span style={{ display: 'block', marginBottom: 'var(--space-sm)' }}><OnlineLogoIcon name={s.icon} size={32} /></span>
             <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)', color: s.color }}>
               {s.value}
             </p>

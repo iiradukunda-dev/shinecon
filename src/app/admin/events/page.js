@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY = { title: '', date: '', time: '', location: '', category: 'Worship', description: '', recurring: false };
 
@@ -44,8 +45,8 @@ export default function AdminEventsPage() {
                 <td><span className="badge badge-gold">{e.category}</span></td>
                 <td>
                   <div style={{ display: 'flex', gap: 4 }}>
-                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(e)}>✏️</button>
-                    <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(e)} style={{ color: 'var(--soft-red)' }}>🗑</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(e)}><OnlineLogoIcon name="edit" size={16} /></button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(e)} style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                   </div>
                 </td>
               </tr>
@@ -55,7 +56,7 @@ export default function AdminEventsPage() {
       </div>
 
       {events.length === 0 && (
-        <div className="empty-state"><div className="empty-state-icon">📅</div><p className="empty-state-title">No events</p>
+        <div className="empty-state"><div className="empty-state-icon"><OnlineLogoIcon name="calendar" size={32} /></div><p className="empty-state-title">No events</p>
           <button className="btn btn-gold" onClick={openCreate}>Create First Event</button></div>
       )}
 
@@ -63,7 +64,7 @@ export default function AdminEventsPage() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Event' : '✏️ Edit Event'}</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Event' : <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="edit" size={16} /> Edit Event</span>}</h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
             <div className="modal-body">
@@ -99,7 +100,7 @@ export default function AdminEventsPage() {
       {deleteTarget && (
         <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
-            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Event</h3>
+            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Event</h3>
               <button className="btn btn-ghost" onClick={() => setDeleteTarget(null)}>✕</button></div>
             <div className="modal-body" style={{ textAlign: 'center' }}><p>Delete event <strong>{deleteTarget.title}</strong>?</p></div>
             <div className="modal-footer">

@@ -17,7 +17,7 @@ export async function POST(request) {
         currency: data.currency || 'RWF',
         recurring: data.recurring === true,
         active: true,
-        icon: data.icon || '💰',
+        icon: data.icon || 'wallet',
         color: data.color || '#D4A843',
       },
     });

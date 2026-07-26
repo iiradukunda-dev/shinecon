@@ -2,20 +2,21 @@
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
 import { AI_SUGGESTIONS } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const AI_RESPONSES = {
-  'how much have i contributed this year': 'Based on your records, you have contributed a total of **8,000 RWF** this year across 2 approved transactions. Your most recent contribution was 5,000 RWF for Monthly Contribution on July 15th. You\'re making great progress! 🙏',
+  'how much have i contributed this year': 'Based on your records, you have contributed a total of **8,000 RWF** this year across 2 approved transactions. Your most recent contribution was 5,000 RWF for Monthly Contribution on July 15th. You\'re making great progress!',
   'what contributions are due this month': 'For this month, you have the following contributions due:\n\n• **Monthly Contribution**: 5,000 RWF (employed, local)\n• **Building Fund**: 3,000 RWF (optional but encouraged)\n\nWould you like me to take you to the contribution page?',
-  'show my recent receipts': 'Here are your recent receipts:\n\n✅ **July 15, 2026** — Monthly Contribution: 5,000 RWF (Ref: MTN-2026071501)\n✅ **June 25, 2026** — Building Fund: 3,000 RWF (Ref: MTN-2026071513)\n\nAll receipts have also been sent to your email.',
-  'what events are coming up': 'Upcoming events at Shining Ministries:\n\n📅 **July 20** — Sunday Worship Service (9:00 AM)\n📅 **July 21** — Choir Practice (4:00 PM)\n📅 **July 22** — Youth Fellowship (5:00 PM)\n📅 **July 24** — Prayer Night (7:00 PM)\n📅 **Aug 2** — Leadership Summit (10:00 AM)',
-  'which campaigns are active': 'There are currently **3 active campaigns**:\n\n🏛️ **New Church Building** — 65% funded (32.4M / 50M RWF)\n🌍 **Youth Mission Trip** — 64% funded (3.2M / 5M RWF)\n🤝 **Community Outreach** — 62% funded (1.85M / 3M RWF)\n\nWould you like to contribute to any of these?',
-  'default': 'Thank you for your question! As the SM Connect AI Assistant, I can help you with:\n\n• Contribution history and dues\n• Event schedules\n• Campaign information\n• Attendance records\n• Ministry announcements\n\nHow can I assist you today? 🌟',
+  'show my recent receipts': 'Here are your recent receipts:\n\n• **July 15, 2026** — Monthly Contribution: 5,000 RWF (Ref: MTN-2026071501)\n• **June 25, 2026** — Building Fund: 3,000 RWF (Ref: MTN-2026071513)\n\nAll receipts have also been sent to your email.',
+  'what events are coming up': 'Upcoming events at Shining Ministries:\n\n• **July 20** — Sunday Worship Service (9:00 AM)\n• **July 21** — Choir Practice (4:00 PM)\n• **July 22** — Youth Fellowship (5:00 PM)\n• **July 24** — Prayer Night (7:00 PM)\n• **Aug 2** — Leadership Summit (10:00 AM)',
+  'which campaigns are active': 'There are currently **3 active campaigns**:\n\n• **New Church Building** — 65% funded (32.4M / 50M RWF)\n• **Youth Mission Trip** — 64% funded (3.2M / 5M RWF)\n• **Community Outreach** — 62% funded (1.85M / 3M RWF)\n\nWould you like to contribute to any of these?',
+  'default': 'Thank you for your question! As the SM Connect AI Assistant, I can help you with:\n\n• Contribution history and dues\n• Event schedules\n• Campaign information\n• Attendance records\n• Ministry announcements\n\nHow can I assist you today?',
 };
 
 export default function AIPage() {
   const { user } = useApp();
   const [messages, setMessages] = useState([
-    { role: 'ai', content: `Hello ${user?.name?.split(' ')[0] || 'there'}! 👋\n\nI\'m your SM Connect AI Assistant. I can help you with contributions, events, campaigns, and more.\n\nHow can I serve you today?` },
+    { role: 'ai', content: `Hello ${user?.name?.split(' ')[0] || 'there'}!\n\nI\'m your SM Connect AI Assistant. I can help you with contributions, events, campaigns, and more.\n\nHow can I serve you today?` },
   ]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
@@ -49,7 +50,7 @@ export default function AIPage() {
   return (
     <div className="page-member-content" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 170px)' }}>
       <div className="page-header" style={{ flexShrink: 0, marginBottom: 'var(--space-md)' }}>
-        <h1>✨ AI Assistant</h1>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: 12 }}><OnlineLogoIcon name="sparkles" size={28} /> AI Assistant</h1>
         <p>Your personal ministry companion</p>
       </div>
 

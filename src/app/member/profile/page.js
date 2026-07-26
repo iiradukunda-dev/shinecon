@@ -2,6 +2,7 @@
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import { getInitials, formatCurrency } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function ProfilePage() {
   const { user, theme, toggleTheme, language, setLanguage, logout, contributions } = useApp();
@@ -44,9 +45,9 @@ export default function ProfilePage() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-sm)', marginBottom: 'var(--space-lg)' }}>
         {[
-          { label: 'Total Given', value: formatCurrency(total, currency), icon: '💰' },
-          { label: 'Transactions', value: myContribs.length, icon: '📊' },
-          { label: 'Member Since', value: '2024', icon: '📅' },
+          { label: 'Total Given', value: formatCurrency(total, currency), icon: <OnlineLogoIcon name="dollar-sign" size={24} /> },
+          { label: 'Transactions', value: myContribs.length, icon: <OnlineLogoIcon name="bar-chart" size={24} /> },
+          { label: 'Member Since', value: '2024', icon: <OnlineLogoIcon name="calendar" size={24} /> },
         ].map((stat, i) => (
           <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-md)', textAlign: 'center' }}>
             <span style={{ fontSize: 24 }}>{stat.icon}</span>
@@ -64,7 +65,7 @@ export default function ProfilePage() {
         {[
           { label: 'Phone', value: user?.phone || '+250 788 123 456' },
           { label: 'Country', value: user?.country || 'Rwanda' },
-          { label: 'Status', value: '✅ Approved' },
+          { label: 'Status', value: <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><OnlineLogoIcon name="check-circle" size={16} /> Approved</span> },
         ].map(item => (
           <div key={item.label} style={{
             display: 'flex', justifyContent: 'space-between', padding: '12px 0',
@@ -82,7 +83,7 @@ export default function ProfilePage() {
 
         {/* Theme */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border-light)' }}>
-          <span style={{ fontSize: 'var(--text-sm)' }}>🌙 Dark Mode</span>
+          <span style={{ fontSize: 'var(--text-sm)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="moon" size={16} /> Dark Mode</span>
           <button onClick={toggleTheme} style={{
             width: 48, height: 26, borderRadius: 'var(--radius-full)', padding: 3,
             background: theme === 'dark' ? 'var(--gold)' : 'var(--gray-300)',
@@ -98,7 +99,7 @@ export default function ProfilePage() {
 
         {/* Language */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border-light)' }}>
-          <span style={{ fontSize: 'var(--text-sm)' }}>🌍 Language</span>
+          <span style={{ fontSize: 'var(--text-sm)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="globe" size={16} /> Language</span>
           <select className="select" value={language} onChange={e => setLanguage(e.target.value)}
             style={{ width: 'auto', padding: '6px 32px 6px 12px', fontSize: 'var(--text-sm)' }}>
             <option value="en">English</option>
@@ -109,13 +110,13 @@ export default function ProfilePage() {
         </div>
 
         <div style={{ padding: '12px 0', borderBottom: '1px solid var(--border-light)' }}>
-          <button className="btn btn-ghost" style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--text-secondary)' }}>
-            📄 Privacy Policy
+          <button className="btn btn-ghost" style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--text-secondary)', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <OnlineLogoIcon name="file-text" size={16} /> Privacy Policy
           </button>
         </div>
         <div style={{ padding: '12px 0' }}>
-          <button className="btn btn-ghost" style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--text-secondary)' }}>
-            📋 Terms of Service
+          <button className="btn btn-ghost" style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--text-secondary)', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <OnlineLogoIcon name="clipboard" size={16} /> Terms of Service
           </button>
         </div>
       </div>

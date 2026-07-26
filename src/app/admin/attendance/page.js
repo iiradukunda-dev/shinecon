@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
 import { QRCodeSVG } from 'qrcode.react';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY = { event: '', date: '', total: 0, capacity: 250 };
 
@@ -42,12 +43,12 @@ export default function AdminAttendancePage() {
       {/* Stats */}
       <div className="grid grid-3 animate-fade-in-up stagger-1" style={{ marginBottom: 'var(--space-xl)' }}>
         {[
-          { label: 'Total Sessions', value: attendance.length, icon: '📋', bg: 'rgba(212,168,67,0.1)' },
-          { label: 'Avg Attendance', value: avgAttendance, icon: '👥', bg: 'rgba(43,138,62,0.1)' },
-          { label: 'Avg Rate', value: `${avgRate}%`, icon: '📊', bg: 'rgba(59,91,219,0.1)' },
+          { label: 'Total Sessions', value: attendance.length, icon: 'clipboard', bg: 'rgba(212,168,67,0.1)' },
+          { label: 'Avg Attendance', value: avgAttendance, icon: 'users', bg: 'rgba(43,138,62,0.1)' },
+          { label: 'Avg Rate', value: `${avgRate}%`, icon: 'bar-chart-2', bg: 'rgba(59,91,219,0.1)' },
         ].map(s => (
           <div key={s.label} className="stat-card glass-card-static">
-            <div className="stat-icon" style={{ background: s.bg }}>{s.icon}</div>
+            <div className="stat-icon" style={{ background: s.bg }}><OnlineLogoIcon name={s.icon} size={24} /></div>
             <div className="stat-value">{s.value}</div>
             <div className="stat-label">{s.label}</div>
           </div>
@@ -77,9 +78,9 @@ export default function AdminAttendancePage() {
                   </td>
                   <td>
                     <div style={{ display: 'flex', gap: 4 }}>
-                      <button className="btn btn-ghost btn-sm" onClick={() => setViewQr(att)} title="View QR Code">🔳</button>
-                      <button className="btn btn-ghost btn-sm" onClick={() => openEdit(att)} title="Edit">✏️</button>
-                      <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(att)} title="Delete" style={{ color: 'var(--soft-red)' }}>🗑</button>
+                      <button className="btn btn-ghost btn-sm" onClick={() => setViewQr(att)} title="View QR Code"><OnlineLogoIcon name="maximize" size={16} /></button>
+                      <button className="btn btn-ghost btn-sm" onClick={() => openEdit(att)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
+                      <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(att)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                     </div>
                   </td>
                 </tr>
@@ -91,7 +92,7 @@ export default function AdminAttendancePage() {
 
       {attendance.length === 0 && (
         <div className="empty-state">
-          <div className="empty-state-icon">📋</div>
+          <div className="empty-state-icon"><OnlineLogoIcon name="clipboard" size={32} /></div>
           <p className="empty-state-title">No attendance sessions</p>
           <p className="empty-state-description">Record your first attendance session</p>
           <button className="btn btn-gold" onClick={openCreate} style={{ marginTop: 'var(--space-md)' }}>+ New Session</button>
@@ -104,7 +105,7 @@ export default function AdminAttendancePage() {
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
-                {modal === 'create' ? '+ New Attendance Session' : '✏️ Edit Session'}
+                {modal === 'create' ? '+ New Attendance Session' : <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="edit" size={16} /> Edit Session</span>}
               </h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
@@ -174,7 +175,7 @@ export default function AdminAttendancePage() {
         <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Session</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Session</h3>
               <button className="btn btn-ghost" onClick={() => setDeleteTarget(null)}>✕</button>
             </div>
             <div className="modal-body" style={{ textAlign: 'center' }}>

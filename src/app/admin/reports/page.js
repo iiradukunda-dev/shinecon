@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import {
-  IconGive, IconUsers, IconTarget, IconClipboard, IconChart, IconShield, IconEye, IconDownload
+  IconGive, IconUsers, IconTarget, IconClipboard, IconChart, IconShield, IconEye, IconDownload, OnlineLogoIcon
 } from '@/components/icons';
 
 export default function AdminReportsPage() {
@@ -278,18 +278,18 @@ export default function AdminReportsPage() {
             <div style={{ display: 'flex', gap: 12 }}>
               <button
                 className="btn btn-secondary"
-                style={{ flex: 1, padding: '12px 16px', fontSize: 15 }}
+                style={{ flex: 1, padding: '12px 16px', fontSize: 15, display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center' }}
                 onClick={() => handleGenerate(report)}
               >
-                👁️ Preview Live
+                <OnlineLogoIcon name="eye" size={16} /> Preview Live
               </button>
 
               <button
                 className="btn btn-gold"
-                style={{ flex: 1, padding: '12px 16px', fontSize: 15 }}
+                style={{ flex: 1, padding: '12px 16px', fontSize: 15, display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center' }}
                 onClick={() => handleQuickExportCSV(report)}
               >
-                📥 Export CSV
+                <OnlineLogoIcon name="download" size={16} /> Export CSV
               </button>
             </div>
           </div>
@@ -321,7 +321,7 @@ export default function AdminReportsPage() {
             {/* Search Filter Inside Modal */}
             <div style={{ padding: '16px 24px', borderBottom: '1px solid rgba(212, 168, 67, 0.2)', background: 'rgba(12, 12, 18, 0.6)' }}>
               <div className="topbar-search" style={{ width: '100%', minWidth: 'auto', background: 'rgba(255, 255, 255, 0.06)' }}>
-                <span>🔍</span>
+                <OnlineLogoIcon name="search" size={16} color="rgba(255, 255, 255, 0.5)" />
                 <input
                   placeholder="Filter report records..."
                   value={searchQuery}
@@ -366,12 +366,13 @@ export default function AdminReportsPage() {
               </button>
               <button
                 className="btn btn-gold"
+                style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                 onClick={() => {
                   downloadCSV(previewData.config.id, previewData.headers, previewData.rows);
                   setPreviewData(null);
                 }}
               >
-                📥 Download Full CSV Report
+                <OnlineLogoIcon name="download" size={16} /> Download Full CSV Report
               </button>
             </div>
           </div>

@@ -63,7 +63,7 @@ export default function AdminAnnouncementsPage() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Announcement' : '✏️ Edit Announcement'}</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Announcement' : <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="edit" size={16} /> Edit Announcement</span>}</h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
             <div className="modal-body">
@@ -103,7 +103,7 @@ export default function AdminAnnouncementsPage() {
       {deleteTarget && (
         <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
-            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Announcement</h3>
+            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Announcement</h3>
               <button className="btn btn-ghost" onClick={() => setDeleteTarget(null)}>✕</button></div>
             <div className="modal-body" style={{ textAlign: 'center' }}><p>Delete <strong>{deleteTarget.title}</strong>?</p></div>
             <div className="modal-footer">

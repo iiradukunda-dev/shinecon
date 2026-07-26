@@ -4,7 +4,7 @@ import { useApp } from '@/context/app-context';
 import { formatCurrency } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
-const EMPTY = { title: '', description: '', goal: 0, currency: 'RWF', startDate: '', endDate: '', featured: false, image: '🎯' };
+const EMPTY = { title: '', description: '', goal: 0, currency: 'RWF', startDate: '', endDate: '', featured: false, image: 'target' };
 
 export default function AdminCampaignsPage() {
   const { campaigns, addCampaign, updateCampaign, deleteCampaign } = useApp();
@@ -62,8 +62,8 @@ export default function AdminCampaignsPage() {
                 <span style={{ fontWeight: 600, color: 'var(--gold-dark)' }}>{pct}%</span>
               </div>
               <div style={{ marginTop: 'var(--space-md)', paddingTop: 'var(--space-md)', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>
-                <span>👥 {campaign.contributors} contributors</span>
-                <span>{campaign.featured ? '⭐ Featured' : ''}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><OnlineLogoIcon name="users" size={12} /> {campaign.contributors} contributors</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>{campaign.featured ? <><OnlineLogoIcon name="star" size={12} /> Featured</> : ''}</span>
                 <span>Ends {campaign.endDate}</span>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function AdminCampaignsPage() {
       </div>
 
       {campaigns.length === 0 && (
-        <div className="empty-state"><div className="empty-state-icon">🎯</div><p className="empty-state-title">No campaigns yet</p>
+        <div className="empty-state"><div className="empty-state-icon"><OnlineLogoIcon name="target" size={32} /></div><p className="empty-state-title">No campaigns yet</p>
           <button className="btn btn-gold" onClick={openCreate}>Create First Campaign</button></div>
       )}
 
@@ -81,7 +81,7 @@ export default function AdminCampaignsPage() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Campaign' : '✏️ Edit Campaign'}</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{modal === 'create' ? '+ New Campaign' : <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="edit" size={16} /> Edit Campaign</span>}</h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
             <div className="modal-body">
@@ -128,7 +128,7 @@ export default function AdminCampaignsPage() {
       {deleteTarget && (
         <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
-            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Campaign</h3>
+            <div className="modal-header"><h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Campaign</h3>
               <button className="btn btn-ghost" onClick={() => setDeleteTarget(null)}>✕</button></div>
             <div className="modal-body" style={{ textAlign: 'center' }}>
               <p>Delete campaign <strong>{deleteTarget.title}</strong>?</p>

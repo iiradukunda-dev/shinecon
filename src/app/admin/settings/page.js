@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const DEFAULT_SETTINGS = {
   'branding.ministryName': 'Shining Ministries',
@@ -69,7 +70,7 @@ export default function SettingsPage() {
 
   const sections = [
     {
-      title: '🎨 Branding',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="palette" size={20} /> Branding</span>,
       items: [
         { label: 'Ministry Name', key: 'branding.ministryName', type: 'text' },
         { label: 'App Name', key: 'branding.appName', type: 'text' },
@@ -77,7 +78,7 @@ export default function SettingsPage() {
       ],
     },
     {
-      title: '🌍 Localization',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="globe" size={20} /> Localization</span>,
       items: [
         { label: 'Default Language', key: 'localization.defaultLanguage', type: 'select', options: [
           { value: 'en', label: 'English' },
@@ -89,7 +90,7 @@ export default function SettingsPage() {
       ],
     },
     {
-      title: '💳 MTN MoMo',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="credit-card" size={20} /> MTN MoMo</span>,
       items: [
         { label: 'Environment', key: 'momo.environment', type: 'select', options: [{ value: 'Sandbox', label: 'Sandbox' }, { value: 'Production', label: 'Production' }] },
         { label: 'API User', key: 'momo.apiUser', type: 'password' },
@@ -98,7 +99,7 @@ export default function SettingsPage() {
       ],
     },
     {
-      title: '📧 Notifications',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="mail" size={20} /> Notifications</span>,
       items: [
         { label: 'Email Provider', key: 'notifications.emailProvider', type: 'text' },
         { label: 'Push Notifications', key: 'notifications.push', type: 'select', options: [{ value: 'Enabled', label: 'Enabled' }, { value: 'Disabled', label: 'Disabled' }] },
@@ -106,7 +107,7 @@ export default function SettingsPage() {
       ],
     },
     {
-      title: '🔐 Security',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="lock" size={20} /> Security</span>,
       items: [
         { label: 'Two-Factor Auth', key: 'security.2fa', type: 'select', options: [{ value: 'Enabled', label: 'Enabled' }, { value: 'Disabled', label: 'Disabled' }] },
         { label: 'Session Timeout', key: 'security.timeout', type: 'text' },
@@ -114,7 +115,7 @@ export default function SettingsPage() {
       ],
     },
     {
-      title: '💾 Backup',
+      title: <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="hard-drive" size={20} /> Backup</span>,
       items: [
         { label: 'Auto Backup', key: 'backup.auto', type: 'text' },
         { label: 'Last Backup', key: 'backup.last', type: 'text', readOnly: true },
@@ -138,7 +139,7 @@ export default function SettingsPage() {
       <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
         <div className="flex-between">
           <div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>🌙 Appearance</h3>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="moon" size={20} /> Appearance</h3>
             <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Switch between light and dark mode</p>
           </div>
           <button onClick={toggleTheme} style={{
@@ -152,7 +153,7 @@ export default function SettingsPage() {
               transition: 'transform 0.3s var(--ease-spring)',
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
             }}>
-              {theme === 'dark' ? '🌙' : '☀️'}
+              {theme === 'dark' ? <OnlineLogoIcon name="moon" size={14} color="#000" /> : <OnlineLogoIcon name="sun" size={14} color="#000" />}
             </div>
           </button>
         </div>
@@ -161,7 +162,7 @@ export default function SettingsPage() {
       {/* Settings Sections */}
       <div className="grid grid-2">
         {sections.map((section, i) => (
-          <div key={section.title} className={`glass-card-static animate-fade-in-up stagger-${Math.min(i + 2, 6)}`} style={{ padding: 'var(--space-lg)' }}>
+          <div key={i} className={`glass-card-static animate-fade-in-up stagger-${Math.min(i + 2, 6)}`} style={{ padding: 'var(--space-lg)' }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
               {section.title}
             </h3>

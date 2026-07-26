@@ -122,8 +122,8 @@ export default function MemberDashboard() {
 
       {/* Welcome Hero Card */}
       <div className="dash-hero-card">
-        <p suppressHydrationWarning style={{ color: '#D4A843', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
-          {getGreeting()} 🌅
+        <p suppressHydrationWarning style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#D4A843', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
+          {getGreeting()} <OnlineLogoIcon name="sun" size={16} />
         </p>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>
           Welcome, {user?.name || 'Jean-Pierre'}
@@ -230,8 +230,8 @@ export default function MemberDashboard() {
                   </div>
                 </div>
 
-                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
-                  ⏰ {event.time} • 📍 {event.location}
+                <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
+                  <OnlineLogoIcon name="clock" size={14} /> {event.time} • <OnlineLogoIcon name="map-pin" size={14} /> {event.location}
                 </p>
 
                 <button
@@ -276,7 +276,7 @@ export default function MemberDashboard() {
               </p>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'rgba(255,255,255,0.5)', paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <span>📅 {formatDate(ann.date)}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><OnlineLogoIcon name="calendar" size={12} /> {formatDate(ann.date)}</span>
                 <span style={{ color: '#D4A843', cursor: 'pointer', fontWeight: 600 }} onClick={() => router.push('/member/announcements')}>Read More →</span>
               </div>
             </div>

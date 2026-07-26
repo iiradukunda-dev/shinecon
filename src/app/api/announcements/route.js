@@ -23,7 +23,7 @@ export async function POST(request) {
       priority: announcement.priority,
       date: announcement.publishDate.toISOString().split('T')[0],
       description: announcement.description,
-      image: announcement.imageUrl || '📣',
+      image: announcement.imageUrl || 'megaphone',
     });
   } catch (error) {
     console.error('Failed to create announcement:', error);
@@ -55,7 +55,7 @@ export async function PUT(request) {
       priority: announcement.priority,
       date: announcement.publishDate.toISOString().split('T')[0],
       description: announcement.description,
-      image: announcement.imageUrl || '📣',
+      image: announcement.imageUrl || 'megaphone',
     });
   } catch (error) {
     console.error('Failed to update announcement:', error);

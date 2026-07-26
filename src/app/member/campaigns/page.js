@@ -54,8 +54,8 @@ export default function CampaignsPage() {
                   <span>{pct}% of {formatCurrency(campaign.goal, campaign.currency)}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>
-                    👥 {campaign.contributors} contributors
+                  <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <OnlineLogoIcon name="users" size={12} /> {campaign.contributors} contributors
                   </span>
                   {campaign.status === 'active' && (
                     <button className="btn btn-gold btn-sm" onClick={() => router.push('/member/contributions')}>Contribute</button>

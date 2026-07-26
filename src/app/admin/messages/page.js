@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AdminMessagesPage() {
   const { messages, deleteMessage, markMessageRead } = useApp();
@@ -33,13 +34,13 @@ export default function AdminMessagesPage() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
               {m.unread && <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--gold)' }} />}
-              <button className="btn btn-ghost btn-sm" onClick={(e) => { e.stopPropagation(); deleteMessage(m.id); }} style={{ color: 'var(--soft-red)' }} title="Delete">🗑</button>
+              <button className="btn btn-ghost btn-sm" onClick={(e) => { e.stopPropagation(); deleteMessage(m.id); }} style={{ color: 'var(--soft-red)' }} title="Delete"><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
             </div>
           </div>
         ))}
       </div>
       {messages.length === 0 && (
-        <div className="empty-state"><div className="empty-state-icon">💬</div><p className="empty-state-title">No messages</p><p className="empty-state-description">All clear!</p></div>
+        <div className="empty-state"><div className="empty-state-icon"><OnlineLogoIcon name="message-square" size={32} /></div><p className="empty-state-title">No messages</p><p className="empty-state-description">All clear!</p></div>
       )}
     </div>
   );

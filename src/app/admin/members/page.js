@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { getInitials, formatDate } from '@/lib/utils';
+import { OnlineLogoIcon } from '@/components/icons';
 
 const EMPTY_MEMBER = { name: '', email: '', phone: '', country: 'Rwanda', type: 'local', employment: 'employed' };
 
@@ -114,8 +115,8 @@ export default function AdminMembersPage() {
                         <button className="btn btn-danger btn-sm" onClick={() => rejectMember(m.id)} title="Reject">✗</button>
                       </>
                     )}
-                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(m)} title="Edit">✏️</button>
-                    <button className="btn btn-ghost btn-sm" onClick={() => openDelete(m)} title="Delete" style={{ color: 'var(--soft-red)' }}>🗑</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(m)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => openDelete(m)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                   </div>
                 </td>
               </tr>
@@ -126,7 +127,7 @@ export default function AdminMembersPage() {
 
       {filtered.length === 0 && (
         <div className="empty-state">
-          <div className="empty-state-icon">👥</div>
+          <div className="empty-state-icon"><OnlineLogoIcon name="users" size={32} /></div>
           <p className="empty-state-title">No members found</p>
           <p className="empty-state-description">Try adjusting your filters or add a new member</p>
         </div>
@@ -138,7 +139,7 @@ export default function AdminMembersPage() {
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
-                {modal === 'create' ? '+ Add Member' : '✏️ Edit Member'}
+                {modal === 'create' ? '+ Add Member' : <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="edit" size={16} /> Edit Member</span>}
               </h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
@@ -203,7 +204,7 @@ export default function AdminMembersPage() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 400 }}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)' }}>⚠️ Delete Member</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--soft-red)', display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="alert-triangle" size={16} color="var(--soft-red)" /> Delete Member</h3>
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
             <div className="modal-body" style={{ textAlign: 'center' }}>

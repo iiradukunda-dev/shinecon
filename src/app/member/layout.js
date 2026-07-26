@@ -94,15 +94,30 @@ export default function MemberLayout({ children }) {
             text-decoration: none;
             white-space: nowrap;
           }
-          .member-nav-item:hover {
+          .member-nav-item:hover, .member-nav-item.active {
             color: #FFFFFF;
-            background: rgba(255, 255, 255, 0.1);
+            /* Glassmorphism Base */
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            /* Asymmetric Border */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-color: rgba(255, 255, 255, 0.35);
+            border-right-color: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+          }
+          .member-nav-item:hover {
+            --glow-color: rgba(212, 168, 67, 0.2);
+            border-left: 1px solid rgba(212, 168, 67, 0.2);
+            border-bottom-color: rgba(212, 168, 67, 0.1);
+            box-shadow: -4px 4px 12px -4px var(--glow-color), inset -2px -2px 8px rgba(212, 168, 67, 0.1), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
           }
           .member-nav-item.active {
-            color: #D4A843;
-            background: rgba(212, 168, 67, 0.2);
-            border: 1px solid rgba(212, 168, 67, 0.4);
             font-weight: 700;
+            --glow-color: rgba(212, 168, 67, 0.5);
+            border-left: 3px solid rgba(212, 168, 67, 0.5);
+            border-bottom-color: rgba(212, 168, 67, 0.25);
+            box-shadow: -8px 8px 24px -6px var(--glow-color), inset -2px -2px 8px rgba(212, 168, 67, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
           }
 
           .member-nav-right {
@@ -144,34 +159,10 @@ export default function MemberLayout({ children }) {
             color: #FFFFFF;
           }
 
-          .btn-logout-nav {
-            padding: 9px 16px;
-            border-radius: 999px;
-            background: rgba(224, 49, 49, 0.15);
-            border: 1px solid rgba(224, 49, 49, 0.35);
-            color: #FF6B6B;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-          .btn-logout-nav:hover {
-            background: rgba(224, 49, 49, 0.25);
-            color: #FFFFFF;
-          }
+
 
           .mobile-toggle-btn {
             display: none;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(212, 168, 67, 0.3);
-            color: #D4A843;
-            font-size: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
           }
 
           .mobile-nav-drawer {
@@ -224,11 +215,11 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <button className="btn-logout-nav" onClick={() => { logout(); router.push('/login'); }}>
+          <button className="btn btn-danger btn-sm" onClick={() => { logout(); router.push('/login'); }}>
             Logout
           </button>
 
-          <button className="mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>
         </div>

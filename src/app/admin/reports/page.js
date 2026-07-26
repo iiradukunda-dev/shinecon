@@ -188,23 +188,6 @@ export default function AdminReportsPage() {
           transform: translateY(-4px);
           border-color: rgba(212, 168, 67, 0.6);
         }
-
-        .filter-pill {
-          padding: 8px 16px;
-          border-radius: 999px;
-          font-size: 14px;
-          font-weight: 600;
-          cursor: pointer;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          color: rgba(255, 255, 255, 0.8);
-          transition: all 0.2s ease;
-        }
-        .filter-pill.active {
-          background: rgba(212, 168, 67, 0.25);
-          border-color: #D4A843;
-          color: #D4A843;
-        }
       `}</style>
 
       {/* Header & Controls */}
@@ -219,7 +202,7 @@ export default function AdminReportsPage() {
         </div>
 
         {/* Date Filter Bar */}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <div className="tab-container" style={{ flexWrap: 'wrap' }}>
           {[
             { id: 'all', label: 'All Time' },
             { id: 'month', label: 'This Month' },
@@ -228,7 +211,7 @@ export default function AdminReportsPage() {
           ].map(f => (
             <button
               key={f.id}
-              className={`filter-pill ${dateFilter === f.id ? 'active' : ''}`}
+              className={`tab-btn ${dateFilter === f.id ? 'active' : ''}`}
               onClick={() => setDateFilter(f.id)}
             >
               {f.label}

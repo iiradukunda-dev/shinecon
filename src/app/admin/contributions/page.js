@@ -25,16 +25,13 @@ export default function AdminContributionsPage() {
       </div>
 
       {/* Filters */}
-      <div style={{ display: 'flex', gap: 4, background: 'var(--glass-bg)', borderRadius: 'var(--radius-full)', padding: 4, marginBottom: 'var(--space-lg)', width: 'fit-content' }}
-        className="animate-fade-in-up stagger-1">
+      <div className="tab-container animate-fade-in-up stagger-1">
         {['all', 'pending', 'approved', 'rejected'].map(f => (
-          <button key={f} onClick={() => setFilter(f)} style={{
-            padding: '8px 16px', borderRadius: 'var(--radius-full)',
-            background: filter === f ? 'var(--gold)' : 'transparent',
-            color: filter === f ? '#fff' : 'var(--text-secondary)',
-            fontWeight: 600, fontSize: 'var(--text-sm)', transition: 'all 0.2s', border: 'none', cursor: 'pointer',
-            textTransform: 'capitalize',
-          }}>
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`tab-btn ${filter === f ? 'active' : ''}`}
+          >
             {f}
           </button>
         ))}

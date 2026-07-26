@@ -43,9 +43,9 @@ export default function LoginPage() {
 
         .auth-card-custom {
           width: 100%;
-          max-width: 460px;
-          padding: 24px 24px;
-          border-radius: 32px;
+          max-width: 380px;
+          padding: 16px 20px;
+          border-radius: 20px;
           position: relative;
           z-index: 1;
           background: rgba(15, 15, 20, 0.75);
@@ -81,9 +81,9 @@ export default function LoginPage() {
           font-family: serif;
         }
         .auth-logo-custom {
-          width: 84px;
-          height: 84px;
-          margin: 0 auto 16px;
+          width: 48px;
+          height: 48px;
+          margin: 0 auto 8px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -92,26 +92,26 @@ export default function LoginPage() {
         .auth-title-custom {
           text-align: center;
           font-family: var(--font-display);
-          font-size: 28px;
+          font-size: 20px;
           font-weight: 700;
           color: var(--gold);
-          margin-bottom: 4px;
+          margin-bottom: 2px;
         }
         .auth-subtitle-custom {
           text-align: center;
           color: rgba(255, 255, 255, 0.7);
-          font-size: 14px;
-          margin-bottom: 32px;
+          font-size: 13px;
+          margin-bottom: 12px;
         }
         .auth-input-group {
-          margin-bottom: 20px;
+          margin-bottom: 12px;
         }
         .auth-label-custom {
           display: block;
           color: rgba(255, 255, 255, 0.9);
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 600;
-          margin-bottom: 8px;
+          margin-bottom: 4px;
           padding-left: 4px;
         }
         .auth-input-wrapper {
@@ -128,7 +128,7 @@ export default function LoginPage() {
         }
         .auth-input-custom {
           width: 100%;
-          padding: 14px 20px 14px 44px;
+          padding: 10px 16px 10px 40px;
           background: rgba(255, 255, 255, 0.07);
           border: 1px solid rgba(212, 168, 67, 0.3);
           border-radius: 999px;
@@ -139,61 +139,34 @@ export default function LoginPage() {
           backdrop-filter: blur(10px);
         }
         .auth-input-custom::placeholder {
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(255, 255, 255, 0.25);
+          font-size: 13px;
         }
         .auth-input-custom:focus {
           background: rgba(255, 255, 255, 0.12);
           border-color: var(--gold);
           box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.25);
         }
-        .auth-btn-custom {
-          width: 100%;
-          padding: 16px;
-          background: linear-gradient(180deg, #D4A843 0%, #A37A24 100%);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-top-color: rgba(255, 255, 255, 0.4);
-          border-radius: 999px;
-          color: #FFFFFF;
-          font-size: 16px;
-          font-weight: 700;
-          box-shadow: 
-            0 8px 24px rgba(212, 168, 67, 0.25),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-          cursor: pointer;
-          transition: all 0.2s;
-          margin-top: 12px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .auth-btn-custom:hover:not(:disabled) {
-          background: linear-gradient(180deg, #E8C876 0%, #B08A2E 100%);
-          transform: translateY(-1px);
-          box-shadow: 0 12px 28px rgba(212, 168, 67, 0.4);
-        }
-        .auth-btn-custom:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
+
         .auth-options {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-top: 12px;
-          margin-bottom: 24px;
+          margin-top: 6px;
+          margin-bottom: 12px;
         }
         .auth-checkbox-label {
           display: flex;
           align-items: center;
           gap: 8px;
           color: rgba(255, 255, 255, 0.8);
-          font-size: 14px;
+          font-size: 13px;
           cursor: pointer;
         }
         .auth-checkbox {
           appearance: none;
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
           border: 1px solid rgba(212, 168, 67, 0.4);
           border-radius: 4px;
           background: rgba(255, 255, 255, 0.1);
@@ -208,7 +181,7 @@ export default function LoginPage() {
           content: '✓';
           position: absolute;
           color: #fff;
-          font-size: 12px;
+          font-size: 10px;
           font-weight: bold;
           top: 50%;
           left: 50%;
@@ -216,7 +189,7 @@ export default function LoginPage() {
         }
         .auth-forgot {
           color: var(--gold-light);
-          font-size: 14px;
+          font-size: 13px;
           text-decoration: none;
           font-weight: 600;
         }
@@ -225,24 +198,12 @@ export default function LoginPage() {
         }
 
         .auth-signup-container {
-          margin-top: 28px;
+          margin-top: 12px;
           text-align: center;
-          font-size: 14px;
+          font-size: 13px;
           color: rgba(255, 255, 255, 0.75);
-          padding-top: 20px;
+          padding-top: 12px;
           border-top: 1px solid rgba(212, 168, 67, 0.2);
-        }
-        .auth-signup-link {
-          color: #D4A843;
-          font-weight: 700;
-          text-decoration: none;
-          margin-left: 6px;
-          transition: color 0.2s ease;
-          cursor: pointer;
-        }
-        .auth-signup-link:hover {
-          color: #E8C876;
-          text-decoration: underline;
         }
       `}</style>
       
@@ -319,24 +280,27 @@ export default function LoginPage() {
             </a>
           </div>
 
-          <button
-            type="submit"
-            className="auth-btn-custom"
-            disabled={loading}
-          >
-            {loading ? (
-              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span className="animate-spin" style={{ display: 'inline-block', width: 18, height: 18, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%' }} />
-                Signing in...
-              </span>
-            ) : 'Sign In'}
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: 12 }}>
+            <button
+              type="submit"
+              className="btn btn-gold"
+              style={{ width: 200 }}
+              disabled={loading}
+            >
+              {loading ? (
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span className="animate-spin" style={{ display: 'inline-block', width: 18, height: 18, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%' }} />
+                  Signing in...
+                </span>
+              ) : 'Sign In'}
+            </button>
+          </div>
         </form>
 
 
         <div className="auth-signup-container">
           Don&apos;t have an account?
-          <button className="auth-signup-link" onClick={() => router.push('/register')}>
+          <button className="btn btn-ghost btn-sm" style={{ marginLeft: 6 }} onClick={() => router.push('/register')}>
             Sign Up
           </button>
         </div>

@@ -126,36 +126,6 @@ export default function SplashPage() {
           font-weight: 300;
         }
 
-        /* Button */
-        .btn-connect {
-          width: 80%;
-          max-width: 280px;
-          background: linear-gradient(180deg, #D4A843 0%, #A37A24 100%);
-          color: #FFFFFF;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-top-color: rgba(255, 255, 255, 0.4);
-          border-radius: 999px;
-          padding: 18px 32px;
-          font-size: 18px;
-          font-weight: 700;
-          cursor: pointer;
-          box-shadow: 
-            0 8px 24px rgba(212, 168, 67, 0.25),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-          transition: all 0.25s ease;
-          margin-bottom: 28px;
-          outline: none;
-        }
-        .btn-connect:hover {
-          transform: translateY(-2px);
-          box-shadow: 
-            0 12px 28px rgba(212, 168, 67, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4);
-          background: linear-gradient(180deg, #E8C876 0%, #B08A2E 100%);
-        }
-        .btn-connect:active {
-          animation: shakeOnActive 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        }
 
         /* Footer */
         .footer-text {
@@ -192,7 +162,11 @@ export default function SplashPage() {
         </p>
 
         {/* Action Button */}
-        <button className="btn-connect" onClick={() => router.push('/login')}>
+        <button 
+          className="btn btn-gold" 
+          style={{ width: 200, marginBottom: 28 }}
+          onClick={() => router.push('/login')}
+        >
           Connect
         </button>
 

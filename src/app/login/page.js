@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   const handleLogoClick = () => {
     if (user) {
@@ -36,6 +37,9 @@ export default function LoginPage() {
       if (result.error === 'Account is pending approval or suspended') {
         setShowReviewModal(true);
       } else {
+        if (result.error === 'Incorrect password') {
+          setIncorrectPassword(true);
+        }
         addToast(result.error, 'error');
       }
     }
@@ -253,7 +257,10 @@ export default function LoginPage() {
                 className="auth-input-custom"
                 placeholder="Enter your password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setIncorrectPassword(false);
+                }}
                 required
                 style={{ paddingRight: 44 }}
               />
@@ -290,7 +297,7 @@ export default function LoginPage() {
               type="submit"
               className="btn btn-gold"
               style={{ width: 200 }}
-              disabled={loading}
+              disabled={loading || incorrectPassword}
             >
               {loading ? (
                 <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

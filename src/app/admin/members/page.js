@@ -107,8 +107,12 @@ export default function AdminMembersPage() {
                 <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{formatDate(m.joinedDate)}</td>
                 <td>
                   <div style={{ display: 'flex', gap: 4 }}>
-                    <button className="btn btn-gold btn-sm" onClick={() => approveMember(m.id)} title="Approve" disabled={m.status === 'approved'}>✓</button>
-                    <button className="btn btn-danger btn-sm" onClick={() => rejectMember(m.id)} title="Reject" disabled={m.status === 'rejected'}>✗</button>
+                    {m.status === 'pending' && (
+                      <>
+                        <button className="btn btn-gold btn-sm" onClick={() => approveMember(m.id)} title="Approve">✓</button>
+                        <button className="btn btn-danger btn-sm" onClick={() => rejectMember(m.id)} title="Reject">✗</button>
+                      </>
+                    )}
                     <button className="btn btn-ghost btn-sm" onClick={() => openEdit(m)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
                     <button className="btn btn-ghost btn-sm" onClick={() => openDelete(m)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                   </div>
@@ -138,17 +142,19 @@ export default function AdminMembersPage() {
               <button className="btn btn-ghost" onClick={() => setModal(null)}>✕</button>
             </div>
             <div className="modal-body">
-              <div className="input-group">
-                <label className="input-label">Full Name *</label>
-                <input className="input" value={editData.name} onChange={e => setEditData(p => ({ ...p, name: e.target.value }))} placeholder="Full name" />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Email *</label>
-                <input className="input" type="email" value={editData.email} onChange={e => setEditData(p => ({ ...p, email: e.target.value }))} placeholder="email@example.com" />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Phone</label>
-                <input className="input" value={editData.phone} onChange={e => setEditData(p => ({ ...p, phone: e.target.value }))} placeholder="+250 78X XXX XXX" />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
+                <div className="input-group">
+                  <label className="input-label">Full Name *</label>
+                  <input className="input" value={editData.name} onChange={e => setEditData(p => ({ ...p, name: e.target.value }))} placeholder="Full name" />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">Email *</label>
+                  <input className="input" type="email" value={editData.email} onChange={e => setEditData(p => ({ ...p, email: e.target.value }))} placeholder="email@example.com" />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">Phone</label>
+                  <input className="input" value={editData.phone} onChange={e => setEditData(p => ({ ...p, phone: e.target.value }))} placeholder="+250 78X XXX XXX" />
+                </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group">

@@ -70,7 +70,7 @@ export default function AdminAnnouncementsPage() {
               <div className="input-group"><label className="input-label">Title *</label>
                 <input className="input" value={editData.title} onChange={e => setEditData(p => ({ ...p, title: e.target.value }))} /></div>
               <div className="input-group"><label className="input-label">Description *</label>
-                <textarea className="input" rows={3} value={editData.description || ''} onChange={e => setEditData(p => ({ ...p, description: e.target.value }))} style={{ resize: 'vertical' }} /></div>
+                <textarea className="input" rows={2} value={editData.description || ''} onChange={e => setEditData(p => ({ ...p, description: e.target.value }))} style={{ resize: 'vertical' }} /></div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group"><label className="input-label">Category</label>
                   <select className="select" value={editData.category} onChange={e => setEditData(p => ({ ...p, category: e.target.value }))}>
@@ -83,11 +83,11 @@ export default function AdminAnnouncementsPage() {
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {ICONS.map(icon => (
                     <button key={icon} type="button" onClick={() => setEditData(p => ({ ...p, image: icon }))} style={{
-                      width: 40, height: 40, borderRadius: 'var(--radius-md)', fontSize: 20,
+                      width: 32, height: 32, borderRadius: 'var(--radius-sm)', fontSize: 16,
                       border: editData.image === icon ? '2px solid var(--gold)' : '1px solid var(--border-light)',
                       background: editData.image === icon ? 'rgba(212,168,67,0.1)' : 'var(--bg-secondary)',
                       cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}><OnlineLogoIcon name={icon} size={20} /></button>
+                    }}><OnlineLogoIcon name={icon} size={16} /></button>
                   ))}
                 </div>
               </div>

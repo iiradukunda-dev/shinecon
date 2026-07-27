@@ -88,7 +88,7 @@ export default function AdminCampaignsPage() {
               <div className="input-group"><label className="input-label">Title *</label>
                 <input className="input" value={editData.title} onChange={e => setEditData(p => ({ ...p, title: e.target.value }))} placeholder="Campaign title" /></div>
               <div className="input-group"><label className="input-label">Description</label>
-                <textarea className="input" rows={3} value={editData.description} onChange={e => setEditData(p => ({ ...p, description: e.target.value }))} placeholder="Describe the campaign..." style={{ resize: 'vertical' }} /></div>
+                <textarea className="input" rows={2} value={editData.description} onChange={e => setEditData(p => ({ ...p, description: e.target.value }))} placeholder="Describe the campaign..." style={{ resize: 'vertical' }} /></div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group"><label className="input-label">Goal Amount</label>
                   <input className="input" type="number" value={editData.goal} onChange={e => setEditData(p => ({ ...p, goal: e.target.value }))} /></div>

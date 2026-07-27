@@ -5,21 +5,37 @@ import { formatCurrency, formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 export default function ContributionsPage() {
-  const { user, contributions, contributionTypes, addContribution, addToast } = useApp();
+  const { user, contributions, contributionTypes, campaigns, addContribution, addToast } = useApp();
   const [view, setView] = useState('types');
   const [selectedType, setSelectedType] = useState(null);
   const [paymentStep, setPaymentStep] = useState(0);
   const [phone, setPhone] = useState('');
+  const [customAmount, setCustomAmount] = useState('');
 
   const myContributions = contributions.filter(c => c.memberId === (user?.id || '1'));
   const isLocal = user?.type !== 'diaspora';
   const isStudent = user?.employment === 'student';
 
   const getAmount = (ct) => {
+    if (ct.isCampaign || (!ct.localStudent && ct.localStudent !== 0)) return 0;
     if (isLocal) return isStudent ? ct.localStudent : ct.localEmployed;
     return isStudent ? ct.diasporaStudent : ct.diasporaEmployed;
   };
   const getCurrency = (ct) => ct.currency || 'RWF';
+
+  const allOptions = [
+    ...contributionTypes.filter(ct => ct.active).map(ct => ({ ...ct, isCampaign: false })),
+    ...(campaigns || []).filter(c => c.status === 'active').map(c => ({
+      id: c.id,
+      name: c.title,
+      description: c.description,
+      category: 'Campaign',
+      icon: c.image || 'target',
+      currency: c.currency || 'RWF',
+      recurring: false,
+      isCampaign: true,
+    }))
+  ];
 
   const handlePay = () => {
     setPaymentStep(2);
@@ -28,7 +44,7 @@ export default function ContributionsPage() {
         memberId: user?.id || '1',
         memberName: user?.name || 'Unknown Member',
         type: selectedType.name,
-        amount: getAmount(selectedType),
+        amount: getAmount(selectedType) === 0 ? Number(customAmount) : getAmount(selectedType),
         currency: getCurrency(selectedType),
         phone: phone || user?.phone || '',
       });
@@ -59,15 +75,22 @@ export default function ContributionsPage() {
                 background: 'rgba(212,168,67,0.08)', marginBottom: 'var(--space-lg)',
               }}>
                 <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', marginBottom: 4 }}>Amount to Pay</p>
-                <p style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-4xl)', fontWeight: 800, color: 'var(--gold-dark)' }}>
-                  {amount === 0 ? 'Free Amount' : formatCurrency(amount, curr)}
-                </p>
+                {amount === 0 ? (
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                    <input type="number" className="input" placeholder="Enter amount" value={customAmount} onChange={e => setCustomAmount(e.target.value)} style={{ fontSize: 'var(--text-3xl)', fontWeight: 800, color: 'var(--gold-dark)', background: 'transparent', border: 'none', borderBottom: '2px solid var(--gold)', borderRadius: 0, padding: '0 0 4px 0', width: 200 }} />
+                    <span style={{ fontWeight: 700, color: 'var(--text-secondary)' }}>{curr}</span>
+                  </div>
+                ) : (
+                  <p style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-4xl)', fontWeight: 800, color: 'var(--gold-dark)' }}>
+                    {formatCurrency(amount, curr)}
+                  </p>
+                )}
                 <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', marginTop: 4 }}>
                   {isLocal ? 'Local' : 'Diaspora'} • {isStudent ? 'Student' : 'Employed'}
                 </p>
               </div>
 
-              <button className="btn btn-gold btn-lg" style={{ width: '100%' }} onClick={() => setPaymentStep(1)}>
+              <button className="btn btn-gold btn-lg" style={{ width: '100%' }} onClick={() => setPaymentStep(1)} disabled={amount === 0 && (!customAmount || Number(customAmount) <= 0)}>
                 Pay with MTN MoMo →
               </button>
             </>
@@ -85,7 +108,7 @@ export default function ContributionsPage() {
                 marginBottom: 'var(--space-lg)', textAlign: 'left', fontSize: 'var(--text-sm)',
               }}>
                 <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600, marginBottom: 4 }}><OnlineLogoIcon name="smartphone" size={16} /> Payment Summary</p>
-                <p>{selectedType.name}: {formatCurrency(amount || 0, curr)}</p>
+                <p>{selectedType.name}: {formatCurrency(amount === 0 ? Number(customAmount) : amount, curr)}</p>
                 <p>Method: MTN Mobile Money</p>
               </div>
               <button className="btn btn-gold btn-lg" style={{ width: '100%' }} onClick={handlePay}>
@@ -143,23 +166,23 @@ export default function ContributionsPage() {
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-sm)' }}>
             Choose Contribution
           </h2>
-          {contributionTypes.filter(ct => ct.active).map(ct => (
+          {allOptions.map(ct => (
             <button key={ct.id} className="glass-card" style={{
               padding: 'var(--space-md)', display: 'flex', alignItems: 'center', gap: 'var(--space-md)',
               width: '100%', textAlign: 'left',
-            }} onClick={() => { setSelectedType(ct); setPaymentStep(0); }}>
+            }} onClick={() => { setSelectedType(ct); setPaymentStep(0); setCustomAmount(''); }}>
               <div style={{
                 width: 48, height: 48, borderRadius: 'var(--radius-lg)',
-                background: `${ct.color}18`, display: 'flex', alignItems: 'center',
+                background: 'rgba(212, 168, 67, 0.1)', display: 'flex', alignItems: 'center',
                 justifyContent: 'center', fontSize: 24, flexShrink: 0,
-              }}><OnlineLogoIcon name={ct.icon || 'wallet'} size={24} color={ct.color} /></div>
+              }}><OnlineLogoIcon name={ct.icon || 'wallet'} size={24} color="var(--gold)" /></div>
               <div style={{ flex: 1 }}>
                 <p style={{ fontWeight: 600 }}>{ct.name}</p>
                 <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)' }}>{ct.category}</p>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <p style={{ fontWeight: 700, color: 'var(--gold-dark)' }}>
-                  {formatCurrency(getAmount(ct), getCurrency(ct))}
+                  {getAmount(ct) === 0 ? 'Custom Amount' : formatCurrency(getAmount(ct), getCurrency(ct))}
                 </p>
                 {ct.recurring && <span className="badge badge-gold" style={{ fontSize: 9 }}>Monthly</span>}
               </div>

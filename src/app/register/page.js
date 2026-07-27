@@ -14,6 +14,7 @@ export default function RegisterPage() {
     agreeTerms: false,
   });
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const update = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
 
@@ -33,8 +34,7 @@ export default function RegisterPage() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        addToast(data.message || 'Registration submitted! Pending admin approval.', 'success');
-        router.push('/login');
+        setShowSuccessModal(true);
       } else {
         addToast(data.error || 'Failed to register', 'error');
       }
@@ -169,6 +169,25 @@ export default function RegisterPage() {
           Already have an account? <a href="/login" style={{ color: 'var(--gold)', fontWeight: 600 }}>Sign In</a>
         </p>
       </div>
+
+      {showSuccessModal && (
+        <div className="modal-overlay" style={{ zIndex: 9999 }}>
+          <div className="modal animate-scale-in" style={{ maxWidth: 400, textAlign: 'center', padding: 'var(--space-xl)' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(43,138,62,0.1)', color: 'var(--emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto var(--space-md)', fontSize: 32 }}>
+              ✓
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-xl)', marginBottom: 'var(--space-sm)' }}>
+              Account Created Successfully
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-lg)' }}>
+              Your account has been created and is pending administrator review. You will be able to log in once your account is approved.
+            </p>
+            <button className="btn btn-gold" style={{ width: '100%' }} onClick={() => router.push('/login')}>
+              Go to Login
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

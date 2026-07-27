@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const handleLogoClick = () => {
     if (user) {
@@ -32,7 +33,11 @@ export default function LoginPage() {
       addToast('Welcome back! God bless you.', 'success');
       router.push(result.role === 'admin' ? '/admin/dashboard' : '/member/dashboard');
     } else {
-      addToast(result.error, 'error');
+      if (result.error === 'Account is pending approval or suspended') {
+        setShowReviewModal(true);
+      } else {
+        addToast(result.error, 'error');
+      }
     }
   };
 
@@ -305,6 +310,25 @@ export default function LoginPage() {
           </button>
         </div>
       </div>
+
+      {showReviewModal && (
+        <div className="modal-overlay" style={{ zIndex: 9999 }}>
+          <div className="modal animate-scale-in" style={{ maxWidth: 400, textAlign: 'center', padding: 'var(--space-xl)' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(212,168,67,0.1)', color: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto var(--space-md)', fontSize: 32 }}>
+              ⏳
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-xl)', marginBottom: 'var(--space-sm)' }}>
+              Account Under Review
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-lg)' }}>
+              Your account is still pending administrator approval. Please wait until your account is reviewed to sign in.
+            </p>
+            <button className="btn btn-gold" style={{ width: '100%' }} onClick={() => setShowReviewModal(false)}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

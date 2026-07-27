@@ -1064,7 +1064,7 @@ body {
   justify-content: center;
   z-index: var(--z-modal);
   padding: var(--space-lg);
-  animation: fadeIn 0.2s var(--ease-out);
+  animation: fadeIn 0.5s var(--ease-out);
 }
 .modal {
   background: var(--bg-secondary);
@@ -1075,7 +1075,7 @@ body {
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
-  animation: scaleIn 0.3s var(--ease-spring);
+  animation: scaleIn 0.8s var(--ease-spring);
 }
 .modal-header {
   padding: var(--space-lg);
@@ -1716,7 +1716,7 @@ body {
   justify-content: center;
   z-index: 1000;
   padding: var(--space-lg);
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.5s ease;
 }
 
 .modal {
@@ -1734,7 +1734,7 @@ body {
     inset 0 0 24px rgba(212, 168, 67, 0.08),
     inset 0 1px 1px rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(212, 168, 67, 0.35);
-  animation: scaleIn 0.25s var(--ease-spring);
+  animation: scaleIn 0.8s var(--ease-spring);
   overflow: hidden;
   color: #FFFFFF;
 }

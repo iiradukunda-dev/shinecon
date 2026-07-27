@@ -17,6 +17,11 @@ const emojiMap = {
   '📊': 'bar-chart-2',
   '🎯': 'target',
   '💎': 'gem',
+  '🏗️': 'hammer',
+  '🌟': 'star',
+  '🎵': 'music',
+  '✈️': 'plane',
+  '🎁': 'gift',
 };
 
 const colorMap = {

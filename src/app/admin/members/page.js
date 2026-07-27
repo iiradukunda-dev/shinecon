@@ -106,23 +106,11 @@ export default function AdminMembersPage() {
                 <td><span className={`badge ${m.status === 'approved' ? 'badge-green' : m.status === 'pending' ? 'badge-amber' : 'badge-red'}`}>{m.status}</span></td>
                 <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{formatDate(m.joinedDate)}</td>
                 <td>
-                  <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-                    {m.status === 'pending' && (
-                      <>
-                        <button className="btn btn-ghost btn-sm" style={{ padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => approveMember(m.id)} title="Approve">
-                          <OnlineLogoIcon name="check" size={16} color="var(--emerald)" />
-                        </button>
-                        <button className="btn btn-ghost btn-sm" style={{ padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => rejectMember(m.id)} title="Reject">
-                          <OnlineLogoIcon name="x" size={16} color="var(--soft-red)" />
-                        </button>
-                      </>
-                    )}
-                    <button className="btn btn-ghost btn-sm" style={{ padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => openEdit(m)} title="Edit">
-                      <OnlineLogoIcon name="edit" size={16} />
-                    </button>
-                    <button className="btn btn-ghost btn-sm" style={{ padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => openDelete(m)} title="Delete">
-                      <OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" />
-                    </button>
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    <button className="btn btn-gold btn-sm" onClick={() => approveMember(m.id)} title="Approve" disabled={m.status === 'approved'}>✓</button>
+                    <button className="btn btn-danger btn-sm" onClick={() => rejectMember(m.id)} title="Reject" disabled={m.status === 'rejected'}>✗</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(m)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => openDelete(m)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
                   </div>
                 </td>
               </tr>

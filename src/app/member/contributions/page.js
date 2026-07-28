@@ -148,14 +148,14 @@ export default function ContributionsPage() {
   return (
     <div className="page-member-content">
       {/* Tab Selector */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 'var(--space-lg)', background: 'var(--glass-bg)', borderRadius: 'var(--radius-full)', padding: 4 }}>
+      <div className="tab-container" style={{ marginBottom: 'var(--space-lg)', width: '100%', display: 'flex' }}>
         {['types', 'history'].map(tab => (
-          <button key={tab} onClick={() => setView(tab)} style={{
-            flex: 1, padding: '10px 16px', borderRadius: 'var(--radius-full)',
-            background: view === tab ? 'var(--gold)' : 'transparent',
-            color: view === tab ? '#fff' : 'var(--text-secondary)',
-            fontWeight: 600, fontSize: 'var(--text-sm)', transition: 'all 0.2s',
-          }}>
+          <button 
+            key={tab} 
+            onClick={() => setView(tab)} 
+            className={`tab-btn ${view === tab ? 'active' : ''}`}
+            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
+          >
             {tab === 'types' ? <><OnlineLogoIcon name="wallet" size={16} /> Contribute</> : <><OnlineLogoIcon name="history" size={16} /> History</>}
           </button>
         ))}

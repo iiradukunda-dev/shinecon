@@ -7,12 +7,12 @@ import {
 } from '@/components/icons';
 
 const NAV_ITEMS = [
-  { href: '/member/dashboard', icon: <IconHome size={18} />, label: 'Home' },
-  { href: '/member/campaigns', icon: <IconTarget size={18} />, label: 'Campaigns' },
-  { href: '/member/attendance', icon: <IconClipboard size={18} />, label: 'Attendance' },
-  { href: '/member/announcements', icon: <IconMegaphone size={18} />, label: 'Announcements' },
-  { href: '/member/ai', icon: <IconSparkles size={18} />, label: 'AI Help' },
-  { href: '/member/profile', icon: <IconUser size={18} />, label: 'Profile' },
+  { href: '/member/dashboard', icon: <IconHome size={20} />, label: 'Home' },
+  { href: '/member/campaigns', icon: <IconTarget size={20} />, label: 'Campaigns' },
+  { href: '/member/attendance', icon: <IconClipboard size={20} />, label: 'Attendance' },
+  { href: '/member/announcements', icon: <IconMegaphone size={20} />, label: 'Announcements' },
+  { href: '/member/ai', icon: <IconSparkles size={20} />, label: 'AI Help' },
+  { href: '/member/profile', icon: <IconUser size={20} />, label: 'Profile' },
 ];
 
 export default function MemberLayout({ children }) {
@@ -46,9 +46,9 @@ export default function MemberLayout({ children }) {
             top: 0;
             left: 0;
             right: 0;
-            height: 68px;
+            height: 80px;
             z-index: 200;
-            padding: 0 24px;
+            padding: 0 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -81,10 +81,10 @@ export default function MemberLayout({ children }) {
           .member-nav-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
+            gap: 8px;
+            padding: 10px 16px;
             border-radius: 999px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.85);
             transition: all 0.2s ease;
@@ -243,7 +243,7 @@ export default function MemberLayout({ children }) {
       )}
 
       {/* Main Content */}
-      <main style={{ paddingTop: 84, paddingBottom: 48, maxWidth: 1200, margin: '0 auto', paddingLeft: 24, paddingRight: 24 }}>
+      <main style={{ paddingTop: 96, paddingBottom: 48, maxWidth: 1200, margin: '0 auto', paddingLeft: 32, paddingRight: 32 }}>
         {children}
       </main>
 

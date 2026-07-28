@@ -7,7 +7,7 @@ import { OnlineLogoIcon } from '@/components/icons';
 const EMPTY = { title: '', description: '', goal: 0, currency: 'RWF', startDate: '', endDate: '', featured: false, image: 'target' };
 
 export default function AdminCampaignsPage() {
-  const { campaigns, addCampaign, updateCampaign, deleteCampaign } = useApp();
+  const { campaigns, addCampaign, updateCampaign, deleteCampaign, addToast } = useApp();
   const [modal, setModal] = useState(null);
   const [editData, setEditData] = useState(EMPTY);
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -16,6 +16,11 @@ export default function AdminCampaignsPage() {
   const openEdit = (c) => { setEditData({ ...c }); setModal('edit'); };
 
   const handleSave = () => {
+    if (!editData.title || !editData.description || !editData.goal || !editData.currency || !editData.startDate || !editData.endDate || !editData.image) {
+      addToast('All fields are required', 'error');
+      return;
+    }
+
     const data = { ...editData, goal: Number(editData.goal) };
     if (modal === 'create') addCampaign(data);
     else updateCampaign(editData.id, data);
@@ -87,26 +92,26 @@ export default function AdminCampaignsPage() {
             <div className="modal-body">
               <div className="input-group"><label className="input-label">Title *</label>
                 <input className="input" value={editData.title} onChange={e => setEditData(p => ({ ...p, title: e.target.value }))} placeholder="Campaign title" /></div>
-              <div className="input-group"><label className="input-label">Description</label>
+              <div className="input-group"><label className="input-label">Description *</label>
                 <textarea className="input" rows={2} value={editData.description} onChange={e => setEditData(p => ({ ...p, description: e.target.value }))} placeholder="Describe the campaign..." style={{ resize: 'vertical' }} /></div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
-                <div className="input-group"><label className="input-label">Goal Amount</label>
+                <div className="input-group"><label className="input-label">Goal Amount *</label>
                   <input className="input" type="number" value={editData.goal} onChange={e => setEditData(p => ({ ...p, goal: e.target.value }))} /></div>
-                <div className="input-group"><label className="input-label">Currency</label>
+                <div className="input-group"><label className="input-label">Currency *</label>
                   <select className="select" value={editData.currency} onChange={e => setEditData(p => ({ ...p, currency: e.target.value }))}>
                     <option>RWF</option></select></div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
-                <div className="input-group"><label className="input-label">Start Date</label>
+                <div className="input-group"><label className="input-label">Start Date *</label>
                   <input className="input" type="date" value={editData.startDate} onChange={e => setEditData(p => ({ ...p, startDate: e.target.value }))} /></div>
-                <div className="input-group"><label className="input-label">End Date</label>
+                <div className="input-group"><label className="input-label">End Date *</label>
                   <input className="input" type="date" value={editData.endDate} onChange={e => setEditData(p => ({ ...p, endDate: e.target.value }))} /></div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
-                <div className="input-group"><label className="input-label">Icon Name</label>
+                <div className="input-group"><label className="input-label">Icon Name *</label>
                   <input className="input" value={editData.image} onChange={e => setEditData(p => ({ ...p, image: e.target.value }))} /></div>
                 {modal === 'edit' && (
-                  <div className="input-group"><label className="input-label">Status</label>
+                  <div className="input-group"><label className="input-label">Status *</label>
                     <select className="select" value={editData.status} onChange={e => setEditData(p => ({ ...p, status: e.target.value }))}>
                       <option value="active">Active</option><option value="paused">Paused</option><option value="completed">Completed</option></select></div>
                 )}

@@ -45,7 +45,7 @@ export default function AttendancePage() {
             <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-lg)' }}>
               Point your camera at the event QR code to check in
             </p>
-            <button className="btn btn-gold btn-lg" style={{ display: 'flex', alignItems: 'center', gap: 8 }} onClick={handleScan}>
+            <button className="btn btn-gold btn-lg" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, margin: '0 auto' }} onClick={handleScan}>
               <OnlineLogoIcon name="camera" size={16} /> Open Scanner
             </button>
           </>

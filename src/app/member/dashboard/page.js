@@ -231,7 +231,10 @@ export default function MemberDashboard() {
                 </div>
 
                 <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
-                  <OnlineLogoIcon name="clock" size={14} /> {event.time} • <OnlineLogoIcon name="map-pin" size={14} /> {event.location}
+                  <OnlineLogoIcon name="clock" size={14} /> {event.time} • <OnlineLogoIcon name="map-pin" size={14} /> 
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                    {event.location}
+                  </a>
                 </p>
 
                 <button

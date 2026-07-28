@@ -177,7 +177,10 @@ export default function AdminDashboard() {
                 </div>
                 <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>{event.title}</p>
                 <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
-                  <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--emerald)" /> {event.location}
+                  <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--emerald)" /> 
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                    {event.location}
+                  </a>
                 </p>
                 <button className="btn btn-secondary" style={{ width: '100%', padding: '8px 14px', fontSize: 13 }} onClick={() => router.push('/admin/events')}>
                   Event Details

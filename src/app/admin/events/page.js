@@ -41,7 +41,13 @@ export default function AdminEventsPage() {
                 <td style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>{e.title}</td>
                 <td style={{ fontSize: 'var(--text-sm)' }}>{formatDate(e.date)}</td>
                 <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{e.time}</td>
-                <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{e.location}</td>
+                <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                  {e.location ? (
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                      {e.location}
+                    </a>
+                  ) : ''}
+                </td>
                 <td><span className="badge badge-gold">{e.category}</span></td>
                 <td>
                   <div style={{ display: 'flex', gap: 4 }}>

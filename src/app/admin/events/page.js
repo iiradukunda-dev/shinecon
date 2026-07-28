@@ -12,10 +12,10 @@ export default function AdminEventsPage() {
   const [editData, setEditData] = useState(EMPTY);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // Custom Location Search state
   const [locationQuery, setLocationQuery] = useState('');
   const [locationResults, setLocationResults] = useState([]);
   const [isSearchingLocation, setIsSearchingLocation] = useState(false);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
   const searchTimeoutRef = useRef(null);
 
   const handleLocationSearch = (query) => {
@@ -41,6 +41,36 @@ export default function AdminEventsPage() {
         setIsSearchingLocation(false);
       }
     }, 500);
+  };
+
+  const handleUseCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      return;
+    }
+    
+    setIsGettingLocation(true);
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      try {
+        const { latitude, longitude } = position.coords;
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+        const data = await res.json();
+        
+        const locName = data.display_name || `${latitude}, ${longitude}`;
+        setEditData(p => ({ ...p, location: locName }));
+        setLocationQuery(locName);
+        setLocationResults([]);
+      } catch (err) {
+        console.error('Reverse geocoding failed', err);
+        alert('Failed to get address for your current location.');
+      } finally {
+        setIsGettingLocation(false);
+      }
+    }, (err) => {
+      console.error('Geolocation error:', err);
+      alert('Failed to get your location. Please check your browser permissions.');
+      setIsGettingLocation(false);
+    });
   };
 
   const selectLocation = (place) => {
@@ -124,7 +154,18 @@ export default function AdminEventsPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group" style={{ position: 'relative' }}>
-                  <label className="input-label">Location Search</label>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <label className="input-label">Event Location</label>
+                    <button 
+                      type="button"
+                      className="btn btn-ghost btn-sm" 
+                      style={{ fontSize: 11, padding: '2px 6px', height: 'auto', minHeight: 0, color: 'var(--emerald)' }}
+                      onClick={handleUseCurrentLocation}
+                      disabled={isGettingLocation}
+                    >
+                      <OnlineLogoIcon name="map-pin" size={12} /> {isGettingLocation ? 'Locating...' : 'Use Current Location'}
+                    </button>
+                  </div>
                   <input 
                     className="input" 
                     value={locationQuery} 

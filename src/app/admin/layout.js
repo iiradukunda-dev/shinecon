@@ -13,13 +13,13 @@ const NAV_SECTIONS = [
     { href: '/admin/analytics', icon: <IconShield size={18} />, label: 'Analytics' },
   ]},
   { label: 'MANAGEMENT', items: [
-    { href: '/admin/members', icon: <IconUsers size={18} />, label: 'Members', badge: 2 },
-    { href: '/admin/contributions', icon: <IconGive size={18} />, label: 'Contributions', badge: 3 },
+    { href: '/admin/members', icon: <IconUsers size={18} />, label: 'Members' },
+    { href: '/admin/contributions', icon: <IconGive size={18} />, label: 'Contributions' },
     { href: '/admin/campaigns', icon: <IconTarget size={18} />, label: 'Campaigns' },
     { href: '/admin/attendance', icon: <IconClipboard size={18} />, label: 'Attendance' },
     { href: '/admin/events', icon: <IconCalendar size={18} />, label: 'Events' },
     { href: '/admin/announcements', icon: <IconMegaphone size={18} />, label: 'Announcements' },
-    { href: '/admin/messages', icon: <IconMessage size={18} />, label: 'Messages', badge: 2 },
+    { href: '/admin/messages', icon: <IconMessage size={18} />, label: 'Messages' },
   ]},
   { label: 'SYSTEM', items: [
     { href: '/admin/reports', icon: <IconFileText size={18} />, label: 'Reports' },
@@ -30,7 +30,7 @@ const NAV_SECTIONS = [
 export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme } = useApp();
+  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -64,7 +64,16 @@ export default function AdminLayout({ children }) {
           {NAV_SECTIONS.map(section => (
             <div key={section.label}>
               <div className="sidebar-section">{section.label}</div>
-              {section.items.map(item => (
+              {section.items.map(item => {
+                let badgeCount = item.badge;
+                if (item.label === 'Members' && stats?.pendingMembers > 0) badgeCount = stats.pendingMembers;
+                if (item.label === 'Contributions' && stats?.pendingContributions > 0) badgeCount = stats.pendingContributions;
+                if (item.label === 'Messages') {
+                  const unread = messages?.filter(m => m.unread).length;
+                  if (unread > 0) badgeCount = unread;
+                }
+
+                return (
                 <button
                   key={item.href}
                   className={`sidebar-link ${pathname === item.href ? 'active' : ''}`}
@@ -73,9 +82,9 @@ export default function AdminLayout({ children }) {
                 >
                   <span className="link-icon">{item.icon}</span>
                   {item.label}
-                  {item.badge && <span className="link-badge">{item.badge}</span>}
+                  {badgeCount ? <span className="link-badge">{badgeCount}</span> : null}
                 </button>
-              ))}
+              )})}
             </div>
           ))}
         </nav>

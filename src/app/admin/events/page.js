@@ -1,9 +1,8 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
-import Autocomplete from 'react-google-autocomplete';
 
 const EMPTY = { title: '', date: '', time: '', location: '', category: 'Worship', description: '', recurring: false };
 
@@ -13,8 +12,46 @@ export default function AdminEventsPage() {
   const [editData, setEditData] = useState(EMPTY);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  const openCreate = () => { setEditData({ ...EMPTY }); setModal('create'); };
-  const openEdit = (e) => { setEditData({ ...e }); setModal('edit'); };
+  // Custom Location Search state
+  const [locationQuery, setLocationQuery] = useState('');
+  const [locationResults, setLocationResults] = useState([]);
+  const [isSearchingLocation, setIsSearchingLocation] = useState(false);
+  const searchTimeoutRef = useRef(null);
+
+  const handleLocationSearch = (query) => {
+    setLocationQuery(query);
+    setEditData(p => ({ ...p, location: query }));
+    
+    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    
+    if (!query.trim()) {
+      setLocationResults([]);
+      return;
+    }
+
+    setIsSearchingLocation(true);
+    searchTimeoutRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`);
+        const data = await res.json();
+        setLocationResults(data);
+      } catch (err) {
+        console.error('Location search failed', err);
+      } finally {
+        setIsSearchingLocation(false);
+      }
+    }, 500);
+  };
+
+  const selectLocation = (place) => {
+    const locName = place.display_name;
+    setEditData(p => ({ ...p, location: locName }));
+    setLocationQuery(locName);
+    setLocationResults([]);
+  };
+
+  const openCreate = () => { setEditData({ ...EMPTY }); setLocationQuery(''); setLocationResults([]); setModal('create'); };
+  const openEdit = (e) => { setEditData({ ...e }); setLocationQuery(e.location || ''); setLocationResults([]); setModal('edit'); };
 
   const handleSave = () => {
     if (modal === 'create') addEvent(editData);
@@ -86,33 +123,34 @@ export default function AdminEventsPage() {
                   <input className="input" type="time" value={editData.time} onChange={e => setEditData(p => ({ ...p, time: e.target.value }))} /></div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
-                <div className="input-group">
-                  <label className="input-label">Location</label>
-                  {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
-                    <Autocomplete
-                      className="input"
-                      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-                      onPlaceSelected={(place) => {
-                        setEditData(p => ({ ...p, location: place.formatted_address || place.name }));
-                      }}
-                      options={{
-                        types: ['establishment', 'geocode'],
-                      }}
-                      defaultValue={editData.location || ''}
-                      onChange={(e) => setEditData(p => ({ ...p, location: e.target.value }))}
-                      placeholder="Search Google Maps..."
-                    />
-                  ) : (
-                    <div style={{ position: 'relative' }}>
-                      <input 
-                        className="input" 
-                        value={editData.location || ''} 
-                        onChange={e => setEditData(p => ({ ...p, location: e.target.value }))} 
-                        placeholder="API Key missing" 
-                      />
-                      <div style={{ fontSize: 11, color: 'var(--soft-red)', marginTop: 4 }}>
-                        Missing <code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>. Google Maps Search is disabled.
-                      </div>
+                <div className="input-group" style={{ position: 'relative' }}>
+                  <label className="input-label">Location Search</label>
+                  <input 
+                    className="input" 
+                    value={locationQuery} 
+                    onChange={e => handleLocationSearch(e.target.value)} 
+                    placeholder="Search location..."
+                  />
+                  {isSearchingLocation && <div style={{ position: 'absolute', right: 10, top: 38, fontSize: 12, color: 'var(--text-secondary)' }}>Searching...</div>}
+                  
+                  {locationResults.length > 0 && (
+                    <div style={{ 
+                      position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50, 
+                      background: 'var(--surface-light)', border: '1px solid var(--border)', 
+                      borderRadius: 8, marginTop: 4, maxHeight: 200, overflowY: 'auto',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
+                    }}>
+                      {locationResults.map((place, i) => (
+                        <div 
+                          key={i} 
+                          style={{ padding: '10px 12px', fontSize: 13, cursor: 'pointer', borderBottom: '1px solid var(--border)' }}
+                          onClick={() => selectLocation(place)}
+                          onMouseEnter={(e) => e.target.style.background = 'var(--glass-bg)'}
+                          onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                        >
+                          {place.display_name}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

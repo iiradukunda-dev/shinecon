@@ -4,6 +4,8 @@ import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
+const EMPTY = { title: '', date: '', time: '', location: '', category: 'Worship', description: '', recurring: false };
+
 export default function AdminEventsPage() {
   const { events, addEvent, updateEvent, deleteEvent } = useApp();
   const [modal, setModal] = useState(null);

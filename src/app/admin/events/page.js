@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
+import Autocomplete from 'react-google-autocomplete';
 
 const EMPTY = { title: '', date: '', time: '', location: '', category: 'Worship', description: '', recurring: false };
 
@@ -86,7 +87,29 @@ export default function AdminEventsPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-sm)' }}>
                 <div className="input-group"><label className="input-label">Location</label>
-                  <input className="input" value={editData.location || ''} onChange={e => setEditData(p => ({ ...p, location: e.target.value }))} /></div>
+                  {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+                    <Autocomplete
+                      className="input"
+                      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                      onPlaceSelected={(place) => {
+                        setEditData(p => ({ ...p, location: place.formatted_address || place.name }));
+                      }}
+                      options={{
+                        types: ['establishment', 'geocode'],
+                      }}
+                      defaultValue={editData.location || ''}
+                      onChange={(e) => setEditData(p => ({ ...p, location: e.target.value }))}
+                      placeholder="Search location..."
+                    />
+                  ) : (
+                    <input 
+                      className="input" 
+                      value={editData.location || ''} 
+                      onChange={e => setEditData(p => ({ ...p, location: e.target.value }))} 
+                      placeholder="Enter location manually (API Key required for maps)"
+                    />
+                  )}
+                </div>
                 <div className="input-group"><label className="input-label">Category</label>
                   <select className="select" value={editData.category} onChange={e => setEditData(p => ({ ...p, category: e.target.value }))}>
                     {['Worship', 'Youth', 'Prayer', 'Conference', 'Music', 'Outreach', 'Other'].map(c => <option key={c}>{c}</option>)}</select></div>

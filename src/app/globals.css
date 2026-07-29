@@ -348,47 +348,113 @@ body {
   transform: scale(0.96);
 }
 
+/* ── Button Glow Pulse Keyframes ─────────────────────────────── */
+@keyframes glow-pulse-gold {
+  0%, 100% {
+    box-shadow:
+      -8px 8px 28px -4px rgba(212, 168, 67, 0.55),
+      0 0 18px 0px rgba(212, 168, 67, 0.25),
+      inset -2px -2px 8px rgba(212, 168, 67, 0.3),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      -12px 12px 48px -2px rgba(212, 168, 67, 0.9),
+      0 0 36px 6px rgba(212, 168, 67, 0.45),
+      inset -3px -3px 14px rgba(212, 168, 67, 0.55),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.35);
+  }
+}
+@keyframes glow-pulse-primary {
+  0%, 100% {
+    box-shadow:
+      -8px 8px 28px -4px rgba(59, 91, 219, 0.55),
+      0 0 18px 0px rgba(59, 91, 219, 0.25),
+      inset -2px -2px 8px rgba(59, 91, 219, 0.3),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      -12px 12px 48px -2px rgba(59, 91, 219, 0.9),
+      0 0 36px 6px rgba(59, 91, 219, 0.45),
+      inset -3px -3px 14px rgba(59, 91, 219, 0.55),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.35);
+  }
+}
+@keyframes glow-pulse-danger {
+  0%, 100% {
+    box-shadow:
+      -8px 8px 28px -4px rgba(224, 49, 49, 0.55),
+      0 0 18px 0px rgba(224, 49, 49, 0.25),
+      inset -2px -2px 8px rgba(224, 49, 49, 0.3),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      -12px 12px 48px -2px rgba(224, 49, 49, 0.9),
+      0 0 36px 6px rgba(224, 49, 49, 0.45),
+      inset -3px -3px 14px rgba(224, 49, 49, 0.55),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.35);
+  }
+}
+
 /* Base glow logic */
 .btn-gold {
-  --glow-color: rgba(212, 168, 67, 0.5);
-  border-left-color: rgba(212, 168, 67, 0.5);
-  border-bottom-color: rgba(212, 168, 67, 0.25);
-  box-shadow: -8px 8px 24px -6px var(--glow-color), inset -2px -2px 8px rgba(212, 168, 67, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  --glow-color: rgba(212, 168, 67, 0.55);
+  border-left-color: rgba(212, 168, 67, 0.6);
+  border-bottom-color: rgba(212, 168, 67, 0.3);
+  animation: glow-pulse-gold 2.8s ease-in-out infinite;
 }
 .btn-gold:hover {
-  --glow-color: rgba(212, 168, 67, 0.8);
-  box-shadow: -8px 8px 32px -4px var(--glow-color), inset -2px -2px 12px rgba(212, 168, 67, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  --glow-color: rgba(212, 168, 67, 0.95);
+  animation: none;
+  box-shadow:
+    -14px 14px 52px -2px var(--glow-color),
+    0 0 40px 8px rgba(212, 168, 67, 0.5),
+    inset -3px -3px 16px rgba(212, 168, 67, 0.55),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .btn-primary {
-  --glow-color: rgba(59, 91, 219, 0.5);
-  border-left-color: rgba(59, 91, 219, 0.5);
-  border-bottom-color: rgba(59, 91, 219, 0.25);
-  box-shadow: -8px 8px 24px -6px var(--glow-color), inset -2px -2px 8px rgba(59, 91, 219, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  --glow-color: rgba(59, 91, 219, 0.55);
+  border-left-color: rgba(59, 91, 219, 0.6);
+  border-bottom-color: rgba(59, 91, 219, 0.3);
+  animation: glow-pulse-primary 2.8s ease-in-out infinite;
 }
 .btn-primary:hover {
-  --glow-color: rgba(59, 91, 219, 0.8);
-  box-shadow: -8px 8px 32px -4px var(--glow-color), inset -2px -2px 12px rgba(59, 91, 219, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  --glow-color: rgba(59, 91, 219, 0.95);
+  animation: none;
+  box-shadow:
+    -14px 14px 52px -2px var(--glow-color),
+    0 0 40px 8px rgba(59, 91, 219, 0.5),
+    inset -3px -3px 16px rgba(59, 91, 219, 0.55),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .btn-danger {
-  --glow-color: rgba(224, 49, 49, 0.5);
-  border-left-color: rgba(224, 49, 49, 0.5);
-  border-bottom-color: rgba(224, 49, 49, 0.25);
-  box-shadow: -8px 8px 24px -6px var(--glow-color), inset -2px -2px 8px rgba(224, 49, 49, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  --glow-color: rgba(224, 49, 49, 0.55);
+  border-left-color: rgba(224, 49, 49, 0.6);
+  border-bottom-color: rgba(224, 49, 49, 0.3);
+  animation: glow-pulse-danger 2.8s ease-in-out infinite;
 }
 .btn-danger:hover {
-  --glow-color: rgba(224, 49, 49, 0.8);
-  box-shadow: -8px 8px 32px -4px var(--glow-color), inset -2px -2px 12px rgba(224, 49, 49, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  --glow-color: rgba(224, 49, 49, 0.95);
+  animation: none;
+  box-shadow:
+    -14px 14px 52px -2px var(--glow-color),
+    0 0 40px 8px rgba(224, 49, 49, 0.5),
+    inset -3px -3px 16px rgba(224, 49, 49, 0.55),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
 }
 
 .btn-secondary {
   border-left-color: rgba(255, 255, 255, 0.3);
   border-bottom-color: rgba(255, 255, 255, 0.15);
-  box-shadow: -6px 6px 16px -6px rgba(0,0,0,0.5), inset -2px -2px 8px rgba(255, 255, 255, 0.05), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  box-shadow: -6px 6px 20px -4px rgba(0,0,0,0.6), inset -2px -2px 8px rgba(255, 255, 255, 0.07), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
 }
 .btn-secondary:hover {
   transform: translateY(-1px);
+  box-shadow: -8px 8px 28px -4px rgba(0,0,0,0.7), inset -2px -2px 10px rgba(255, 255, 255, 0.1), inset 1px 1px 2px rgba(255, 255, 255, 0.25);
 }
 
 .btn-ghost {

@@ -142,9 +142,9 @@ export default function MemberDashboard() {
         </div>
         <div className="grid grid-4" style={{ gap: 16 }}>
           {[
-            { icon: <IconTarget size={26} color="#4C6EF5" />, label: 'Campaigns', href: '/member/campaigns', bg: 'rgba(59,91,219,0.2)' },
-            { icon: <IconClipboard size={26} color="#40C057" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(43,138,62,0.2)' },
-            { icon: <IconSparkles size={26} color="#CC5DE8" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(156,54,181,0.2)' },
+            { icon: <IconTarget size={26} color="#D4A843" />, label: 'Campaigns', href: '/member/campaigns', bg: 'rgba(212,168,67,0.2)' },
+            { icon: <IconClipboard size={26} color="#D4A843" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(212,168,67,0.2)' },
+            { icon: <IconSparkles size={26} color="#D4A843" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(212,168,67,0.2)' },
           ].map(action => (
             <div key={action.label} className="quick-action-tile" onClick={() => router.push(action.href)}>
               <div className="quick-action-tile-icon" style={{ background: action.bg }}>{action.icon}</div>

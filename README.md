@@ -15,7 +15,7 @@ A world-class Digital Ministry Management Platform built with
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Node.js** 18+ (recommended: 20+)
@@ -42,7 +42,7 @@ Visit **http://localhost:3000** to see the splash screen.
 
 ---
 
-## 🎨 Design System
+## Design System
 
 SM Connect uses a custom **Liquid Glass Design System** featuring:
 
@@ -55,34 +55,34 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 
 ---
 
-## 📱 Features
+## Features
 
 ### Member PWA
-- 🏠 Premium dashboard with contribution tracking
-- 💰 Dynamic contribution types with MTN MoMo payment flow
-- 🎯 Campaign browsing and donations
-- 📋 QR-based attendance with GPS verification
-- ✨ AI Assistant with natural language queries
-- 👤 Profile management with theme/language settings
+- Premium dashboard with contribution tracking
+- Dynamic contribution types with MTN MoMo payment flow
+- Campaign browsing and donations
+- QR-based attendance with GPS verification
+- AI Assistant with natural language queries
+- Profile management with theme/language settings
 
 ### Admin Dashboard
-- 📊 Executive command center with KPI cards
-- 👥 Complete member management (approve/reject/suspend)
-- 💰 Contribution approval workflow with fraud detection
-- 🎯 Campaign management with progress analytics
-- 📈 Enterprise analytics with charts and trends
-- 📄 Report generation (Excel, CSV, PDF)
-- ⚙️ System settings and configuration
+- Executive command center with KPI cards
+- Complete member management (approve/reject/suspend)
+- Contribution approval workflow with fraud detection
+- Campaign management with progress analytics
+- Enterprise analytics with charts and trends
+- Report generation (Excel, CSV, PDF)
+- System settings and configuration
 
 ### Multi-Language Support
-- 🇬🇧 English
-- 🇫🇷 Français
-- 🇹🇿 Kiswahili
-- 🇷🇼 Kinyarwanda
+- English
+- Français
+- Kiswahili
+- Kinyarwanda
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 shine/
@@ -124,7 +124,7 @@ shine/
 
 ---
 
-## 🔧 Database Setup Guide
+## Database Setup Guide
 
 This project uses **PostgreSQL** with **Prisma ORM**. Before proceeding, ensure that you have Node.js and PostgreSQL installed.
 
@@ -165,7 +165,7 @@ This will launch a GUI at `http://localhost:5555`.
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ```bash
 docker-compose up -d
@@ -173,8 +173,8 @@ docker-compose up -d
 
 ---
 
-## 📄 License
+## License
 
 © 2026 Shining Ministries. All rights reserved.
 
-Built with and faith.
+Built with faith.

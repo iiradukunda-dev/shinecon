@@ -23,7 +23,7 @@ function deg2rad(deg) {
 }
 
 export default function AttendancePage() {
-  const { events, attendance, addToast } = useApp();
+  const { attendance, addToast } = useApp();
   const [selectedEventId, setSelectedEventId] = useState('');
   const [scanning, setScanning] = useState(false);
   const [scanned, setScanned] = useState(false);
@@ -32,7 +32,7 @@ export default function AttendancePage() {
   const [scanError, setScanError] = useState('');
 
   // Find selected event
-  const selectedEvent = events.find(e => e.id === selectedEventId);
+  const selectedEvent = attendance.find(e => e.id === selectedEventId);
 
   const handleOpenScanner = () => {
     if (!selectedEventId) {
@@ -66,7 +66,7 @@ export default function AttendancePage() {
     );
   };
 
-  const simulateScan = (type) => {
+  const simulateScan = async (type) => {
     if (!userLocation) {
       setScanError('Waiting for location coordinates...');
       return;
@@ -100,10 +100,39 @@ export default function AttendancePage() {
       return;
     }
 
-    // Success
-    setScanning(false);
-    setScanned(true);
-    addToast('Attendance recorded! Welcome to the event.', 'success');
+    // Success - Post to API
+    try {
+      const storedUser = localStorage.getItem('smconnect_user');
+      const user = storedUser ? JSON.parse(storedUser) : null;
+      if (!user || !user.id) {
+        setScanError('User not logged in or user ID not found.');
+        return;
+      }
+
+      const res = await fetch('/api/attendance/checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventId: selectedEventId,
+          userId: user.id,
+          lat: userLocation.lat,
+          lng: userLocation.lng
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setScanError(data.error || 'Failed to record attendance');
+        return;
+      }
+
+      setScanning(false);
+      setScanned(true);
+      addToast('Attendance recorded! Welcome to the event.', 'success');
+    } catch (err) {
+      console.error('Check-in error', err);
+      setScanError('A network error occurred while checking in.');
+    }
   };
 
   const resetState = () => {
@@ -135,9 +164,9 @@ export default function AttendancePage() {
                 onChange={(e) => setSelectedEventId(e.target.value)}
                 style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}
               >
-                <option value="">-- Choose Event --</option>
-                {events.map(e => (
-                  <option key={e.id} value={e.id}>{e.title} ({formatDate(e.date)})</option>
+                <option value="">-- Choose Check-in Session --</option>
+                {attendance.map(e => (
+                  <option key={e.id} value={e.id}>{e.event} ({formatDate(e.date)})</option>
                 ))}
               </select>
             </div>

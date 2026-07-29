@@ -13,6 +13,7 @@ export default function AdminAttendancePage() {
   const [editData, setEditData] = useState(EMPTY);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [viewQr, setViewQr] = useState(null);
+  const [viewAttendees, setViewAttendees] = useState(null);
 
   const openCreate = () => { setEditData({ ...EMPTY, date: new Date().toISOString().split('T')[0] }); setModal('create'); };
   const openEdit = (a) => { setEditData({ ...a }); setModal('edit'); };
@@ -78,6 +79,7 @@ export default function AdminAttendancePage() {
                   </td>
                   <td>
                     <div style={{ display: 'flex', gap: 4 }}>
+                      <button className="btn btn-ghost btn-sm" onClick={() => setViewAttendees(att)} title="View Attendees"><OnlineLogoIcon name="users" size={16} /></button>
                       <button className="btn btn-ghost btn-sm" onClick={() => setViewQr(att)} title="View QR Code"><OnlineLogoIcon name="maximize" size={16} /></button>
                       <button className="btn btn-ghost btn-sm" onClick={() => openEdit(att)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
                       <button className="btn btn-ghost btn-sm" onClick={() => setDeleteTarget(att)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
@@ -247,6 +249,52 @@ export default function AdminAttendancePage() {
               }}>
                 Print QR Code
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Attendees Modal */}
+      {viewAttendees && (
+        <div className="modal-overlay" onClick={() => setViewAttendees(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 500 }}>
+            <div className="modal-header">
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <OnlineLogoIcon name="users" size={16} /> 
+                Attendees: {viewAttendees.event}
+              </h3>
+              <button className="btn btn-ghost" onClick={() => setViewAttendees(null)}>✕</button>
+            </div>
+            <div className="modal-body" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>
+                {formatDate(viewAttendees.date)} • {viewAttendees.attendees?.length || 0} Member(s) Checked In
+              </p>
+              
+              {(!viewAttendees.attendees || viewAttendees.attendees.length === 0) ? (
+                <div style={{ textAlign: 'center', padding: 'var(--space-xl) 0', color: 'var(--text-tertiary)' }}>
+                  <OnlineLogoIcon name="info" size={32} />
+                  <p style={{ marginTop: 8 }}>No members have checked in yet.</p>
+                </div>
+              ) : (
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
+                  {viewAttendees.attendees.map((name, i) => (
+                    <li key={i} style={{ 
+                      padding: '12px 16px', 
+                      background: 'var(--surface-light)', 
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--border-light)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12
+                    }}>
+                      <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--gold)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: 14 }}>
+                        {name.charAt(0).toUpperCase()}
+                      </div>
+                      <span style={{ fontWeight: 500 }}>{name}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

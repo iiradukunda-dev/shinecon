@@ -112,15 +112,22 @@ export async function GET() {
 
     // 7. Attendance
     const dbAttendance = await prisma.attendanceEvent.findMany({
-      include: { records: true },
+      include: { 
+        records: {
+          include: {
+            user: { include: { profile: true } }
+          }
+        } 
+      },
     });
     const attendance = dbAttendance.map(att => ({
       id: att.id,
       event: att.title,
       date: att.startTime ? new Date(att.startTime).toISOString().split('T')[0] : '',
-      total: att.records.length || 187,
-      capacity: 250,
+      total: att.records.length,
+      capacity: att.gpsRadius || 250,
       qrCode: att.qrCode,
+      attendees: att.records.map(r => r.user.profile?.fullName || r.user.email),
     }));
 
     // 8. Messages

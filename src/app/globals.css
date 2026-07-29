@@ -1861,5 +1861,17 @@ body {
   --glow-color: rgba(212, 168, 67, 0.5);
   border-left-color: rgba(212, 168, 67, 0.5);
   border-bottom-color: rgba(212, 168, 67, 0.25);
-  box-shadow: -8px 8px 24px -6px var(--glow-color), inset -2px -2px 8px rgba(212, 168, 67, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  animation: pulseShadow 4s infinite ease-in-out;
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow: -8px 8px 24px -6px rgba(212, 168, 67, 0.5), inset -2px -2px 8px rgba(212, 168, 67, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: -12px 12px 32px -4px rgba(212, 168, 67, 0.8), inset -2px -2px 8px rgba(212, 168, 67, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: -8px 8px 24px -6px rgba(212, 168, 67, 0.5), inset -2px -2px 8px rgba(212, 168, 67, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
 }

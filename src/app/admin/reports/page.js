@@ -59,9 +59,9 @@ export default function AdminReportsPage() {
       format: ['CSV', 'Excel'],
       icon: <IconUsers size={24} color="#4C6EF5" />,
       getData: () => {
-        const headers = ['Member ID', 'Full Name', 'Email', 'Phone', 'Country', 'Type', 'Employment', 'Status', 'Joined Date'];
+        const headers = ['Full Name', 'Email', 'Phone', 'Type', 'Employment', 'Status', 'Joined Date'];
         const rows = members.map(m => [
-          m.id, m.name, m.email, m.phone, m.country, m.type, m.employment, m.status, m.joinedDate
+          m.name, m.email, m.phone, m.type, m.employment, m.status, m.joinedDate
         ]);
         return { headers, rows, raw: members, title: 'Member Directory' };
       }

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '@/context/app-context';
 import { formatDate } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
@@ -23,7 +23,7 @@ function deg2rad(deg) {
 }
 
 export default function AttendancePage() {
-  const { attendance, addToast } = useApp();
+  const { events, attendance, addToast } = useApp();
   const [selectedEventId, setSelectedEventId] = useState('');
   const [scanning, setScanning] = useState(false);
   const [scanned, setScanned] = useState(false);
@@ -32,7 +32,18 @@ export default function AttendancePage() {
   const [scanError, setScanError] = useState('');
 
   // Find selected event
-  const selectedEvent = attendance.find(e => e.id === selectedEventId);
+  const selectedAttendanceEvent = attendance.find(e => e.id === selectedEventId);
+  const matchedEvent = events.find(e => e.title === selectedAttendanceEvent?.event);
+
+  // Auto-verify attendance once location is acquired
+  useEffect(() => {
+    if (userLocation && scanning && !scanned && !scanError) {
+      const timer = setTimeout(() => {
+        simulateScan('valid');
+      }, 1500); // Wait 1.5s so the user sees the "Location acquired" animation
+      return () => clearTimeout(timer);
+    }
+  }, [userLocation, scanning, scanned, scanError]);
 
   const handleOpenScanner = () => {
     if (!selectedEventId) {
@@ -89,10 +100,18 @@ export default function AttendancePage() {
       return;
     }
 
-    const distance = getDistanceFromLatLonInM(
-      userLocation.lat, userLocation.lng,
-      qrPayload.lat, qrPayload.lng
-    );
+    // Use the actual event's location for distance check
+    let distance = 0;
+    if (matchedEvent && matchedEvent.lat && matchedEvent.lng) {
+      distance = getDistanceFromLatLonInM(
+        userLocation.lat, userLocation.lng,
+        matchedEvent.lat, matchedEvent.lng
+      );
+    } else {
+      // Fallback if event has no location set (e.g., custom event without coordinates)
+      // We will allow check-in but might flag it or just allow it for now
+      distance = 0;
+    }
 
     // If they are more than 200 meters away
     if (distance > 200) {
@@ -211,7 +230,7 @@ export default function AttendancePage() {
               }} />
               <div style={{ opacity: 0.3 }}><OnlineLogoIcon name="smartphone" size={48} /></div>
             </div>
-            <p style={{ fontWeight: 600 }}>Scanning for <strong>{selectedEvent?.title}</strong>...</p>
+            <p style={{ fontWeight: 600 }}>Scanning for <strong>{selectedAttendanceEvent?.event}</strong>...</p>
             
             {!userLocation ? (
               <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Getting your location...</p>
@@ -222,24 +241,6 @@ export default function AttendancePage() {
             {scanError && (
               <div style={{ marginTop: 'var(--space-md)', padding: 'var(--space-sm)', background: 'rgba(224, 49, 49, 0.1)', color: 'var(--soft-red)', borderRadius: 'var(--radius-md)' }}>
                 {scanError}
-              </div>
-            )}
-
-            {/* Developer Simulation Buttons */}
-            {userLocation && (
-              <div style={{ marginTop: 'var(--space-xl)', padding: 'var(--space-md)', borderTop: '1px solid var(--border-light)' }}>
-                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', marginBottom: 12 }}>Test Controls (Simulate QR Scan)</p>
-                <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
-                  <button className="btn btn-ghost btn-sm" style={{ border: '1px solid var(--emerald)', color: 'var(--emerald)' }} onClick={() => simulateScan('valid')}>
-                    Simulate Valid QR
-                  </button>
-                  <button className="btn btn-ghost btn-sm" style={{ border: '1px solid var(--soft-red)', color: 'var(--soft-red)' }} onClick={() => simulateScan('wrong_event')}>
-                    Simulate Wrong Event
-                  </button>
-                  <button className="btn btn-ghost btn-sm" style={{ border: '1px solid var(--soft-red)', color: 'var(--soft-red)' }} onClick={() => simulateScan('wrong_location')}>
-                    Simulate Wrong Location
-                  </button>
-                </div>
               </div>
             )}
 
@@ -262,7 +263,7 @@ export default function AttendancePage() {
               Attendance Recorded!
             </h3>
             <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>
-              Welcome to {selectedEvent?.title}
+              Welcome to {selectedAttendanceEvent?.event}
             </p>
             <div style={{
               padding: 'var(--space-md)', borderRadius: 'var(--radius-md)',

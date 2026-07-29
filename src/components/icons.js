@@ -59,6 +59,8 @@ export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = 
         filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))'
       }}
       className={className}
+      loading="lazy"
+      decoding="async"
     />
   );
 }

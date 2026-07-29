@@ -67,7 +67,7 @@ export function AppProvider({ children }) {
     bootstrap(false);
     const interval = setInterval(() => {
       bootstrap(true);
-    }, 10000);
+    }, 60000); // Poll every 60 seconds instead of 10s
     return () => clearInterval(interval);
   }, [bootstrap]);
 
@@ -581,32 +581,44 @@ export function AppProvider({ children }) {
     employedMembers: members.filter(m => m.employment === 'employed').length,
   }), [members, contributions, campaigns]);
 
+  const contextValue = useMemo(() => ({
+    user, isInitialized, login, logout,
+    theme, toggleTheme,
+    language, setLanguage,
+    sidebarOpen, setSidebarOpen,
+    // Members
+    members, addMember, updateMember, deleteMember, approveMember, rejectMember,
+    // Contributions
+    contributions, addContribution, updateContribution, deleteContribution,
+    approveContribution, rejectContribution,
+    // Campaigns
+    campaigns, addCampaign, updateCampaign, deleteCampaign,
+    // Events
+    events, addEvent, updateEvent, deleteEvent,
+    // Announcements
+    announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement,
+    // Messages
+    messages, addMessage, deleteMessage, markMessageRead,
+    // Contribution Types
+    contributionTypes, addContributionType, updateContributionType, deleteContributionType,
+    // Attendance
+    attendance, addAttendance, updateAttendance, deleteAttendance,
+    // Stats & UI
+    stats, toasts, addToast,
+  }), [
+    user, isInitialized, login, logout, theme, toggleTheme, language, setLanguage,
+    sidebarOpen, setSidebarOpen, members, addMember, updateMember, deleteMember,
+    approveMember, rejectMember, contributions, addContribution, updateContribution,
+    deleteContribution, approveContribution, rejectContribution, campaigns, addCampaign,
+    updateCampaign, deleteCampaign, events, addEvent, updateEvent, deleteEvent,
+    announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement, messages,
+    addMessage, deleteMessage, markMessageRead, contributionTypes, addContributionType,
+    updateContributionType, deleteContributionType, attendance, addAttendance,
+    updateAttendance, deleteAttendance, stats, toasts, addToast
+  ]);
+
   return (
-    <AppContext.Provider value={{
-      user, isInitialized, login, logout,
-      theme, toggleTheme,
-      language, setLanguage,
-      sidebarOpen, setSidebarOpen,
-      // Members
-      members, addMember, updateMember, deleteMember, approveMember, rejectMember,
-      // Contributions
-      contributions, addContribution, updateContribution, deleteContribution,
-      approveContribution, rejectContribution,
-      // Campaigns
-      campaigns, addCampaign, updateCampaign, deleteCampaign,
-      // Events
-      events, addEvent, updateEvent, deleteEvent,
-      // Announcements
-      announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement,
-      // Messages
-      messages, addMessage, deleteMessage, markMessageRead,
-      // Contribution Types
-      contributionTypes, addContributionType, updateContributionType, deleteContributionType,
-      // Attendance
-      attendance, addAttendance, updateAttendance, deleteAttendance,
-      // Stats & UI
-      stats, toasts, addToast,
-    }}>
+    <AppContext.Provider value={contextValue}>
       {children}
     </AppContext.Provider>
   );

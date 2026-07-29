@@ -7,7 +7,24 @@ export async function GET() {
   try {
     // 1. Members
     const users = await prisma.user.findMany({
-      include: { profile: true },
+      select: {
+        id: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        profile: {
+          select: {
+            fullName: true,
+            phone: true,
+            country: true,
+            photoUrl: true,
+            memberType: true,
+            employment: true,
+            approvalStatus: true,
+            joinedDate: true,
+          }
+        }
+      },
     });
     const members = users
       .filter(u => u.role === 'MEMBER')
@@ -27,10 +44,16 @@ export async function GET() {
 
     // 2. Contributions
     const dbContributions = await prisma.contribution.findMany({
-      include: {
-        user: { include: { profile: true } },
-        contributionType: true,
-        payment: true,
+      select: {
+        id: true,
+        userId: true,
+        amount: true,
+        currency: true,
+        status: true,
+        createdAt: true,
+        user: { select: { profile: { select: { fullName: true, phone: true } } } },
+        contributionType: { select: { name: true } },
+        payment: { select: { transactionRef: true, phone: true } },
       },
     });
     const contributions = dbContributions.map(c => ({
@@ -48,7 +71,20 @@ export async function GET() {
 
     // 3. Campaigns
     const dbCampaigns = await prisma.campaign.findMany({
-      include: { donations: true },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        goal: true,
+        raised: true,
+        currency: true,
+        startDate: true,
+        endDate: true,
+        status: true,
+        featured: true,
+        imageUrl: true,
+        donations: { select: { id: true } },
+      },
     });
     const campaigns = dbCampaigns.map(camp => ({
       id: camp.id,
@@ -112,12 +148,17 @@ export async function GET() {
 
     // 7. Attendance
     const dbAttendance = await prisma.attendanceEvent.findMany({
-      include: { 
+      select: {
+        id: true,
+        title: true,
+        startTime: true,
+        gpsRadius: true,
+        qrCode: true,
         records: {
-          include: {
-            user: { include: { profile: true } }
+          select: {
+            user: { select: { email: true, profile: { select: { fullName: true } } } }
           }
-        } 
+        }
       },
     });
     const attendance = dbAttendance.map(att => ({
@@ -132,11 +173,16 @@ export async function GET() {
 
     // 8. Messages
     const dbMessages = await prisma.message.findMany({
-      include: {
-        sender: { include: { profile: true } },
-        conversation: true,
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        read: true,
+        sender: { select: { profile: { select: { fullName: true } } } },
+        conversation: { select: { subject: true } },
       },
       orderBy: { createdAt: 'desc' },
+      take: 100, // Limit to last 100 messages for performance
     });
     const messages = dbMessages.map(m => ({
       id: m.id,

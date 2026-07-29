@@ -732,7 +732,7 @@ body {
   --glow-color: rgba(212, 168, 67, 0.5);
   border-left: 3px solid rgba(212, 168, 67, 0.5);
   border-bottom-color: rgba(212, 168, 67, 0.25);
-  animation: pulseShadow 4s infinite ease-in-out;
+  animation: pulseShadow 8s infinite ease-in-out;
 }
 [data-theme="dark"] .sidebar-link.active { color: var(--gold-light); }
 
@@ -1861,7 +1861,7 @@ body {
   --glow-color: rgba(212, 168, 67, 0.5);
   border-left-color: rgba(212, 168, 67, 0.5);
   border-bottom-color: rgba(212, 168, 67, 0.25);
-  animation: pulseShadow 4s infinite ease-in-out;
+  animation: pulseShadow 8s infinite ease-in-out;
 }
 
 @keyframes pulseShadow {

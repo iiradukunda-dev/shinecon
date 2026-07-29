@@ -117,7 +117,7 @@ export default function MemberLayout({ children }) {
             --glow-color: rgba(212, 168, 67, 0.5);
             border-left: 3px solid rgba(212, 168, 67, 0.5);
             border-bottom-color: rgba(212, 168, 67, 0.25);
-            animation: pulseShadow 4s infinite ease-in-out;
+            animation: pulseShadow 8s infinite ease-in-out;
           }
 
           .member-nav-right {

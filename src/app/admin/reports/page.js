@@ -89,9 +89,9 @@ export default function AdminReportsPage() {
       format: ['CSV', 'Excel', 'PDF'],
       icon: <IconClipboard size={24} color="#FAB005" />,
       getData: () => {
-        const headers = ['Event ID', 'Event Title', 'Category', 'Date', 'Time', 'Location', 'Attended', 'Target Goal'];
+        const headers = ['Event Title', 'Category', 'Date', 'Time', 'Location'];
         const rows = events.map(e => [
-          e.id, e.title, e.category, e.date, e.time, e.location, e.attended || 0, e.capacity || 100
+          e.title, e.category, e.date, e.time, e.location
         ]);
         return { headers, rows, raw: events, title: 'Attendance Summary Report' };
       }

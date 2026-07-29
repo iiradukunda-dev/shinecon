@@ -19,6 +19,15 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Attendance session not found' }, { status: 404 });
     }
 
+    // Check if event is older than 30 minutes
+    const now = new Date();
+    const eventCreated = new Date(event.createdAt);
+    const diffInMinutes = (now - eventCreated) / (1000 * 60);
+
+    if (diffInMinutes > 30) {
+      return NextResponse.json({ error: 'Attendance session has expired (30 minute limit)' }, { status: 403 });
+    }
+
     // Check if user already checked in
     const existingRecord = await prisma.attendanceRecord.findUnique({
       where: {

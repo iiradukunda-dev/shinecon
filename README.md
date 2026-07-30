@@ -4,7 +4,7 @@
 ###  Shining Ministries 
 
 **"Byuka, urabagirane, kuko umucyo wawe waje."**
-*Arise, shine, for your light has come. — Isaiah 60:1*
+*Arise, shine, for your light has come. — Isaiah 60:1.*
 
 ---
 

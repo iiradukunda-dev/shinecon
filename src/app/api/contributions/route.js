@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { createPayment } from '@/lib/momo';
 
 export async function POST(request) {
   try {
@@ -49,6 +50,24 @@ export async function POST(request) {
       },
     });
 
+    // If it's a pending payment (like a custom MoMo payment), trigger MoMo API
+    if (payment.status === 'PENDING') {
+      const momoResult = await createPayment(payment.amount, payment.phone, payment.id);
+      if (momoResult.success) {
+        await prisma.payment.update({
+          where: { id: payment.id },
+          data: { transactionRef: momoResult.transactionId }
+        });
+        payment.transactionRef = momoResult.transactionId;
+      } else {
+        await prisma.payment.update({
+          where: { id: payment.id },
+          data: { status: 'FAILED' }
+        });
+        payment.status = 'FAILED';
+      }
+    }
+
     return NextResponse.json({
       id: contribution.id,
       memberId: contribution.userId,
@@ -57,7 +76,7 @@ export async function POST(request) {
       amount: Number(contribution.amount),
       currency: contribution.currency,
       reference: payment.transactionRef,
-      status: contribution.status.toLowerCase(),
+      status: payment.status.toLowerCase() === 'failed' ? 'failed' : contribution.status.toLowerCase(),
       date: contribution.createdAt.toISOString().split('T')[0],
       phone: payment.phone,
     });

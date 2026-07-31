@@ -38,6 +38,15 @@ export default function ContributionsPage() {
   ];
 
   const handlePay = () => {
+    if (getAmount(selectedType) === 0 && (!customAmount || Number(customAmount) <= 0)) {
+      addToast('Please enter a valid amount', 'error');
+      return;
+    }
+    if (!phone && !user?.phone) {
+      addToast('Please enter your MTN MoMo phone number', 'error');
+      return;
+    }
+
     setPaymentStep(2);
     setTimeout(() => {
       addContribution({
@@ -48,6 +57,7 @@ export default function ContributionsPage() {
         currency: getCurrency(selectedType),
         phone: phone || user?.phone || '',
       });
+      addToast('Payment successful! Your contribution is pending approval.', 'success');
       setPaymentStep(3);
     }, 2500);
   };

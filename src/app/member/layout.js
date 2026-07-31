@@ -36,8 +36,6 @@ export default function MemberLayout({ children }) {
 
   return (
     <div className="page-member" style={{ background: '#0A0A0E', minHeight: '100vh', color: '#FFFFFF' }}>
-      {/* DEMO BANNER REMOVED */}
-
       {/* Top Navigation Bar */}
       <header className={`member-top-nav ${isScrolled ? 'scrolled' : ''}`}>
         <style>{`

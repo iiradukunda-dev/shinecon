@@ -25,7 +25,7 @@ export async function getMomoToken() {
 }
 
 export async function createPayment(amount, phoneNumber, reference) {
-  console.log(`[MTN MoMo] Creating payment for ${phoneNumber}: ${amount} RWF, Ref: ${reference}`);
+
 
   const mtnEnv = process.env.MTN_ENVIRONMENT || 'sandbox';
   
@@ -89,7 +89,7 @@ export async function createPayment(amount, phoneNumber, reference) {
 }
 
 export async function checkPaymentStatus(reference) {
-  console.log(`[MTN MoMo] Checking status for ref: ${reference}`);
+
   
   // Simulated status check
   return {

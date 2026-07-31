@@ -781,8 +781,6 @@ body {
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  /* Border */
-  border: 1px solid var(--border-light, transparent);
 }
 .sidebar-link:hover:not(.active) {
   --glow-color: rgba(212, 168, 67, 0.2);

@@ -37,7 +37,7 @@ export default function ContributionsPage() {
     }))
   ];
 
-  const handlePay = () => {
+  const handlePay = async () => {
     if (getAmount(selectedType) === 0 && (!customAmount || Number(customAmount) <= 0)) {
       addToast('Please enter a valid amount', 'error');
       return;
@@ -48,18 +48,41 @@ export default function ContributionsPage() {
     }
 
     setPaymentStep(2);
-    setTimeout(() => {
-      addContribution({
-        memberId: user?.id || '1',
-        memberName: user?.name || 'Unknown Member',
-        type: selectedType.name,
-        amount: getAmount(selectedType) === 0 ? Number(customAmount) : getAmount(selectedType),
-        currency: getCurrency(selectedType),
-        phone: phone || user?.phone || '',
+    
+    try {
+      const amount = getAmount(selectedType) === 0 ? Number(customAmount) : getAmount(selectedType);
+      
+      const res = await fetch('/api/momo/requesttopay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: amount,
+          phone: phone || user?.phone,
+          reference: `contrib-${Date.now()}`
+        })
       });
-      addToast('Payment successful! Your contribution is pending approval.', 'success');
-      setPaymentStep(3);
-    }, 2500);
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        addContribution({
+          memberId: user?.id || '1',
+          memberName: user?.name || 'Unknown Member',
+          type: selectedType.name,
+          amount: amount,
+          currency: getCurrency(selectedType),
+          phone: phone || user?.phone || '',
+        });
+        addToast('USSD push sent! Please check your phone to confirm.', 'success');
+        setPaymentStep(3);
+      } else {
+        addToast(data.error || 'Failed to initiate payment', 'error');
+        setPaymentStep(1);
+      }
+    } catch (err) {
+      addToast('Network error, please try again later.', 'error');
+      setPaymentStep(1);
+    }
   };
 
   if (selectedType && paymentStep >= 0) {

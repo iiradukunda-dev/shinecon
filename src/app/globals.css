@@ -474,6 +474,56 @@ body {
   transform: translateY(0);
 }
 
+/* Circular Action Buttons (Admin/Members) */
+.btn-action-glass {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top-color: rgba(255, 255, 255, 0.4);
+  border-right-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.btn-action-glass:hover {
+  transform: translateY(-2px);
+}
+.btn-action-glass.approve {
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 67, 0.35), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 16px rgba(212, 168, 67, 0.4), 0 4px 12px rgba(212, 168, 67, 0.2);
+}
+.btn-action-glass.approve:hover {
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 67, 0.45), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 24px rgba(212, 168, 67, 0.6), 0 8px 16px rgba(212, 168, 67, 0.3);
+}
+.btn-action-glass.reject {
+  background: radial-gradient(circle at 30% 30%, rgba(224, 49, 49, 0.35), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 16px rgba(224, 49, 49, 0.4), 0 4px 12px rgba(224, 49, 49, 0.2);
+}
+.btn-action-glass.reject:hover {
+  background: radial-gradient(circle at 30% 30%, rgba(224, 49, 49, 0.45), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 24px rgba(224, 49, 49, 0.6), 0 8px 16px rgba(224, 49, 49, 0.3);
+}
+.btn-action-glass.edit {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.btn-action-glass.edit:hover {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
 .btn-sm { padding: 6px 12px; font-size: var(--text-xs); }
 .btn-lg { padding: 12px 24px; font-size: var(--text-base); }
 .btn-icon {

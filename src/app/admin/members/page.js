@@ -106,15 +106,15 @@ export default function AdminMembersPage() {
                 <td><span className={`badge ${m.status === 'approved' ? 'badge-green' : m.status === 'pending' ? 'badge-amber' : 'badge-red'}`}>{m.status}</span></td>
                 <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{formatDate(m.joinedDate)}</td>
                 <td>
-                  <div style={{ display: 'flex', gap: 4 }}>
+                  <div style={{ display: 'flex', gap: 8 }}>
                     {m.status === 'pending' && (
                       <>
-                        <button className="btn btn-gold btn-sm" onClick={() => approveMember(m.id)} title="Approve">✓</button>
-                        <button className="btn btn-danger btn-sm" onClick={() => rejectMember(m.id)} title="Reject">✗</button>
+                        <button className="btn-action-glass approve" onClick={() => approveMember(m.id)} title="Approve">✓</button>
+                        <button className="btn-action-glass reject" onClick={() => rejectMember(m.id)} title="Reject">✗</button>
                       </>
                     )}
-                    <button className="btn btn-ghost btn-sm" onClick={() => openEdit(m)} title="Edit"><OnlineLogoIcon name="edit" size={16} /></button>
-                    <button className="btn btn-ghost btn-sm" onClick={() => openDelete(m)} title="Delete" style={{ color: 'var(--soft-red)' }}><OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" /></button>
+                    <button className="btn-action-glass edit" onClick={() => openEdit(m)} title="Edit"><OnlineLogoIcon name="edit" size={14} /></button>
+                    <button className="btn-action-glass reject" onClick={() => openDelete(m)} title="Delete"><OnlineLogoIcon name="trash-2" size={14} /></button>
                   </div>
                 </td>
               </tr>

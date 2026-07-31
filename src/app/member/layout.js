@@ -96,21 +96,15 @@ export default function MemberLayout({ children }) {
           }
           .member-nav-item:hover, .member-nav-item.active {
             color: #FFFFFF;
-            /* Glassmorphism Base */
-            background: rgba(255, 255, 255, 0.015);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            /* Asymmetric Border */
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top-color: rgba(255, 255, 255, 0.35);
-            border-right-color: rgba(255, 255, 255, 0.15);
-            box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.2);
           }
-          .member-nav-item:hover {
+          .member-nav-item:hover:not(.active) {
             --glow-color: rgba(212, 168, 67, 0.2);
             border-left: 1px solid rgba(212, 168, 67, 0.2);
             border-bottom-color: rgba(212, 168, 67, 0.1);
-            box-shadow: -4px 4px 12px -4px var(--glow-color), inset -2px -2px 8px rgba(212, 168, 67, 0.1), inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+            box-shadow: -4px 4px 12px -4px var(--glow-color);
           }
           .member-nav-item.active {
             font-weight: 700;

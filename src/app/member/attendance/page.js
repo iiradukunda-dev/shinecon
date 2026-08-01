@@ -181,7 +181,7 @@ export default function AttendancePage() {
                 className="select" 
                 value={selectedEventId} 
                 onChange={(e) => setSelectedEventId(e.target.value)}
-                style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}
+                style={{ width: '100%', maxWidth: 400, margin: '0 auto', opacity: 0.8 }}
               >
                 <option value="">-- Choose Check-in Session --</option>
                 {attendance.map(e => (

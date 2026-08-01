@@ -53,21 +53,21 @@ async function main() {
 
   // 2. Demo Members
   const DEMO_MEMBERS = [
-    { id: '1', name: 'Jean-Pierre Habimana', email: 'jp.habimana@email.com', phone: '+250 788 123 456', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-01-15' },
-    { id: '2', name: 'Marie Claire Uwimana', email: 'mc.uwimana@email.com', phone: '+250 788 234 567', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-02-20' },
-    { id: '3', name: 'Emmanuel Nsengiyumva', email: 'e.nsengiyumva@email.com', phone: '+250 788 345 678', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-03-10' },
-    { id: '4', name: 'Grace Mukamana', email: 'g.mukamana@email.com', phone: '+32 489 123 456', country: 'Belgium', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-04-05' },
-    { id: '5', name: 'Patrick Niyonzima', email: 'p.niyonzima@email.com', phone: '+1 647 890 1234', country: 'Canada', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-05-12' },
-    { id: '6', name: 'Diane Ingabire', email: 'd.ingabire@email.com', phone: '+250 788 456 789', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-06-01' },
-    { id: '7', name: 'Samuel Bizimana', email: 's.bizimana@email.com', phone: '+44 7700 900123', country: 'United Kingdom', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-06-15' },
-    { id: '8', name: 'Claudine Nyiraneza', email: 'c.nyiraneza@email.com', phone: '+250 788 567 890', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'PENDING', joinedDate: '2026-07-18' },
-    { id: '9', name: 'David Mugabo', email: 'd.mugabo@email.com', phone: '+250 788 678 901', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-07-20' },
-    { id: '10', name: 'Esperance Mutoni', email: 'e.mutoni@email.com', phone: '+49 170 1234567', country: 'Germany', type: 'DIASPORA', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-08-10' },
-    { id: '11', name: 'Innocent Hakizimana', email: 'i.hakizimana@email.com', phone: '+250 788 789 012', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-09-01' },
-    { id: '12', name: 'Jeannette Umutoni', email: 'j.umutoni@email.com', phone: '+250 788 890 123', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-09-15' },
-    { id: '13', name: 'Thierry Ndayisaba', email: 't.ndayisaba@email.com', phone: '+33 6 12 34 56 78', country: 'France', type: 'DIASPORA', employment: 'EMPLOYED', status: 'PENDING', joinedDate: '2026-07-19' },
-    { id: '14', name: 'Beatrice Uwase', email: 'b.uwase@email.com', phone: '+250 788 901 234', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-10-20' },
-    { id: '15', name: 'Olivier Nshimiyimana', email: 'o.nshimiyimana@email.com', phone: '+1 202 555 0143', country: 'United States', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-11-05' },
+    { id: '1', name: 'Jean-Pierre Habimana', email: 'jp.habimana@gmail.com', phone: '+250 788 123 456', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-01-15' },
+    { id: '2', name: 'Marie Claire Uwimana', email: 'mc.uwimana@gmail.com', phone: '+250 788 234 567', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-02-20' },
+    { id: '3', name: 'Emmanuel Nsengiyumva', email: 'e.nsengiyumva@gmail.com', phone: '+250 788 345 678', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-03-10' },
+    { id: '4', name: 'Grace Mukamana', email: 'g.mukamana@gmail.com', phone: '+32 489 123 456', country: 'Belgium', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-04-05' },
+    { id: '5', name: 'Patrick Niyonzima', email: 'p.niyonzima@gmail.com', phone: '+1 647 890 1234', country: 'Canada', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-05-12' },
+    { id: '6', name: 'Diane Ingabire', email: 'd.ingabire@gmail.com', phone: '+250 788 456 789', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-06-01' },
+    { id: '7', name: 'Samuel Bizimana', email: 's.bizimana@gmail.com', phone: '+44 7700 900123', country: 'United Kingdom', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-06-15' },
+    { id: '8', name: 'Claudine Nyiraneza', email: 'c.nyiraneza@gmail.com', phone: '+250 788 567 890', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'PENDING', joinedDate: '2026-07-18' },
+    { id: '9', name: 'David Mugabo', email: 'd.mugabo@gmail.com', phone: '+250 788 678 901', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-07-20' },
+    { id: '10', name: 'Esperance Mutoni', email: 'e.mutoni@gmail.com', phone: '+49 170 1234567', country: 'Germany', type: 'DIASPORA', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-08-10' },
+    { id: '11', name: 'Innocent Hakizimana', email: 'i.hakizimana@gmail.com', phone: '+250 788 789 012', country: 'Rwanda', type: 'LOCAL', employment: 'STUDENT', status: 'APPROVED', joinedDate: '2024-09-01' },
+    { id: '12', name: 'Jeannette Umutoni', email: 'j.umutoni@gmail.com', phone: '+250 788 890 123', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-09-15' },
+    { id: '13', name: 'Thierry Ndayisaba', email: 't.ndayisaba@gmail.com', phone: '+33 6 12 34 56 78', country: 'France', type: 'DIASPORA', employment: 'EMPLOYED', status: 'PENDING', joinedDate: '2026-07-19' },
+    { id: '14', name: 'Beatrice Uwase', email: 'b.uwase@gmail.com', phone: '+250 788 901 234', country: 'Rwanda', type: 'LOCAL', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-10-20' },
+    { id: '15', name: 'Olivier Nshimiyimana', email: 'o.nshimiyimana@gmail.com', phone: '+1 202 555 0143', country: 'United States', type: 'DIASPORA', employment: 'EMPLOYED', status: 'APPROVED', joinedDate: '2024-11-05' },
   ];
 
   for (const member of DEMO_MEMBERS) {

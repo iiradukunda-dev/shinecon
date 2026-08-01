@@ -38,7 +38,7 @@ Visit **http://localhost:3000** to see the splash screen.
 | Role | Email | Password |
 |------|-------|----------|
 | **Super Admin** | `admin@gmail.com` | `admin123` |
-| **Member** | `jp.habimana@email.com` | `demo` |
+| **Member** | `jp.habimana@gmail.com` | `demo` |
 
 ---
 

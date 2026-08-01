@@ -102,6 +102,17 @@ export function AppProvider({ children }) {
     }
   }, []);
 
+  const updateUser = useCallback((newData) => {
+    setUser(prev => {
+      if (!prev) return null;
+      const updated = { ...prev, ...newData };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('smconnect_user', JSON.stringify(updated));
+      }
+      return updated;
+    });
+  }, []);
+
   // ── Theme ───────────────────────────────────────────
   const toggleTheme = useCallback(() => {
     setTheme(prev => {
@@ -582,7 +593,7 @@ export function AppProvider({ children }) {
   }), [members, contributions, campaigns]);
 
   const contextValue = useMemo(() => ({
-    user, isInitialized, login, logout,
+    user, isInitialized, login, logout, updateUser,
     theme, toggleTheme,
     language, setLanguage,
     sidebarOpen, setSidebarOpen,

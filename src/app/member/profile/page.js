@@ -1,12 +1,82 @@
 'use client';
+import { useState, useRef } from 'react';
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import { getInitials, formatCurrency } from '@/lib/utils';
 import { OnlineLogoIcon } from '@/components/icons';
 
 export default function ProfilePage() {
-  const { user, theme, toggleTheme, language, setLanguage, logout, contributions } = useApp();
+  const { user, updateUser, theme, toggleTheme, language, setLanguage, logout, contributions, addToast } = useApp();
   const router = useRouter();
+  const fileInputRef = useRef(null);
+  const [photoUploading, setPhotoUploading] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({ current: '', new: '', confirm: '' });
+  const [passwordStatus, setPasswordStatus] = useState('');
+
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      addToast('Image must be less than 2MB', 'error');
+      return;
+    }
+
+    setPhotoUploading(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Str = event.target.result;
+      try {
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          updateUser({ photo: base64Str });
+          addToast('Profile photo updated', 'success');
+        } else {
+          addToast(data.error || 'Failed to update photo', 'error');
+        }
+      } catch (err) {
+        addToast('Network error', 'error');
+      }
+      setPhotoUploading(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (passwordForm.new !== passwordForm.confirm) {
+      addToast('New passwords do not match', 'error');
+      return;
+    }
+    setPasswordStatus('saving');
+    try {
+      const res = await fetch('/api/user/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user?.id,
+          action: 'change_password',
+          currentPassword: passwordForm.current,
+          newPassword: passwordForm.new,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        addToast('Password changed successfully', 'success');
+        setPasswordForm({ current: '', new: '', confirm: '' });
+      } else {
+        addToast(data.error || 'Failed to change password', 'error');
+      }
+    } catch (err) {
+      addToast('Network error', 'error');
+    }
+    setPasswordStatus('');
+  };
 
   const myContribs = contributions.filter(c => c.memberId === (user?.id || '1') && c.status === 'approved');
   const total = myContribs.reduce((s, c) => s + c.amount, 0);
@@ -23,15 +93,28 @@ export default function ProfilePage() {
       <div className="glass-card-static animate-fade-in-up" style={{
         padding: 'var(--space-xl)', textAlign: 'center', marginBottom: 'var(--space-lg)',
       }}>
-        <div style={{
+        <div 
+          onClick={() => fileInputRef.current?.click()}
+          style={{
           width: 80, height: 80, borderRadius: '50%',
-          background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+          background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           margin: '0 auto var(--space-md)', color: '#fff',
           fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)',
+          cursor: 'pointer', position: 'relative', overflow: 'hidden',
+          opacity: photoUploading ? 0.5 : 1,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
         }}>
-          {getInitials(user?.name || 'JP')}
+          {!user?.photo && getInitials(user?.name || 'JP')}
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
+            background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 10, backdropFilter: 'blur(2px)'
+          }}>
+            Edit
+          </div>
         </div>
+        <input type="file" ref={fileInputRef} onChange={handlePhotoChange} accept="image/*" style={{ display: 'none' }} />
         <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 2 }}>
           {user?.name || 'Jean-Pierre Habimana'}
         </h2>
@@ -119,6 +202,29 @@ export default function ProfilePage() {
             <OnlineLogoIcon name="clipboard" size={16} /> Terms of Service
           </button>
         </div>
+      </div>
+
+      {/* Security */}
+      <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Security</h3>
+        
+        <form onSubmit={handlePasswordChange}>
+          <div style={{ marginBottom: 'var(--space-sm)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Current Password</label>
+            <input type="password" required className="input" value={passwordForm.current} onChange={e => setPasswordForm({...passwordForm, current: e.target.value})} />
+          </div>
+          <div style={{ marginBottom: 'var(--space-sm)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>New Password</label>
+            <input type="password" required className="input" value={passwordForm.new} onChange={e => setPasswordForm({...passwordForm, new: e.target.value})} />
+          </div>
+          <div style={{ marginBottom: 'var(--space-md)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Confirm New Password</label>
+            <input type="password" required className="input" value={passwordForm.confirm} onChange={e => setPasswordForm({...passwordForm, confirm: e.target.value})} />
+          </div>
+          <button type="submit" disabled={passwordStatus === 'saving'} className="btn btn-gold" style={{ width: '100%' }}>
+            {passwordStatus === 'saving' ? 'Updating...' : 'Change Password'}
+          </button>
+        </form>
       </div>
 
       {/* Logout */}

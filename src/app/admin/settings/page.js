@@ -1,7 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '@/context/app-context';
 import { OnlineLogoIcon } from '@/components/icons';
+import { getInitials } from '@/lib/utils';
 
 const DEFAULT_SETTINGS = {
   'branding.ministryName': 'Shining Ministries',
@@ -25,10 +26,79 @@ const DEFAULT_SETTINGS = {
 };
 
 export default function SettingsPage() {
-  const { theme, toggleTheme, language, setLanguage, addToast } = useApp();
+  const { user, updateUser, theme, toggleTheme, language, setLanguage, addToast } = useApp();
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef(null);
+  const [photoUploading, setPhotoUploading] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({ current: '', new: '', confirm: '' });
+  const [passwordStatus, setPasswordStatus] = useState('');
+
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      addToast('Image must be less than 2MB', 'error');
+      return;
+    }
+
+    setPhotoUploading(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Str = event.target.result;
+      try {
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          updateUser({ photo: base64Str });
+          addToast('Profile photo updated', 'success');
+        } else {
+          addToast(data.error || 'Failed to update photo', 'error');
+        }
+      } catch (err) {
+        addToast('Network error', 'error');
+      }
+      setPhotoUploading(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (passwordForm.new !== passwordForm.confirm) {
+      addToast('New passwords do not match', 'error');
+      return;
+    }
+    setPasswordStatus('saving');
+    try {
+      const res = await fetch('/api/user/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user?.id,
+          action: 'change_password',
+          currentPassword: passwordForm.current,
+          newPassword: passwordForm.new,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        addToast('Password changed successfully', 'success');
+        setPasswordForm({ current: '', new: '', confirm: '' });
+      } else {
+        addToast(data.error || 'Failed to change password', 'error');
+      }
+    } catch (err) {
+      addToast('Network error', 'error');
+    }
+    setPasswordStatus('');
+  };
 
   useEffect(() => {
     fetch('/api/settings?_t=' + Date.now(), { cache: 'no-store' })
@@ -133,6 +203,57 @@ export default function SettingsPage() {
       <div className="page-header animate-fade-in-up">
         <h1>System Settings</h1>
         <p>Configure SM Connect platform settings</p>
+      </div>
+
+      {/* Admin Profile */}
+      <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-xl)', textAlign: 'center', marginBottom: 'var(--space-lg)' }}>
+        <div 
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+          width: 80, height: 80, borderRadius: '50%',
+          background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          margin: '0 auto var(--space-md)', color: '#fff',
+          fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)',
+          cursor: 'pointer', position: 'relative', overflow: 'hidden',
+          opacity: photoUploading ? 0.5 : 1,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+        }}>
+          {!user?.photo && getInitials(user?.name || 'Admin')}
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
+            background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 10, backdropFilter: 'blur(2px)'
+          }}>
+            Edit
+          </div>
+        </div>
+        <input type="file" ref={fileInputRef} onChange={handlePhotoChange} accept="image/*" style={{ display: 'none' }} />
+        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 2 }}>{user?.name || 'System Admin'}</h2>
+        <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{user?.email}</p>
+      </div>
+
+      {/* Security */}
+      <div className="glass-card-static animate-fade-in-up stagger-2" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Security & Password</h3>
+        
+        <form onSubmit={handlePasswordChange}>
+          <div style={{ marginBottom: 'var(--space-sm)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Current Password</label>
+            <input type="password" required className="input" value={passwordForm.current} onChange={e => setPasswordForm({...passwordForm, current: e.target.value})} />
+          </div>
+          <div style={{ marginBottom: 'var(--space-sm)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>New Password</label>
+            <input type="password" required className="input" value={passwordForm.new} onChange={e => setPasswordForm({...passwordForm, new: e.target.value})} />
+          </div>
+          <div style={{ marginBottom: 'var(--space-md)' }}>
+            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Confirm New Password</label>
+            <input type="password" required className="input" value={passwordForm.confirm} onChange={e => setPasswordForm({...passwordForm, confirm: e.target.value})} />
+          </div>
+          <button type="submit" disabled={passwordStatus === 'saving'} className="btn btn-gold" style={{ width: '100%', maxWidth: 200 }}>
+            {passwordStatus === 'saving' ? 'Updating...' : 'Change Password'}
+          </button>
+        </form>
       </div>
 
       {/* Theme Toggle */}

@@ -37,7 +37,7 @@ Visit **http://localhost:3000** to see the splash screen.
 
 | Role | Email | Password |
 |------|-------|----------|
-| **Super Admin** | `admin@smconnect.org` | `admin123` |
+| **Super Admin** | `admin@gmail.com` | `admin123` |
 | **Member** | `jp.habimana@email.com` | `demo` |
 
 ---

@@ -45,7 +45,7 @@ async function main() {
   const adminUser = await prisma.user.create({
     data: {
       id: '0',
-      email: 'admin@smconnect.org',
+      email: 'admin@gmail.com',
       passwordHash: hashPassword('admin123'),
       role: 'SUPER_ADMIN',
     }

@@ -1,5 +1,16 @@
 'use client';
 
+import {
+  Home, Wallet, Target, ClipboardCheck, Megaphone, Sparkles,
+  User, Users, LineChart, Calendar, MessageSquare, FileText,
+  Settings, ShieldCheck, DollarSign, Hourglass, Church, Download,
+  Eye, Sun, Clock, MapPin, CheckCircle, XCircle, Info, Menu, X,
+  Star, Check, Globe, Moon, Smartphone, History, BarChart,
+  Clipboard, PartyPopper, Bell, Lightbulb, Heart, Gift, Plane,
+  Music, Tent, AlertCircle, Hammer, Gem, ClipboardList, BarChart2,
+} from 'lucide-react';
+
+/** Map emoji shortcuts → Lucide components */
 const emojiMap = {
   '📢': 'megaphone',
   '⛪': 'church',
@@ -24,46 +35,152 @@ const emojiMap = {
   '🎁': 'gift',
 };
 
+/** Map CSS variable strings → hex values for lucide stroke colors */
 const colorMap = {
-  'var(--soft-red)': 'E03131',
-  'var(--gold)': 'D4A843',
-  'var(--gold-light)': 'E8C876',
-  'var(--emerald)': '2B8A3E',
-  'var(--royal-blue)': '3B5BDB',
-  'var(--white)': 'FFFFFF',
-  'var(--text-primary)': 'FFFFFF',
-  'var(--text-secondary)': 'CCCCCC'
+  'var(--soft-red)': '#E03131',
+  'var(--gold)': '#D4A843',
+  'var(--gold-light)': '#E8C876',
+  'var(--emerald)': '#2B8A3E',
+  'var(--royal-blue)': '#3B5BDB',
+  'var(--white)': '#FFFFFF',
+  'var(--text-primary)': '#FFFFFF',
+  'var(--text-secondary)': '#CCCCCC',
 };
 
+/** Map icon name strings → Lucide React components */
+const iconComponents = {
+  'home': Home,
+  'wallet': Wallet,
+  'target': Target,
+  'clipboard-check': ClipboardCheck,
+  'megaphone': Megaphone,
+  'sparkles': Sparkles,
+  'user': User,
+  'users': Users,
+  'line-chart': LineChart,
+  'calendar': Calendar,
+  'message-square': MessageSquare,
+  'file-text': FileText,
+  'settings': Settings,
+  'shield-check': ShieldCheck,
+  'dollar-sign': DollarSign,
+  'hourglass': Hourglass,
+  'church': Church,
+  'download': Download,
+  'eye': Eye,
+  'sun': Sun,
+  'clock': Clock,
+  'map-pin': MapPin,
+  'check-circle': CheckCircle,
+  'x-circle': XCircle,
+  'info': Info,
+  'menu': Menu,
+  'x': X,
+  'star': Star,
+  'check': Check,
+  'globe': Globe,
+  'moon': Moon,
+  'smartphone': Smartphone,
+  'history': History,
+  'bar-chart': BarChart,
+  'bar-chart-2': BarChart2,
+  'clipboard': Clipboard,
+  'clipboard-list': ClipboardList,
+  'party-popper': PartyPopper,
+  'bell': Bell,
+  'lightbulb': Lightbulb,
+  'heart': Heart,
+  'gift': Gift,
+  'plane': Plane,
+  'music': Music,
+  'tent': Tent,
+  'alert-circle': AlertCircle,
+  'hammer': Hammer,
+  'gem': Gem,
+};
+
+/**
+ * Resolves color prop to a CSS-usable color string.
+ * Accepts CSS variables, hex (with or without #), or any CSS color.
+ */
+function resolveColor(color) {
+  if (!color) return '#D4A843';
+  if (colorMap[color]) return colorMap[color];
+  if (color.startsWith('var(')) return '#D4A843'; // unknown var fallback
+  if (color.startsWith('#')) return color;
+  return `#${color}`; // bare hex like "D4A843"
+}
+
+/**
+ * Universal offline icon component.
+ * - Accepts icon names (e.g. "wallet"), emoji shortcuts, or is ignored for URLs.
+ * - Falls back to a ● dot if the icon name is unrecognised.
+ */
 export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = '' }) {
   const mappedName = emojiMap[name] || name;
-  const isUrl = String(mappedName).startsWith('http');
-  
-  let cleanColor = colorMap[color] || color.replace('#', '');
-  if (cleanColor.includes('var(')) cleanColor = 'D4A843'; // fallback for unknown vars
-  
-  const iconUrl = isUrl ? mappedName : `https://api.iconify.design/lucide:${mappedName}.svg?color=%23${cleanColor}`;
+
+  // If it's a URL, render a plain img tag (external logos like payment provider logos)
+  if (String(mappedName).startsWith('http')) {
+    return (
+      <img
+        src={mappedName}
+        alt={name}
+        width={size}
+        height={size}
+        style={{
+          width: size,
+          height: size,
+          objectFit: 'contain',
+          display: 'inline-block',
+          verticalAlign: 'middle',
+          filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))',
+        }}
+        className={className}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+
+  const LucideIcon = iconComponents[mappedName];
+  const stroke = resolveColor(color);
+
+  if (!LucideIcon) {
+    // Graceful fallback: small colored dot
+    return (
+      <span
+        className={className}
+        style={{
+          display: 'inline-block',
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: stroke,
+          verticalAlign: 'middle',
+          flexShrink: 0,
+        }}
+        aria-hidden="true"
+      />
+    );
+  }
 
   return (
-    <img
-      src={iconUrl}
-      alt={name}
-      width={size}
-      height={size}
+    <LucideIcon
+      size={size}
+      color={stroke}
+      strokeWidth={1.75}
+      className={className}
       style={{
-        width: size,
-        height: size,
-        objectFit: 'contain',
         display: 'inline-block',
         verticalAlign: 'middle',
-        filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))'
+        flexShrink: 0,
+        filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))',
       }}
-      className={className}
-      loading="lazy"
-      decoding="async"
     />
   );
 }
+
+/* ── Named icon exports (unchanged API) ──────────────────── */
 
 export function IconHome({ size = 20, color = 'D4A843', className = '' }) {
   return <OnlineLogoIcon name="home" color={color} size={size} className={className} />;

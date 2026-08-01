@@ -1,5 +1,21 @@
 import './globals.css';
+import { Inter, Outfit } from 'next/font/google';
 import { AppProvider } from '@/context/app-context';
+
+// Self-hosted via next/font — no runtime network request to Google
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'SM Connect — Shining Ministries',
@@ -17,7 +33,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
       <body>
         <AppProvider>
           {children}

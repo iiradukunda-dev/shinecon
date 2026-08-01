@@ -3,7 +3,6 @@ import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import {
   getGreeting, formatCurrency, formatDate,
-  MONTHLY_CONTRIBUTION_DATA,
 } from '@/lib/utils';
 import { IconGive, IconTarget, IconClipboard, IconSparkles, OnlineLogoIcon } from '@/components/icons';
 

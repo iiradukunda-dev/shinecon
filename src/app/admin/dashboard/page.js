@@ -3,7 +3,7 @@ import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import {
   formatCurrency, formatDate,
-  MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
+  getMonthlyContributionData, getAttendanceTrend, getMemberGrowth,
 } from '@/lib/utils';
 import { IconUsers, IconGive, IconDollar, IconHourglass, OnlineLogoIcon } from '@/components/icons';
 
@@ -19,6 +19,10 @@ export default function AdminDashboard() {
 
   const pendingContributions = contributions.filter(c => c.status === 'pending');
   const pendingMembers = members.filter(m => m.status === 'pending');
+
+  const MONTHLY_CONTRIBUTION_DATA = getMonthlyContributionData(contributions);
+  const ATTENDANCE_TREND_DATA = getAttendanceTrend(attendance || []);
+  const MEMBER_GROWTH_DATA = getMemberGrowth(members);
 
   return (
     <div className="flex-col gap-xl">
@@ -94,7 +98,7 @@ export default function AdminDashboard() {
           </div>
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 12, height: 160 }}>
             {MONTHLY_CONTRIBUTION_DATA.labels.map((label, i) => {
-              const maxVal = Math.max(...MONTHLY_CONTRIBUTION_DATA.local);
+              const maxVal = Math.max(...MONTHLY_CONTRIBUTION_DATA.local, 1);
               const height = (MONTHLY_CONTRIBUTION_DATA.local[i] / maxVal) * 100;
               const isLast = i === MONTHLY_CONTRIBUTION_DATA.labels.length - 1;
               return (
@@ -131,7 +135,7 @@ export default function AdminDashboard() {
                 </linearGradient>
               </defs>
               {(() => {
-                const data = MEMBER_GROWTH.data;
+                const data = MEMBER_GROWTH_DATA.data;
                 const max = Math.max(...data) * 1.1;
                 const points = data.map((v, i) => `${(i / (data.length - 1)) * 700},${140 - (v / max) * 130}`).join(' ');
                 const areaPoints = points + ` 700,140 0,140`;
@@ -146,8 +150,8 @@ export default function AdminDashboard() {
                 );
               })()}
             </svg>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
-              {MEMBER_GROWTH.labels.map(l => (
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 12, borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 12 }}>
+              {MEMBER_GROWTH_DATA.labels.map(l => (
                 <span key={l} style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>{l}</span>
               ))}
             </div>

@@ -33,14 +33,7 @@ npm run dev
 
 Visit **http://localhost:3000** to see the splash screen.
 
-### Demo Credentials
 
-| Role | Email | Password |
-|------|-------|----------|
-| **Super Admin** | `admin@gmail.com` | `admin123` |
-| **Member** | `jp.habimana@gmail.com` | `demo` |
-
----
 
 ## Design System
 
@@ -118,7 +111,7 @@ shine/
 │   ├── context/
 │   │   └── app-context.js    # Global state management
 │   └── lib/
-│       └── demo-data.js      # Sample data for demo mode
+│       └── utils.js          # Shared utility functions
 └── package.json
 ```
 
@@ -146,9 +139,9 @@ Prisma will automatically create the `smconnect` database if it doesn't exist, a
 npx prisma migrate dev --name init
 ```
 
-### 3. Seeding Demo Data
+### 3. Seeding Initial Data
 
-To populate the system with predefined members, campaigns, events, and financial data, run the seed script:
+To populate the system with the initial setup (Super Admin account and default configuration), run the seed script:
 
 ```bash
 npx prisma db seed

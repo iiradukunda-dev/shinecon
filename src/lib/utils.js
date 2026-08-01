@@ -20,27 +20,119 @@ export const ADMIN_AI_SUGGESTIONS = [
   'Generate ministry performance report',
 ];
 
-export const MONTHLY_CONTRIBUTION_DATA = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  local: [420000, 385000, 450000, 410000, 475000, 490000, 520000],
-  diaspora: [280, 310, 250, 340, 290, 365, 380],
-};
+export function getMonthlyContributionData(contributions = []) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const labels = [];
+  const local = [];
+  const diaspora = [];
+  
+  const now = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    labels.push(months[d.getMonth()]);
+    
+    let localSum = 0;
+    let diasporaSum = 0;
+    
+    contributions.forEach(c => {
+      if ((c.status || '').toLowerCase() !== 'approved') return;
+      const cDate = new Date(c.date || c.createdAt);
+      if (cDate.getFullYear() === d.getFullYear() && cDate.getMonth() === d.getMonth()) {
+        if (c.currency === 'RWF') {
+          localSum += c.amount;
+        } else {
+          diasporaSum += c.amount;
+        }
+      }
+    });
+    
+    local.push(localSum);
+    diaspora.push(diasporaSum);
+  }
+  
+  return { labels, local, diaspora };
+}
 
-export const ATTENDANCE_TREND = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  data: [165, 178, 182, 190, 195, 201, 203],
-};
+export function getAttendanceTrend(attendance = []) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const labels = [];
+  const data = [];
+  
+  const now = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    labels.push(months[d.getMonth()]);
+    
+    let total = 0;
+    attendance.forEach(a => {
+      const aDate = new Date(a.date || a.startTime);
+      if (aDate.getFullYear() === d.getFullYear() && aDate.getMonth() === d.getMonth()) {
+        total += (a.total || 0);
+      }
+    });
+    data.push(total);
+  }
+  
+  return { labels, data };
+}
 
-export const MEMBER_GROWTH = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  data: [120, 128, 135, 142, 148, 155, 162],
-};
+export function getMemberGrowth(members = []) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const labels = [];
+  const data = [];
+  
+  const now = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    labels.push(months[d.getMonth()]);
+    
+    let count = 0;
+    members.forEach(m => {
+      if ((m.status || m.approvalStatus || '').toLowerCase() !== 'approved') return;
+      const mDate = new Date(m.joinedDate || m.createdAt);
+      const eom = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
+      if (mDate <= eom) {
+        count++;
+      }
+    });
+    data.push(count);
+  }
+  
+  return { labels, data };
+}
 
-export const CONTRIBUTION_BY_CATEGORY = {
-  labels: ['Monthly', 'Building Fund', 'Youth', 'Choir', 'Mission', 'Special'],
-  data: [45, 25, 10, 5, 10, 5],
-  colors: ['#D4A843', '#3B5BDB', '#2B8A3E', '#9C36B5', '#E8590C', '#F59F00'],
-};
+export function getContributionByCategory(contributions = [], contributionTypes = []) {
+  const categoryTotals = {};
+  let totalAmount = 0;
+  
+  contributions.forEach(c => {
+    if ((c.status || '').toLowerCase() !== 'approved') return;
+    const type = contributionTypes.find(t => t.id === c.contributionTypeId);
+    const catName = type ? type.name : 'Other';
+    const normalizedAmt = c.currency === 'USD' ? c.amount * 1300 : c.currency === 'EUR' ? c.amount * 1400 : c.amount;
+    categoryTotals[catName] = (categoryTotals[catName] || 0) + normalizedAmt;
+    totalAmount += normalizedAmt;
+  });
+  
+  const labels = [];
+  const data = [];
+  const defaultColors = ['#D4A843', '#3B5BDB', '#2B8A3E', '#9C36B5', '#E8590C', '#F59F00'];
+  const colors = [];
+  
+  let colorIdx = 0;
+  for (const [cat, sum] of Object.entries(categoryTotals)) {
+    labels.push(cat);
+    data.push(totalAmount > 0 ? Math.round((sum / totalAmount) * 100) : 0);
+    colors.push(defaultColors[colorIdx % defaultColors.length]);
+    colorIdx++;
+  }
+  
+  if (labels.length === 0) {
+    return { labels: ['No Data'], data: [100], colors: ['#555'] };
+  }
+  
+  return { labels, data, colors };
+}
 
 export function getGreeting() {
   const hour = new Date().getHours();

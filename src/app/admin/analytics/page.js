@@ -1,13 +1,17 @@
 'use client';
 import {
-  MONTHLY_CONTRIBUTION_DATA, ATTENDANCE_TREND, MEMBER_GROWTH,
-  CONTRIBUTION_BY_CATEGORY,
+  getMonthlyContributionData, getAttendanceTrend, getMemberGrowth,
+  getContributionByCategory,
 } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
 import { OnlineLogoIcon } from '@/components/icons';
 
 export default function AnalyticsPage() {
-  const { stats } = useApp();
+  const { stats, members, contributions, contributionTypes } = useApp();
+
+  const MONTHLY_CONTRIBUTION_DATA = getMonthlyContributionData(contributions);
+  const MEMBER_GROWTH_DATA = getMemberGrowth(members);
+  const CONTRIBUTION_BY_CATEGORY_DATA = getContributionByCategory(contributions, contributionTypes);
 
   return (
     <div>
@@ -29,7 +33,7 @@ export default function AnalyticsPage() {
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16, height: 200 }}>
           {MONTHLY_CONTRIBUTION_DATA.labels.map((label, i) => {
-            const maxVal = Math.max(...MONTHLY_CONTRIBUTION_DATA.local);
+            const maxVal = Math.max(...MONTHLY_CONTRIBUTION_DATA.local, 1);
             const height = (MONTHLY_CONTRIBUTION_DATA.local[i] / maxVal) * 100;
             const isLast = i === MONTHLY_CONTRIBUTION_DATA.labels.length - 1;
             return (
@@ -59,16 +63,16 @@ export default function AnalyticsPage() {
             Contribution Categories
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-            {CONTRIBUTION_BY_CATEGORY.labels.map((label, i) => (
+            {CONTRIBUTION_BY_CATEGORY_DATA.labels.map((label, i) => (
               <div key={label}>
                 <div className="flex-between" style={{ marginBottom: 4 }}>
                   <span style={{ fontSize: 'var(--text-sm)', fontWeight: 500 }}>{label}</span>
-                  <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{CONTRIBUTION_BY_CATEGORY.data[i]}%</span>
+                  <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{CONTRIBUTION_BY_CATEGORY_DATA.data[i]}%</span>
                 </div>
                 <div className="progress-bar" style={{ height: 6 }}>
                   <div className="progress-bar-fill" style={{
-                    width: `${CONTRIBUTION_BY_CATEGORY.data[i]}%`,
-                    background: CONTRIBUTION_BY_CATEGORY.colors[i],
+                    width: `${CONTRIBUTION_BY_CATEGORY_DATA.data[i]}%`,
+                    background: CONTRIBUTION_BY_CATEGORY_DATA.colors[i],
                   }} />
                 </div>
               </div>
@@ -90,8 +94,8 @@ export default function AnalyticsPage() {
                 </linearGradient>
               </defs>
               {(() => {
-                const data = MEMBER_GROWTH.data;
-                const max = Math.max(...data) * 1.15;
+                const data = MEMBER_GROWTH_DATA.data;
+                const max = Math.max(...data, 1) * 1.15;
                 const pts = data.map((v, i) => `${(i / (data.length - 1)) * 700},${170 - (v / max) * 160}`).join(' ');
                 return (
                   <>
@@ -111,7 +115,7 @@ export default function AnalyticsPage() {
             </svg>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
-            {MEMBER_GROWTH.labels.map(l => (
+            {MEMBER_GROWTH_DATA.labels.map(l => (
               <span key={l} style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{l}</span>
             ))}
           </div>

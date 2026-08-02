@@ -136,8 +136,11 @@ export default function AdminDashboard() {
               </defs>
               {(() => {
                 const data = MEMBER_GROWTH_DATA.data;
-                const max = Math.max(...data) * 1.1;
-                const points = data.map((v, i) => `${(i / (data.length - 1)) * 700},${140 - (v / max) * 130}`).join(' ');
+                const max = Math.max(...data, 10) * 1.1;
+                const points = data.map((v, i) => {
+                  const safeMax = max === 0 ? 1 : max;
+                  return `${(i / (data.length - 1)) * 700},${140 - (v / safeMax) * 130}`;
+                }).join(' ');
                 const areaPoints = points + ` 700,140 0,140`;
                 return (
                   <>

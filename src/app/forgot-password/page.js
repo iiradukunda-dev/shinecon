@@ -17,6 +17,7 @@ export default function ForgotPasswordPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [testUrl, setTestUrl] = useState(null);
 
   const handleRequestCode = async (e) => {
     e.preventDefault();
@@ -33,6 +34,9 @@ export default function ForgotPasswordPage() {
       
       if (res.ok && data.success) {
         addToast(data.message, 'success');
+        if (data.testUrl) {
+          setTestUrl(data.testUrl);
+        }
         setStep(2);
       } else {
         addToast(data.error || 'Failed to request reset code', 'error');
@@ -250,6 +254,17 @@ export default function ForgotPasswordPage() {
             Log in
           </span>
         </div>
+
+        {testUrl && (
+          <div style={{ marginTop: 24, padding: 12, borderRadius: 8, background: 'rgba(212, 168, 67, 0.1)', border: '1px solid rgba(212, 168, 67, 0.3)', textAlign: 'center' }}>
+            <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.7)', display: 'block', marginBottom: 4 }}>
+              🛠️ <b>Development Mode</b>
+            </span>
+            <a href={testUrl} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--gold)', fontWeight: 600, textDecoration: 'none' }}>
+              Click here to view the test email
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

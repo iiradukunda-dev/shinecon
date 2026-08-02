@@ -1,4 +1,8 @@
-export default function SplashPage() {\n  return null;\n}\n\n// 'use client';
+export default function SplashPage() {
+  return null;
+}
+
+// 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ParticlesBackground from '@/components/ParticlesBackground';

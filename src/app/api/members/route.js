@@ -9,10 +9,11 @@ function hashPassword(password) {
 export async function POST(request) {
   try {
     const data = await request.json();
+    const email = data.email?.toLowerCase();
     
     // Check if email already exists
     const existing = await prisma.user.findUnique({
-      where: { email: data.email },
+      where: { email },
     });
     if (existing) {
       return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
@@ -20,7 +21,7 @@ export async function POST(request) {
 
     const user = await prisma.user.create({
       data: {
-        email: data.email,
+        email: email,
         passwordHash: hashPassword(data.password || 'changeme123'),
         role: 'MEMBER',
         profile: {

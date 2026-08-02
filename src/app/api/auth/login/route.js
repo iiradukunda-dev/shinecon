@@ -8,7 +8,9 @@ function hashPassword(password) {
 
 export async function POST(request) {
   try {
-    const { email, password } = await request.json();
+    const body = await request.json();
+    const { password } = body;
+    const email = body.email?.toLowerCase();
 
 
     const user = await prisma.user.findUnique({

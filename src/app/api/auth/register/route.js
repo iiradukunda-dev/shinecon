@@ -8,7 +8,9 @@ function hashPassword(password) {
 
 export async function POST(request) {
   try {
-    const { fullName, email, phone, country, type, employment, password } = await request.json();
+    const body = await request.json();
+    const { fullName, phone, country, type, employment, password } = body;
+    const email = body.email?.toLowerCase();
 
     if (!fullName || !email || !password || !phone) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });

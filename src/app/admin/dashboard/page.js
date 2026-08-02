@@ -3,7 +3,7 @@ import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import {
   formatCurrency, formatDate,
-  getMonthlyContributionData, getAttendanceTrend, getMemberGrowth,
+  getMonthlyContributionData, getMemberGrowth,
 } from '@/lib/utils';
 import { IconUsers, IconGive, IconDollar, IconHourglass, OnlineLogoIcon } from '@/components/icons';
 
@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   const pendingMembers = members.filter(m => m.status === 'pending');
 
   const MONTHLY_CONTRIBUTION_DATA = getMonthlyContributionData(contributions);
-  const ATTENDANCE_TREND_DATA = getAttendanceTrend(attendance || []);
+
   const MEMBER_GROWTH_DATA = getMemberGrowth(members);
 
   return (

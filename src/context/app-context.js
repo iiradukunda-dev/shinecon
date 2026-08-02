@@ -12,7 +12,20 @@ export function AppProvider({ children }) {
       const savedUser = localStorage.getItem('smconnect_user');
       if (savedUser) {
         try {
-          setUser(JSON.parse(savedUser));
+          const parsedUser = JSON.parse(savedUser);
+          const FIFTEEN_DAYS = 15 * 24 * 60 * 60 * 1000;
+          
+          if (parsedUser.lastActive && (Date.now() - parsedUser.lastActive < FIFTEEN_DAYS)) {
+            // Session is valid, update lastActive
+            parsedUser.lastActive = Date.now();
+            localStorage.setItem('smconnect_user', JSON.stringify(parsedUser));
+            setUser(parsedUser);
+          } else {
+            // Session expired due to inactivity
+            localStorage.removeItem('smconnect_user');
+            setUser(null);
+            console.log('Session expired due to inactivity.');
+          }
         } catch (e) {
           console.error('Failed to parse saved user state', e);
         }
@@ -20,6 +33,42 @@ export function AppProvider({ children }) {
     }
     setIsInitialized(true);
   }, []);
+
+  // Update lastActive timestamp on user interaction (debounced to once per minute)
+  useEffect(() => {
+    if (!user) return;
+    
+    let lastUpdate = Date.now();
+    const updateActivity = () => {
+      const now = Date.now();
+      if (now - lastUpdate > 60000) { // Update at most once every 60s
+        lastUpdate = now;
+        const saved = localStorage.getItem('smconnect_user');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            parsed.lastActive = now;
+            localStorage.setItem('smconnect_user', JSON.stringify(parsed));
+          } catch(e) {
+            // Ignore parse errors here
+          }
+        }
+      }
+    };
+
+    window.addEventListener('mousemove', updateActivity);
+    window.addEventListener('keydown', updateActivity);
+    window.addEventListener('click', updateActivity);
+    window.addEventListener('scroll', updateActivity);
+
+    return () => {
+      window.removeEventListener('mousemove', updateActivity);
+      window.removeEventListener('keydown', updateActivity);
+      window.removeEventListener('click', updateActivity);
+      window.removeEventListener('scroll', updateActivity);
+    };
+  }, [user]);
+
   const [theme, setTheme] = useState('light');
   const [language, setLanguage] = useState('en');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -81,9 +130,10 @@ export function AppProvider({ children }) {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        setUser(data.user);
+        const userWithSession = { ...data.user, lastActive: Date.now() };
+        setUser(userWithSession);
         if (typeof window !== 'undefined') {
-          localStorage.setItem('smconnect_user', JSON.stringify(data.user));
+          localStorage.setItem('smconnect_user', JSON.stringify(userWithSession));
         }
         return { success: true, role: data.role };
       } else {

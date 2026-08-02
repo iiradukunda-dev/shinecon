@@ -3,7 +3,22 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ParticlesBackground from '@/components/ParticlesBackground';
 
+import { useApp } from '@/context/app-context';
+
 export default function SplashPage() {
+  const router = useRouter();
+  const { user, isInitialized } = useApp();
+
+  useEffect(() => {
+    if (isInitialized) {
+      if (!user) {
+        router.push('/login');
+      } else {
+        router.push(user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard');
+      }
+    }
+  }, [user, isInitialized, router]);
+
   return null;
 }
 

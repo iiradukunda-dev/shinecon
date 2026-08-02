@@ -48,8 +48,34 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-page">
+      <style>{`
+        /* Staggered Animations */
+        .auth-logo, .auth-title, .auth-subtitle {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .auth-logo { animation-delay: 0.1s; }
+        .auth-title { animation-delay: 0.2s; }
+        .auth-subtitle { animation-delay: 0.3s; }
+
+        .auth-card > div:nth-child(4) /* Progress bar */ {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.4s;
+        }
+
+        .auth-form > * {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .auth-form > *:nth-child(1) { animation-delay: 0.5s; }
+        .auth-form > *:nth-child(2) { animation-delay: 0.6s; }
+        .auth-form > *:nth-child(3) { animation-delay: 0.7s; }
+        
+        .auth-login-link {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.8s;
+        }
+      `}</style>
       <ParticlesBackground />
-      <div className="auth-card glass-heavy" style={{ borderRadius: 'var(--radius-xl)', maxWidth: 380, padding: '16px 20px' }}>
+      <div className="auth-card glass-heavy" style={{ borderRadius: 'var(--radius-xl)', maxWidth: 380, padding: '16px 20px', animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }}>
         <div className="auth-logo" onClick={() => router.push(user ? (user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard') : '/')} style={{ cursor: 'pointer', margin: '0 auto 6px', width: 48, height: 48 }}><img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /></div>
         <h1 className="auth-title" style={{ fontSize: '18px', marginBottom: 2 }}>Join SM Connect</h1>
         <p className="auth-subtitle" style={{ marginBottom: 10, fontSize: '12px' }}>

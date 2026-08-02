@@ -214,6 +214,35 @@ export default function LoginPage() {
           padding-top: 12px;
           border-top: 1px solid rgba(212, 168, 67, 0.2);
         }
+
+        /* Staggered Animations */
+        .auth-logo-custom, .auth-title-custom, .auth-subtitle-custom {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .auth-logo-custom { animation-delay: 0.1s; }
+        .auth-title-custom { animation-delay: 0.2s; }
+        .auth-subtitle-custom { animation-delay: 0.3s; }
+
+        .auth-input-group {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .auth-input-group:nth-child(1) { animation-delay: 0.4s; }
+        .auth-input-group:nth-child(2) { animation-delay: 0.5s; }
+
+        .auth-options {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.6s;
+        }
+
+        form button[type="submit"] {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.7s;
+        }
+
+        .auth-signup-container {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.8s;
+        }
       `}</style>
       
       <ParticlesBackground />

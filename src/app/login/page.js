@@ -316,9 +316,9 @@ export default function LoginPage() {
               <input type="checkbox" className="auth-checkbox" />
               Remember me
             </label>
-            <a href="#" className="auth-forgot">
+            <span onClick={() => router.push('/forgot-password')} className="auth-forgot" style={{ cursor: 'pointer' }}>
               Forgot password?
-            </a>
+            </span>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: 12 }}>

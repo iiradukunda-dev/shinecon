@@ -219,7 +219,7 @@ export default function LoginPage() {
       <ParticlesBackground />
 
       <div className="auth-card-custom">
-        <div className="auth-card-bg-icon">&#9833;</div>
+
         
         <div className="auth-logo-custom" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />

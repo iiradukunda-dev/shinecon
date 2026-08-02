@@ -184,10 +184,12 @@ export default function MemberLayout({ children }) {
         `}</style>
 
 
-        {/* Brand Avatar */}
         <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="View Profile">
-          <div className="avatar-circle" style={{ width: 38, height: 38, fontSize: 18 }}>
-            {(user?.name || 'M')[0]}
+          <div className="avatar-circle" style={{ 
+            width: 38, height: 38, fontSize: 18,
+            background: user?.photo ? `url(${user.photo}) center/cover` : 'var(--gold)'
+          }}>
+            {!user?.photo && (user?.name || 'M')[0]}
           </div>
         </div>
 

@@ -125,7 +125,7 @@ export default function MemberDashboard() {
           {getGreeting()} <OnlineLogoIcon name="sun" size={16} />
         </p>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 800, color: '#FFFFFF', marginBottom: 10 }}>
-          Welcome, {user?.name || 'Jean-Pierre'}
+          Welcome, {user?.name?.split(' ')[0] || 'Jean-Pierre'}
         </h1>
         <p style={{ fontStyle: 'italic', color: 'rgba(255, 255, 255, 0.75)', fontSize: 16 }}>
           &ldquo;Arise, shine, for your light has come.&rdquo; &mdash; Isaiah 60:1

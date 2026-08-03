@@ -193,6 +193,21 @@ export async function GET() {
       unread: !m.read,
     }));
 
+    // 9. Notifications
+    const dbNotifications = await prisma.notification.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 50,
+    });
+    const notifications = dbNotifications.map(n => ({
+      id: n.id,
+      userId: n.userId,
+      title: n.title,
+      message: n.body,
+      type: n.type,
+      unread: !n.read,
+      time: n.createdAt ? new Date(n.createdAt).toISOString() : '',
+    }));
+
     return NextResponse.json({
       members,
       contributions,
@@ -202,6 +217,7 @@ export async function GET() {
       announcements,
       attendance,
       messages,
+      notifications,
     });
   } catch (error) {
     console.error('Failed to bootstrap application:', error);

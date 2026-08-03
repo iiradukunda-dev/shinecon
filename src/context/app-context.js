@@ -82,6 +82,7 @@ export function AppProvider({ children }) {
   const [messages, setMessages] = useState([]);
   const [attendance, setAttendance] = useState([]);
   const [toasts, setToasts] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   // ── Toasts ──────────────────────────────────────────
   const addToast = useCallback((payload, type = 'info') => {
@@ -129,6 +130,7 @@ export function AppProvider({ children }) {
         if (data.announcements) setAnnouncements(data.announcements);
         if (data.messages) setMessages(data.messages);
         if (data.attendance) setAttendance(data.attendance);
+        if (data.notifications) setNotifications(data.notifications);
       } else if (!silent) {
         addToast('Failed to connect to database. Running in offline/fallback mode.', 'warning');
       }
@@ -672,6 +674,7 @@ export function AppProvider({ children }) {
     theme, toggleTheme,
     language, setLanguage,
     sidebarOpen, setSidebarOpen,
+    notifications, setNotifications,
     // Members
     members, addMember, updateMember, deleteMember, approveMember, rejectMember,
     // Contributions

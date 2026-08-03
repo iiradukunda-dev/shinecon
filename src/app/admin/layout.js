@@ -30,18 +30,18 @@ const NAV_SECTIONS = [
 export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages } = useApp();
+  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages, notifications, setNotifications } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: 'New member registration: Jane Doe', time: '10m ago', unread: true },
-    { id: 2, message: 'Campaign "Winter Relief" reached 80% goal', time: '2h ago', unread: true },
-    { id: 3, message: 'System maintenance scheduled for tonight', time: '1d ago', unread: false }
-  ]);
 
-  const unreadCount = notifications.filter(n => n.unread).length;
-  const markAllRead = () => setNotifications(notifications.map(n => ({ ...n, unread: false })));
+  const unreadCount = notifications?.filter(n => n.unread)?.length || 0;
+  const markAllRead = () => {
+    if (setNotifications) {
+      setNotifications(notifications.map(n => ({ ...n, unread: false })));
+      fetch('/api/notifications/mark-read', { method: 'POST' }).catch(() => {});
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);

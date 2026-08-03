@@ -8,13 +8,13 @@ import {
 import { IconGive, IconTarget, IconClipboard, IconSparkles, OnlineLogoIcon } from '@/components/icons';
 
 export default function MemberDashboard() {
-  const { user, contributions, campaigns, events, announcements } = useApp();
+  const { user, contributions, campaigns, events, announcements, settings } = useApp();
   const router = useRouter();
 
   const myContributions = contributions.filter(c => c.memberId === (user?.id || '1'));
   const myTotal = myContributions.filter(c => c.status === 'approved').reduce((s, c) => s + c.amount, 0);
   const monthlyGoal = 15000;
-  const currency = 'RWF';
+  const currency = settings?.['localization.localCurrency'] || 'RWF';
   const progress = Math.min(100, Math.round((myTotal / monthlyGoal) * 100));
   const circumference = 2 * Math.PI * 52;
 
@@ -212,8 +212,8 @@ export default function MemberDashboard() {
                 </div>
 
                 <div className="flex-between" style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 20 }}>
-                  <span>Raised: <strong>{formatCurrency(campaign.raised, campaign.currency)}</strong></span>
-                  <span>Goal: {formatCurrency(campaign.goal, campaign.currency)}</span>
+                  <span>Raised: <strong>{formatCurrency(campaign.raised, campaign.currency || currency)}</strong></span>
+                  <span>Goal: {formatCurrency(campaign.goal, campaign.currency || currency)}</span>
                 </div>
 
                 <div className="btn btn-gold" style={{ width: '100%' }}>

@@ -83,6 +83,7 @@ export function AppProvider({ children }) {
   const [attendance, setAttendance] = useState([]);
   const [toasts, setToasts] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [settings, setSettings] = useState({});
 
   // ── Toasts ──────────────────────────────────────────
   const addToast = useCallback((payload, type = 'info') => {
@@ -131,6 +132,16 @@ export function AppProvider({ children }) {
         if (data.messages) setMessages(data.messages);
         if (data.attendance) setAttendance(data.attendance);
         if (data.notifications) setNotifications(data.notifications);
+
+        // Fetch settings explicitly for global config
+        fetch('/api/settings?_t=' + Date.now(), { cache: 'no-store' })
+          .then(res => res.json())
+          .then(settingData => {
+            if (!settingData.error) {
+              setSettings(settingData);
+            }
+          })
+          .catch(() => {});
       } else if (!silent) {
         addToast('Failed to connect to database. Running in offline/fallback mode.', 'warning');
       }
@@ -188,6 +199,10 @@ export function AppProvider({ children }) {
       }
       return updated;
     });
+  }, []);
+
+  const updateGlobalSettings = useCallback((newSettings) => {
+    setSettings(prev => ({ ...prev, ...newSettings }));
   }, []);
 
   // ── Theme ───────────────────────────────────────────
@@ -675,6 +690,7 @@ export function AppProvider({ children }) {
     language, setLanguage,
     sidebarOpen, setSidebarOpen,
     notifications, setNotifications,
+    settings, updateGlobalSettings,
     // Members
     members, addMember, updateMember, deleteMember, approveMember, rejectMember,
     // Contributions

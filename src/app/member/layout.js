@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import {
   IconHome, IconGive, IconTarget, IconClipboard, IconMegaphone, IconSparkles, IconUser, OnlineLogoIcon
 } from '@/components/icons';
+import { t } from '@/lib/i18n';
 
 const NAV_ITEMS = [
   { href: '/member/dashboard', icon: <IconHome size={20} />, label: 'Home' },
@@ -18,7 +19,7 @@ const NAV_ITEMS = [
 export default function MemberLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isInitialized, toasts, logout } = useApp();
+  const { user, isInitialized, toasts, logout, language, settings } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -223,34 +224,38 @@ export default function MemberLayout({ children }) {
 
 
         <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="View Profile">
-          <div className="avatar-circle" style={{ 
-            width: 38, height: 38, fontSize: 18,
-            background: user?.photo ? `url(${user.photo}) center/cover` : 'var(--gold)'
-          }}>
-            {!user?.photo && (user?.name || 'M')[0]}
-          </div>
+          <OnlineLogoIcon size={32} />
+          <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.5px' }}>
+            {settings?.['branding.ministryName'] || 'Shining Ministries'}
+          </span>
         </div>
 
         {/* Desktop Nav Links */}
         <nav className="member-nav-links">
-          {NAV_ITEMS.map(item => (
+          {NAV_ITEMS.slice(0, 4).map(item => (
             <button
               key={item.href}
               className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
               onClick={() => router.push(item.href)}
             >
               <span>{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
             </button>
           ))}
         </nav>
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <button className="btn btn-danger btn-sm member-logout-desktop" onClick={() => { logout(); router.push('/login'); }}>
-            Logout
-          </button>
-
+          {NAV_ITEMS.slice(4).map(item => (
+            <button
+              key={item.href}
+              className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
+              onClick={() => router.push(item.href)}
+            >
+              <span>{item.icon}</span>
+              <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
+            </button>
+          ))}
           <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>
@@ -265,6 +270,14 @@ export default function MemberLayout({ children }) {
             zIndex: 198, backdropFilter: 'blur(4px)'
           }} />
           <div className="mobile-nav-drawer">
+            <div className="drawer-header" style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <OnlineLogoIcon size={24} />
+                <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>
+                  {settings?.['branding.ministryName'] || 'Shining Ministries'}
+                </span>
+              </div>
+            </div>
             {NAV_ITEMS.map(item => (
               <button
                 key={item.href}
@@ -273,7 +286,7 @@ export default function MemberLayout({ children }) {
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px' }}
               >
                 <span style={{ fontSize: 18 }}>{item.icon}</span>
-                <span style={{ fontSize: 15 }}>{item.label}</span>
+                <span style={{ fontSize: 15 }}>{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
               </button>
             ))}
             <div style={{ height: 1, background: 'var(--border-light)', margin: '8px 0' }} />

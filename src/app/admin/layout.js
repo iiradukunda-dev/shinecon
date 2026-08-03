@@ -6,6 +6,7 @@ import {
   IconChart, IconUsers, IconGive, IconTarget, IconClipboard, IconCalendar,
   IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield, OnlineLogoIcon
 } from '@/components/icons';
+import { t } from '@/lib/i18n';
 
 const NAV_SECTIONS = [
   { label: 'OVERVIEW', items: [
@@ -30,7 +31,7 @@ const NAV_SECTIONS = [
 export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages, notifications, setNotifications } = useApp();
+  const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages, notifications, setNotifications, language, settings } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -76,7 +77,7 @@ export default function AdminLayout({ children }) {
         <nav className="sidebar-nav">
           {NAV_SECTIONS.map(section => (
             <div key={section.label}>
-              <div className="sidebar-section">{section.label}</div>
+              <div className="sidebar-section">{t(section.label.toLowerCase().replace(' ', '_'), language)}</div>
               {section.items.map(item => {
                 let badgeCount = item.badge;
                 if (item.label === 'Members' && stats?.pendingMembers > 0) badgeCount = stats.pendingMembers;
@@ -94,7 +95,7 @@ export default function AdminLayout({ children }) {
                   style={{ width: '100%' }}
                 >
                   <span className="link-icon">{item.icon}</span>
-                  {item.label}
+                  {t(item.label.toLowerCase().replace(' ', '_'), language)}
                   {badgeCount ? <span className="link-badge">{badgeCount}</span> : null}
                 </button>
               )})}
@@ -123,7 +124,7 @@ export default function AdminLayout({ children }) {
         <div className="topbar-right">
           <div className="topbar-search">
             <span><OnlineLogoIcon name="search" size={16} color="var(--text-tertiary)" /></span>
-            <input placeholder="Search..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+            <input placeholder={t('search', language)} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
           </div>
           <button className="btn btn-icon" onClick={toggleTheme} title="Toggle theme">
             {theme === 'dark' ? <OnlineLogoIcon name="sun" size={20} /> : <OnlineLogoIcon name="moon" size={20} />}

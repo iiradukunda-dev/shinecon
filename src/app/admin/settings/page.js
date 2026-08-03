@@ -26,7 +26,7 @@ const DEFAULT_SETTINGS = {
 };
 
 export default function SettingsPage() {
-  const { user, updateUser, theme, toggleTheme, language, setLanguage, addToast } = useApp();
+  const { user, updateUser, theme, toggleTheme, language, setLanguage, addToast, updateGlobalSettings } = useApp();
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -159,6 +159,9 @@ export default function SettingsPage() {
       });
       if (res.ok) {
         addToast('Settings saved successfully', 'success');
+        if (updateGlobalSettings) {
+          updateGlobalSettings(settings);
+        }
       } else {
         addToast('Failed to save settings', 'error');
       }

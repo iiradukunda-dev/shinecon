@@ -18,9 +18,9 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: 'SM Connect — Shining Ministries',
-  description: 'Digital Ministry Platform for Shining Ministries. Arise, shine, for your light has come.',
-  keywords: 'Shining Ministries, SM Connect, church, ministry, contributions, digital platform',
+  title: 'SM Connect',
+  description: 'Digital Ministry Platform',
+  keywords: 'SM Connect, church, ministry, contributions, digital platform',
   manifest: '/manifest.json',
 };
 

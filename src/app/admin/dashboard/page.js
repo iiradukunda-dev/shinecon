@@ -12,9 +12,9 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   const kpis = [
-    { label: 'Total Members', value: stats.totalMembers, iconName: 'users', change: '+12% this month', positive: true, color: '#D4A843' },
-    { label: 'Monthly Contributions', value: formatCurrency(stats.monthlyRWF, 'RWF'), iconName: 'wallet', change: '+8% vs last month', positive: true, color: '#D4A843' },
-    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, iconName: 'hourglass', change: 'Requires Action', positive: false, color: '#D4A843' },
+    { label: 'Total Members', value: stats.totalMembers, iconName: 'users', change: '+12% this month', positive: true, color: '#D4A843', href: '/admin/members' },
+    { label: 'Monthly Contributions', value: formatCurrency(stats.monthlyRWF, 'RWF'), iconName: 'wallet', change: '+8% vs last month', positive: true, color: '#D4A843', href: '/admin/contributions' },
+    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, iconName: 'hourglass', change: 'Requires Action', positive: false, color: '#D4A843', href: '/admin/members' },
   ];
 
   const pendingContributions = contributions.filter(c => c.status === 'pending');
@@ -42,7 +42,8 @@ export default function AdminDashboard() {
           box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
           position: relative;
           overflow: hidden;
-          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          cursor: pointer;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .admin-hero-card:hover {
@@ -77,6 +78,7 @@ export default function AdminDashboard() {
           border-radius: 24px;
           padding: 20px;
           box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+          cursor: pointer;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
         }
@@ -90,7 +92,7 @@ export default function AdminDashboard() {
       {/* KPI Big Clear Cards */}
       <div className="grid grid-3" style={{ gap: 20 }}>
         {kpis.map((kpi, i) => (
-          <div key={kpi.label} className="admin-hero-card" style={{ animationDelay: `${i * 0.1}s` }}>
+          <div key={kpi.label} className="admin-hero-card" style={{ animationDelay: `${i * 0.1}s` }} onClick={() => router.push(kpi.href)}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
               <div style={{ 
                 width: 56, 
@@ -127,7 +129,7 @@ export default function AdminDashboard() {
       {/* Charts Row */}
       <div className="grid grid-2" style={{ gap: 20 }}>
         {/* Contribution Trend */}
-        <div className="admin-hero-card" style={{ animationDelay: '0.3s' }}>
+        <div className="admin-hero-card" style={{ animationDelay: '0.3s' }} onClick={() => router.push('/admin/contributions')}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Contribution Trend</h3>
             <span className="badge badge-gold">2026 Fiscal</span>
@@ -157,7 +159,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Member Growth Chart */}
-        <div className="admin-hero-card" style={{ animationDelay: '0.4s' }}>
+        <div className="admin-hero-card" style={{ animationDelay: '0.4s' }} onClick={() => router.push('/admin/members')}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Member Growth Rate</h3>
             <span className="badge badge-gold">+12 New Members</span>
@@ -213,7 +215,7 @@ export default function AdminDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} className="admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s` }}>
+              <div key={event.id} className="admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s` }} onClick={() => router.push('/admin/events')}>
                 <div className="flex-between" style={{ marginBottom: 12 }}>
                   <span className="badge badge-gold">{event.category}</span>
                   <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{event.time}</span>

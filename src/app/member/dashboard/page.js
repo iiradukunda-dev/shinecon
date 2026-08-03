@@ -33,7 +33,7 @@ export default function MemberDashboard() {
           padding: 36px 40px;
           border: 1px solid rgba(212, 168, 67, 0.3);
           box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(212, 168, 67, 0.05);
-          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
         .dash-hero-card:hover {
@@ -77,7 +77,8 @@ export default function MemberDashboard() {
           border-radius: 28px;
           padding: 24px;
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          cursor: pointer;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .big-scroll-card:hover {
@@ -109,7 +110,7 @@ export default function MemberDashboard() {
           align-items: center;
           gap: 12px;
           cursor: pointer;
-          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
           transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
           text-align: center;
         }
@@ -176,7 +177,7 @@ export default function MemberDashboard() {
           {campaigns.filter(c => c.status === 'active').map((campaign, i) => {
             const pct = Math.round((campaign.raised / campaign.goal) * 100);
             return (
-              <div key={campaign.id} className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s` }}>
+              <div key={campaign.id} className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s` }} onClick={() => router.push('/member/campaigns')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{ fontSize: 38, width: 56, height: 56, borderRadius: 16, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <OnlineLogoIcon name={campaign.image || "church"} size={30} color="var(--gold)" />
@@ -222,7 +223,7 @@ export default function MemberDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s` }}>
+              <div key={event.id} className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s` }} onClick={() => router.push('/member/attendance')}>
                 <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 16 }}>
                   <div style={{
                     width: 52, height: 56, borderRadius: 14,

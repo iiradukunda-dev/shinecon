@@ -41,6 +41,9 @@ export default function MemberDashboard() {
           box-shadow: 0 32px 72px rgba(0, 0, 0, 0.9), inset 0 0 32px rgba(212, 168, 67, 0.15);
           border-color: rgba(212, 168, 67, 0.4);
         }
+        .dash-hero-card:active {
+          animation: shakeOnActive 0.3s ease-in-out;
+        }
 
         .scroll-row-container {
           display: flex;
@@ -86,6 +89,9 @@ export default function MemberDashboard() {
           border-color: rgba(212, 168, 67, 0.8);
           box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
         }
+        .big-scroll-card:active {
+          animation: shakeOnActive 0.3s ease-in-out;
+        }
 
         .section-header {
           display: flex;
@@ -118,6 +124,9 @@ export default function MemberDashboard() {
           background: rgba(212, 168, 67, 0.15);
           border-color: #D4A843;
           transform: scale(1.05);
+        }
+        .quick-action-tile:active {
+          animation: shakeOnActive 0.3s ease-in-out;
         }
         .quick-action-tile-icon {
           width: 52px;

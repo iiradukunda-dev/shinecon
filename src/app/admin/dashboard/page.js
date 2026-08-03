@@ -51,6 +51,9 @@ export default function AdminDashboard() {
           box-shadow: 0 28px 56px rgba(0, 0, 0, 0.8), 0 0 32px rgba(212, 168, 67, 0.25);
           border-color: rgba(212, 168, 67, 0.6);
         }
+        .admin-hero-card:active {
+          animation: shakeOnActive 0.3s ease-in-out;
+        }
 
         .scroll-admin-row {
           display: flex;
@@ -86,6 +89,9 @@ export default function AdminDashboard() {
           transform: scale(1.03);
           border-color: rgba(212, 168, 67, 0.8);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+        .admin-scroll-card:active {
+          animation: shakeOnActive 0.3s ease-in-out;
         }
 
         .admin-hero-card svg, .admin-scroll-card svg {

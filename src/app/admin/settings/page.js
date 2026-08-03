@@ -34,6 +34,9 @@ export default function SettingsPage() {
   const [photoUploading, setPhotoUploading] = useState(false);
   const [passwordForm, setPasswordForm] = useState({ current: '', new: '', confirm: '' });
   const [passwordStatus, setPasswordStatus] = useState('');
+  
+  const [adminForm, setAdminForm] = useState({ fullName: '', email: '', password: '' });
+  const [adminStatus, setAdminStatus] = useState('');
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files?.[0];
@@ -98,6 +101,33 @@ export default function SettingsPage() {
       addToast('Network error', 'error');
     }
     setPasswordStatus('');
+  };
+
+  const handleCreateAdmin = async (e) => {
+    e.preventDefault();
+    if (!adminForm.email.toLowerCase().endsWith('@gmail.com')) {
+      addToast('Only official @gmail.com accounts are allowed for admin access', 'error');
+      return;
+    }
+    
+    setAdminStatus('saving');
+    try {
+      const res = await fetch('/api/admin/create-admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(adminForm),
+      });
+      const data = await res.json();
+      if (data.success) {
+        addToast('Admin account created successfully', 'success');
+        setAdminForm({ fullName: '', email: '', password: '' });
+      } else {
+        addToast(data.error || 'Failed to create admin account', 'error');
+      }
+    } catch (err) {
+      addToast('Network error', 'error');
+    }
+    setAdminStatus('');
   };
 
   useEffect(() => {
@@ -279,6 +309,33 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
+
+      {/* Create Alternative Admin Account */}
+      {user?.role === 'SUPER_ADMIN' || user?.role === 'admin' || user?.role === 'MEMBER' ? (
+        <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>System Administrators</h3>
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>Create an alternative admin account.</p>
+          <form onSubmit={handleCreateAdmin}>
+            <div className="grid grid-2" style={{ gap: 'var(--space-md)' }}>
+              <div>
+                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Full Name</label>
+                <input type="text" required className="input" value={adminForm.fullName} onChange={e => setAdminForm({...adminForm, fullName: e.target.value})} placeholder="Jane Doe" />
+              </div>
+              <div>
+                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Gmail Account</label>
+                <input type="email" required className="input" value={adminForm.email} onChange={e => setAdminForm({...adminForm, email: e.target.value})} placeholder="admin@gmail.com" />
+              </div>
+            </div>
+            <div style={{ marginTop: 'var(--space-md)', marginBottom: 'var(--space-md)' }}>
+              <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Temporary Password</label>
+              <input type="password" required className="input" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} />
+            </div>
+            <button type="submit" disabled={adminStatus === 'saving'} className="btn btn-gold" style={{ width: '100%', maxWidth: 200 }}>
+              {adminStatus === 'saving' ? 'Creating...' : 'Create Admin'}
+            </button>
+          </form>
+        </div>
+      ) : null}
 
       {/* Settings Sections */}
       <div className="grid grid-2">

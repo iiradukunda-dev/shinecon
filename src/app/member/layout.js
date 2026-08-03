@@ -241,18 +241,6 @@ export default function MemberLayout({ children }) {
         {children}
       </main>
 
-      {/* Toasts */}
-      {toasts.length > 0 && (
-        <div className="toast-container">
-          {toasts.map(t => (
-            <div key={t.id} className="toast" style={{
-              borderLeft: `4px solid ${t.type === 'success' ? 'var(--emerald)' : t.type === 'error' ? 'var(--soft-red)' : 'var(--gold)'}`,
-            }}>
-              {t.type === 'success' ? <OnlineLogoIcon name="check-circle" size={16} color="var(--emerald)" /> : t.type === 'error' ? <OnlineLogoIcon name="x-circle" size={16} color="var(--soft-red)" /> : <OnlineLogoIcon name="info" size={16} color="var(--gold)" />} <span style={{ marginLeft: 8 }}>{t.message}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

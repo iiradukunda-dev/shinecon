@@ -31,13 +31,17 @@ export const viewport = {
   themeColor: '#D4A843',
 };
 
+import GlobalToasts from '@/components/GlobalToasts';
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
       <body>
         <AppProvider>
           {children}
+          <GlobalToasts />
         </AppProvider>
+
       </body>
     </html>
   );

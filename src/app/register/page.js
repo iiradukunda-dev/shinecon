@@ -23,12 +23,12 @@ export default function RegisterPage() {
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
-      addToast('Invalid email format', 'error');
+      addToast({ title: 'Invalid Input', message: 'Please enter a valid email address format' }, 'error');
       return;
     }
 
     if (form.password !== form.confirmPassword) {
-      addToast('Passwords do not match', 'error');
+      addToast({ title: 'Invalid Input', message: 'Passwords do not match' }, 'error');
       return;
     }
     setLoading(true);
@@ -44,18 +44,23 @@ export default function RegisterPage() {
         data = await res.json();
       } catch (err) {
         // Handle non-JSON responses (like 502 Bad Gateway)
-        addToast(`Server error: ${res.status} ${res.statusText}`, 'error');
+        addToast({ title: 'Server Error', message: `${res.status} ${res.statusText}` }, 'error');
         return;
       }
       
       if (res.ok && data.success) {
         setShowSuccessModal(true);
       } else {
-        addToast(data.error || 'Failed to register. Please check your information.', 'error');
+        const errorMsg = data.error || 'Failed to register. Please check your information.';
+        let title = 'Registration Error';
+        if (errorMsg.toLowerCase().includes('already registered')) {
+          title = 'Duplicate Account';
+        }
+        addToast({ title, message: errorMsg }, 'error');
       }
     } catch (error) {
       console.error('Registration failed:', error);
-      addToast(error.message || 'Network error, please try again', 'error');
+      addToast({ title: 'Network Error', message: error.message || 'Please try again later' }, 'error');
 
     } finally {
       setLoading(false);

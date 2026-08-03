@@ -38,8 +38,8 @@ export default function MemberDashboard() {
         }
         .dash-hero-card:hover {
           transform: scale(1.02);
-          border-color: transparent;
-          box-shadow: 0 32px 72px rgba(0, 0, 0, 0.9), inset 0 0 50px 15px rgba(212, 168, 67, 0.3);
+          border-color: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 32px 72px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
         }
         .dash-hero-card:active {
           animation: shakeOnActive 0.3s ease-in-out;
@@ -86,8 +86,8 @@ export default function MemberDashboard() {
         }
         .big-scroll-card:hover {
           transform: scale(1.03);
-          border-color: transparent;
-          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7), inset 0 0 40px 10px rgba(212, 168, 67, 0.3);
+          border-color: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 16px rgba(255, 255, 255, 0.05);
         }
         .big-scroll-card:active {
           animation: shakeOnActive 0.3s ease-in-out;
@@ -121,10 +121,10 @@ export default function MemberDashboard() {
           text-align: center;
         }
         .quick-action-tile:hover {
-          background: rgba(212, 168, 67, 0.15);
-          border-color: transparent;
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.25);
           transform: scale(1.05);
-          box-shadow: inset 0 0 30px 5px rgba(212, 168, 67, 0.3);
+          box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 0 16px rgba(255, 255, 255, 0.05);
         }
         .quick-action-tile:active {
           animation: shakeOnActive 0.3s ease-in-out;

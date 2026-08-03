@@ -52,6 +52,15 @@ export async function POST(request) {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
+    
+    let errorMessage = 'Internal server error';
+    if (error.code === 'P2002') {
+      errorMessage = 'Email or phone number is already registered.';
+    } else if (error.message) {
+      errorMessage = error.message;
+    }
+    
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 });
   }
 }
+

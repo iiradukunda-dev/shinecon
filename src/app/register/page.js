@@ -38,16 +38,25 @@ export default function RegisterPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       });
-      const data = await res.json();
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch (err) {
+        // Handle non-JSON responses (like 502 Bad Gateway)
+        addToast(`Server error: ${res.status} ${res.statusText}`, 'error');
+        return;
+      }
       
       if (res.ok && data.success) {
         setShowSuccessModal(true);
       } else {
-        addToast(data.error || 'Failed to register', 'error');
+        addToast(data.error || 'Failed to register. Please check your information.', 'error');
       }
     } catch (error) {
       console.error('Registration failed:', error);
-      addToast('Network error, please try again', 'error');
+      addToast(error.message || 'Network error, please try again', 'error');
+
     } finally {
       setLoading(false);
     }

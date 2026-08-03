@@ -16,9 +16,9 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ success: false, error: 'Invalid email format' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Only official Gmail accounts (@gmail.com) are allowed' }, { status: 400 });
     }
 
     // Check if user already exists

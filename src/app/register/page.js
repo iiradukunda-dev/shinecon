@@ -21,9 +21,9 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
     if (!emailRegex.test(form.email)) {
-      addToast({ title: 'Invalid Input', message: 'Please enter a valid email address format' }, 'error');
+      addToast({ title: 'Invalid Email', message: 'Only official Gmail accounts (@gmail.com) are allowed' }, 'error');
       return;
     }
 

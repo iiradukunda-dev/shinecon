@@ -34,7 +34,6 @@ export function AppProvider({ children }) {
     setIsInitialized(true);
   }, []);
 
-  // Update lastActive timestamp on user interaction (debounced to once per minute)
   useEffect(() => {
     if (!user) return;
     
@@ -68,6 +67,30 @@ export function AppProvider({ children }) {
       window.removeEventListener('scroll', updateActivity);
     };
   }, [user]);
+
+  // Network offline/online notifications
+  useEffect(() => {
+    const handleOffline = () => {
+      addToast('You are currently offline. Please check your internet connection.', 'error');
+    };
+    const handleOnline = () => {
+      addToast('You are back online.', 'success');
+    };
+    
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
+    
+    // Check initial state
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      handleOffline();
+    }
+    
+    return () => {
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline);
+    };
+  }, [addToast]);
+
 
   const [theme, setTheme] = useState('light');
   const [language, setLanguage] = useState('en');

@@ -33,6 +33,15 @@ export default function AdminLayout({ children }) {
   const { user, isInitialized, toasts, sidebarOpen, setSidebarOpen, logout, theme, toggleTheme, stats, messages } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'New member registration: Jane Doe', time: '10m ago', unread: true },
+    { id: 2, message: 'Campaign "Winter Relief" reached 80% goal', time: '2h ago', unread: true },
+    { id: 3, message: 'System maintenance scheduled for tonight', time: '1d ago', unread: false }
+  ]);
+
+  const unreadCount = notifications.filter(n => n.unread).length;
+  const markAllRead = () => setNotifications(notifications.map(n => ({ ...n, unread: false })));
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -119,13 +128,48 @@ export default function AdminLayout({ children }) {
           <button className="btn btn-icon" onClick={toggleTheme} title="Toggle theme">
             {theme === 'dark' ? <OnlineLogoIcon name="sun" size={20} /> : <OnlineLogoIcon name="moon" size={20} />}
           </button>
-          <button className="btn btn-icon" style={{ position: 'relative' }}>
-            <OnlineLogoIcon name="bell" size={20} />
-            <span style={{
-              position: 'absolute', top: 4, right: 4, width: 8, height: 8,
-              borderRadius: '50%', background: 'var(--soft-red)',
-            }} />
-          </button>
+          <div style={{ position: 'relative' }}>
+            <button className="btn btn-icon" onClick={() => setShowNotifications(!showNotifications)}>
+              <OnlineLogoIcon name="bell" size={20} />
+              {unreadCount > 0 && (
+                <span style={{
+                  position: 'absolute', top: 4, right: 4, width: 8, height: 8,
+                  borderRadius: '50%', background: 'var(--soft-red)',
+                }} />
+              )}
+            </button>
+            {showNotifications && (
+              <div style={{
+                position: 'absolute', top: 'calc(100% + 8px)', right: 0,
+                width: 320, background: 'var(--card-bg)', border: '1px solid var(--border-medium)',
+                borderRadius: 'var(--radius-lg)', boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                zIndex: 100, overflow: 'hidden', backdropFilter: 'blur(16px)'
+              }}>
+                <div style={{ padding: '16px', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Notifications</h3>
+                  {unreadCount > 0 && (
+                    <button onClick={markAllRead} style={{ background: 'none', border: 'none', color: 'var(--gold)', fontSize: 12, cursor: 'pointer' }}>Mark all read</button>
+                  )}
+                </div>
+                <div style={{ maxHeight: 300, overflowY: 'auto' }}>
+                  {notifications.length === 0 ? (
+                    <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-tertiary)', fontSize: 14 }}>No notifications</div>
+                  ) : (
+                    notifications.map(n => (
+                      <div key={n.id} style={{
+                        padding: '12px 16px', borderBottom: '1px solid var(--border-light)',
+                        background: n.unread ? 'rgba(212, 168, 67, 0.05)' : 'transparent',
+                        display: 'flex', flexDirection: 'column', gap: 4
+                      }}>
+                        <span style={{ fontSize: 14, color: n.unread ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{n.message}</span>
+                        <span style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>{n.time}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

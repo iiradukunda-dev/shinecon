@@ -75,6 +75,15 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 
 ---
 
+## Recent Improvements
+- **Admin Tabbed Interface:** Reorganized system settings into intuitive tabs (Account, System, Integrations, Advanced).
+- **Dynamic Application State:** Changes to settings (e.g. Ministry Name, Currency) apply instantly across the application via context syncing without needing a page refresh.
+- **Real-Time Localization:** Multilingual implementation supporting dynamic translations across English, Français, Kiswahili, and Kinyarwanda without a reload.
+- **Mobile Touch Enhancements:** Upgraded mobile responsiveness by migrating from `onClick` handlers to `next/link` for superior tap targets on Dashboard and KPI cards.
+- **Liquid Glass Interactivity:** Enhanced internal buttons and cards with a dynamic shake-on-click effect and refined hover states that enhance internal shadows.
+
+---
+
 ## Project Structure
 
 ```

@@ -87,6 +87,13 @@ export default function AdminDashboard() {
           border-color: rgba(212, 168, 67, 0.8);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
+
+        .admin-hero-card svg, .admin-scroll-card svg {
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .admin-hero-card:hover svg, .admin-scroll-card:hover svg {
+          transform: scale(1.15);
+        }
       `}</style>
 
       {/* KPI Big Clear Cards */}

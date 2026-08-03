@@ -127,6 +127,14 @@ export default function MemberDashboard() {
           align-items: center;
           justify-content: center;
           font-size: 26px;
+          margin-bottom: 8px;
+        }
+
+        .dash-hero-card svg, .big-scroll-card svg, .quick-action-tile svg {
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .dash-hero-card:hover svg, .big-scroll-card:hover svg, .quick-action-tile:hover svg {
+          transform: scale(1.15);
         }
       `}</style>
 

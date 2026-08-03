@@ -24,9 +24,18 @@ export default function MemberLayout({ children }) {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    const handleResize = () => {
+      if (window.innerWidth > 1100 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (isInitialized && !user) router.push('/login');
@@ -176,11 +185,40 @@ export default function MemberLayout({ children }) {
             animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
 
+          .member-logout-desktop {
+            display: block;
+          }
+
           @media (max-width: 1100px) {
             .member-nav-links { display: none; }
             .user-avatar-pill .avatar-name { display: none; }
             .mobile-toggle-btn { display: flex; }
+            .member-logout-desktop { display: none; }
           }
+
+          .member-main {
+            padding-top: 96px;
+            padding-bottom: 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 32px;
+            padding-right: 32px;
+          }
+
+          @media (max-width: 768px) {
+            .member-main {
+              padding-left: 16px;
+              padding-right: 16px;
+            }
+            .member-top-nav {
+              padding: 0 16px;
+            }
+            .mobile-nav-drawer {
+              top: 88px;
+            }
+          }
+
+
         `}</style>
 
 
@@ -209,7 +247,7 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <button className="btn btn-danger btn-sm" onClick={() => { logout(); router.push('/login'); }}>
+          <button className="btn btn-danger btn-sm member-logout-desktop" onClick={() => { logout(); router.push('/login'); }}>
             Logout
           </button>
 
@@ -221,23 +259,38 @@ export default function MemberLayout({ children }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="mobile-nav-drawer">
-          {NAV_ITEMS.map(item => (
+        <>
+          <div onClick={() => setMobileMenuOpen(false)} style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+            zIndex: 198, backdropFilter: 'blur(4px)'
+          }} />
+          <div className="mobile-nav-drawer">
+            {NAV_ITEMS.map(item => (
+              <button
+                key={item.href}
+                className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
+                onClick={() => { router.push(item.href); setMobileMenuOpen(false); }}
+                style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px' }}
+              >
+                <span style={{ fontSize: 18 }}>{item.icon}</span>
+                <span style={{ fontSize: 15 }}>{item.label}</span>
+              </button>
+            ))}
+            <div style={{ height: 1, background: 'var(--border-light)', margin: '8px 0' }} />
             <button
-              key={item.href}
-              className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
-              onClick={() => { router.push(item.href); setMobileMenuOpen(false); }}
-              style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px' }}
+              className="member-nav-item"
+              onClick={() => { logout(); router.push('/login'); }}
+              style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px', color: 'var(--soft-red)' }}
             >
-              <span style={{ fontSize: 18 }}>{item.icon}</span>
-              <span style={{ fontSize: 15 }}>{item.label}</span>
+              <span style={{ fontSize: 18 }}><OnlineLogoIcon name="log-out" size={20} /></span>
+              <span style={{ fontSize: 15 }}>Logout</span>
             </button>
-          ))}
-        </div>
+          </div>
+        </>
       )}
 
       {/* Main Content */}
-      <main style={{ paddingTop: 96, paddingBottom: 48, maxWidth: 1200, margin: '0 auto', paddingLeft: 32, paddingRight: 32 }}>
+      <main className="member-main">
         {children}
       </main>
 

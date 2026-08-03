@@ -68,6 +68,28 @@ export function AppProvider({ children }) {
     };
   }, [user]);
 
+
+  const [theme, setTheme] = useState('light');
+  const [language, setLanguage] = useState('en');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  const [members, setMembers] = useState([]);
+  const [contributions, setContributions] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [contributionTypes, setContributionTypes] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [attendance, setAttendance] = useState([]);
+  const [toasts, setToasts] = useState([]);
+
+  // ── Toasts ──────────────────────────────────────────
+  const addToast = useCallback((message, type = 'info') => {
+    const id = Date.now().toString();
+    setToasts(prev => [...prev, { id, message, type }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
+  }, []);
+
   // Network offline/online notifications
   useEffect(() => {
     const handleOffline = () => {
@@ -90,28 +112,6 @@ export function AppProvider({ children }) {
       window.removeEventListener('online', handleOnline);
     };
   }, [addToast]);
-
-
-  const [theme, setTheme] = useState('light');
-  const [language, setLanguage] = useState('en');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  
-  const [members, setMembers] = useState([]);
-  const [contributions, setContributions] = useState([]);
-  const [campaigns, setCampaigns] = useState([]);
-  const [contributionTypes, setContributionTypes] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [announcements, setAnnouncements] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [attendance, setAttendance] = useState([]);
-  const [toasts, setToasts] = useState([]);
-
-  // ── Toasts ──────────────────────────────────────────
-  const addToast = useCallback((message, type = 'info') => {
-    const id = Date.now().toString();
-    setToasts(prev => [...prev, { id, message, type }]);
-    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
-  }, []);
 
   // ── Bootstrap (Load all data from DB) ─────────────────
   const bootstrap = useCallback(async (silent = false) => {

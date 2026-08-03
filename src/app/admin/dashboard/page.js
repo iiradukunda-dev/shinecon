@@ -13,8 +13,8 @@ export default function AdminDashboard() {
 
   const kpis = [
     { label: 'Total Members', value: stats.totalMembers, iconName: 'users', change: '+12% this month', positive: true, color: '#D4A843' },
-    { label: 'Monthly Contributions', value: formatCurrency(stats.monthlyRWF, 'RWF'), iconName: 'wallet', change: '+8% vs last month', positive: true, color: '#40C057' },
-    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, iconName: 'hourglass', change: 'Requires Action', positive: false, color: '#FAB005' },
+    { label: 'Monthly Contributions', value: formatCurrency(stats.monthlyRWF, 'RWF'), iconName: 'wallet', change: '+8% vs last month', positive: true, color: '#D4A843' },
+    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, iconName: 'hourglass', change: 'Requires Action', positive: false, color: '#D4A843' },
   ];
 
   const pendingContributions = contributions.filter(c => c.status === 'pending');
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
         <div className="admin-hero-card">
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Member Growth Rate</h3>
-            <span className="badge badge-green">+12 New Members</span>
+            <span className="badge badge-gold">+12 New Members</span>
           </div>
           <div style={{ position: 'relative', height: 160 }}>
             <svg viewBox="0 0 700 140" style={{ width: '100%', height: '100%' }}>
@@ -204,7 +204,7 @@ export default function AdminDashboard() {
                 </div>
                 <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>{event.title}</p>
                 <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
-                  <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--emerald)" /> 
+                  <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--gold)" /> 
                   <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
                     {event.location}
                   </a>

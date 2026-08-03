@@ -20,6 +20,11 @@ export default function MemberDashboard() {
   return (
     <div className="page-member-content flex-col gap-xl">
       <style>{`
+        @keyframes fadeUpIn {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         .dash-hero-card {
           background: rgba(15, 15, 22, 0.8);
           backdrop-filter: blur(40px);
@@ -33,6 +38,12 @@ export default function MemberDashboard() {
           background-origin: border-box;
           background-clip: padding-box, border-box;
           box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(212, 168, 67, 0.05);
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .dash-hero-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 32px 72px rgba(0, 0, 0, 0.9), inset 0 0 32px rgba(212, 168, 67, 0.1);
         }
 
         .scroll-row-container {
@@ -70,11 +81,13 @@ export default function MemberDashboard() {
           border-radius: 28px;
           padding: 24px;
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-          transition: transform 0.25s ease, border-color 0.25s ease;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .big-scroll-card:hover {
           transform: translateY(-4px);
           border-color: rgba(212, 168, 67, 0.6);
+          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
         }
 
         .section-header {
@@ -100,7 +113,8 @@ export default function MemberDashboard() {
           align-items: center;
           gap: 12px;
           cursor: pointer;
-          transition: all 0.25s ease;
+          animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
           text-align: center;
         }
         .quick-action-tile:hover {
@@ -144,8 +158,8 @@ export default function MemberDashboard() {
             { icon: <IconTarget size={26} color="#D4A843" />, label: 'Campaigns', href: '/member/campaigns', bg: 'rgba(212,168,67,0.2)' },
             { icon: <IconClipboard size={26} color="#D4A843" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(212,168,67,0.2)' },
             { icon: <IconSparkles size={26} color="#D4A843" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(212,168,67,0.2)' },
-          ].map(action => (
-            <div key={action.label} className="quick-action-tile" onClick={() => router.push(action.href)}>
+          ].map((action, i) => (
+            <div key={action.label} className="quick-action-tile" style={{ animationDelay: `${0.2 + (i * 0.1)}s` }} onClick={() => router.push(action.href)}>
               <div className="quick-action-tile-icon" style={{ background: action.bg }}>{action.icon}</div>
               <span style={{ fontWeight: 700, fontSize: 15, color: '#FFFFFF' }}>{action.label}</span>
             </div>
@@ -163,10 +177,10 @@ export default function MemberDashboard() {
         </div>
 
         <div className="scroll-row-container">
-          {campaigns.filter(c => c.status === 'active').map(campaign => {
+          {campaigns.filter(c => c.status === 'active').map((campaign, i) => {
             const pct = Math.round((campaign.raised / campaign.goal) * 100);
             return (
-              <div key={campaign.id} className="big-scroll-card">
+              <div key={campaign.id} className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s` }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{ fontSize: 38, width: 56, height: 56, borderRadius: 16, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <OnlineLogoIcon name={campaign.image || "church"} size={30} color="var(--gold)" />
@@ -209,10 +223,10 @@ export default function MemberDashboard() {
         </div>
 
         <div className="scroll-row-container">
-          {events.map(event => {
+          {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300 }}>
+              <div key={event.id} className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s` }}>
                 <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 16 }}>
                   <div style={{
                     width: 52, height: 56, borderRadius: 14,

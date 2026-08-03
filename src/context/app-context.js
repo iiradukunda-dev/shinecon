@@ -84,9 +84,11 @@ export function AppProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
   // ── Toasts ──────────────────────────────────────────
-  const addToast = useCallback((message, type = 'info') => {
+  const addToast = useCallback((payload, type = 'info') => {
     const id = Date.now().toString();
-    setToasts(prev => [...prev, { id, message, type }]);
+    const title = typeof payload === 'string' ? (type === 'error' ? 'Error' : type === 'success' ? 'Success' : 'Notice') : payload.title;
+    const message = typeof payload === 'string' ? payload : payload.message;
+    setToasts(prev => [...prev, { id, message, title, type }]);
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
   }, []);
 

@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   formatCurrency, formatDate,
   getMonthlyContributionData, getMemberGrowth,
@@ -105,7 +106,7 @@ export default function AdminDashboard() {
       {/* KPI Big Clear Cards */}
       <div className="grid grid-3" style={{ gap: 20 }}>
         {kpis.map((kpi, i) => (
-          <div key={kpi.label} className="admin-hero-card" style={{ animationDelay: `${i * 0.1}s` }} onClick={() => router.push(kpi.href)}>
+          <Link key={kpi.label} href={kpi.href} className="admin-hero-card" style={{ animationDelay: `${i * 0.1}s`, textDecoration: 'none', display: 'block' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
               <div style={{ 
                 width: 56, 
@@ -135,14 +136,14 @@ export default function AdminDashboard() {
               </div>
             </div>
             
-          </div>
+          </Link>
         ))}
       </div>
 
       {/* Charts Row */}
       <div className="grid grid-2" style={{ gap: 20 }}>
         {/* Contribution Trend */}
-        <div className="admin-hero-card" style={{ animationDelay: '0.3s' }} onClick={() => router.push('/admin/contributions')}>
+        <Link href="/admin/contributions" className="admin-hero-card" style={{ animationDelay: '0.3s', textDecoration: 'none', display: 'block' }}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Contribution Trend</h3>
             <span className="badge badge-gold">2026 Fiscal</span>
@@ -169,10 +170,10 @@ export default function AdminDashboard() {
               );
             })}
           </div>
-        </div>
+        </Link>
 
         {/* Member Growth Chart */}
-        <div className="admin-hero-card" style={{ animationDelay: '0.4s' }} onClick={() => router.push('/admin/members')}>
+        <Link href="/admin/members" className="admin-hero-card" style={{ animationDelay: '0.4s', textDecoration: 'none', display: 'block' }}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Member Growth Rate</h3>
             <span className="badge badge-gold">+12 New Members</span>
@@ -210,7 +211,7 @@ export default function AdminDashboard() {
               ))}
             </div>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Upcoming Events (Horizontal Scroll Row) */}
@@ -228,7 +229,7 @@ export default function AdminDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} className="admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s` }} onClick={() => router.push('/admin/events')}>
+              <Link key={event.id} href="/admin/events" className="admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div className="flex-between" style={{ marginBottom: 12 }}>
                   <span className="badge badge-gold">{event.category}</span>
                   <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{event.time}</span>
@@ -236,14 +237,14 @@ export default function AdminDashboard() {
                 <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>{event.title}</p>
                 <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
                   <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" /> {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} • <OnlineLogoIcon name="map-pin" size={14} color="var(--gold)" /> 
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                  <span style={{ color: 'inherit', textDecoration: 'underline' }}>
                     {event.location}
-                  </a>
+                  </span>
                 </p>
-                <button className="btn btn-secondary" style={{ width: '100%', padding: '8px 14px', fontSize: 13 }} onClick={() => router.push('/admin/events')}>
+                <div className="btn btn-secondary" style={{ width: '100%', padding: '8px 14px', fontSize: 13, textAlign: 'center' }}>
                   Event Details
-                </button>
-              </div>
+                </div>
+              </Link>
             );
           })}
         </div>

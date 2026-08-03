@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   getGreeting, formatCurrency, formatDate,
 } from '@/lib/utils';
@@ -174,10 +175,10 @@ export default function MemberDashboard() {
             { icon: <IconClipboard size={26} color="#D4A843" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(212,168,67,0.2)' },
             { icon: <IconSparkles size={26} color="#D4A843" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(212,168,67,0.2)' },
           ].map((action, i) => (
-            <div key={action.label} className="quick-action-tile" style={{ animationDelay: `${0.2 + (i * 0.1)}s` }} onClick={() => router.push(action.href)}>
+            <Link key={action.label} href={action.href} className="quick-action-tile" style={{ animationDelay: `${0.2 + (i * 0.1)}s`, textDecoration: 'none' }}>
               <div className="quick-action-tile-icon" style={{ background: action.bg }}>{action.icon}</div>
               <span style={{ fontWeight: 700, fontSize: 15, color: '#FFFFFF' }}>{action.label}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -195,7 +196,7 @@ export default function MemberDashboard() {
           {campaigns.filter(c => c.status === 'active').map((campaign, i) => {
             const pct = Math.round((campaign.raised / campaign.goal) * 100);
             return (
-              <div key={campaign.id} className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s` }} onClick={() => router.push('/member/campaigns')}>
+              <Link key={campaign.id} href="/member/campaigns" className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{ fontSize: 38, width: 56, height: 56, borderRadius: 16, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <OnlineLogoIcon name={campaign.image || "church"} size={30} color="var(--gold)" />
@@ -215,14 +216,10 @@ export default function MemberDashboard() {
                   <span>Goal: {formatCurrency(campaign.goal, campaign.currency)}</span>
                 </div>
 
-                <button
-                  className="btn btn-gold"
-                  style={{ width: '100%' }}
-                  onClick={() => router.push('/member/campaigns')}
-                >
+                <div className="btn btn-gold" style={{ width: '100%' }}>
                   Support Campaign
-                </button>
-              </div>
+                </div>
+              </Link>
             );
           })}
         </div>
@@ -241,7 +238,7 @@ export default function MemberDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <div key={event.id} className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s` }} onClick={() => router.push('/member/attendance')}>
+              <Link key={event.id} href="/member/attendance" className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 16 }}>
                   <div style={{
                     width: 52, height: 56, borderRadius: 14,
@@ -260,19 +257,15 @@ export default function MemberDashboard() {
 
                 <p style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
                   <OnlineLogoIcon name="clock" size={14} /> {event.time} • <OnlineLogoIcon name="map-pin" size={14} /> 
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                  <span style={{ color: 'inherit', textDecoration: 'underline' }}>
                     {event.location}
-                  </a>
+                  </span>
                 </p>
 
-                <button
-                  className="btn btn-secondary"
-                  style={{ width: '100%', borderColor: 'rgba(212, 168, 67, 0.3)' }}
-                  onClick={() => router.push('/member/attendance')}
-                >
+                <div className="btn btn-secondary" style={{ width: '100%', borderColor: 'rgba(212, 168, 67, 0.3)' }}>
                   Confirm Attendance
-                </button>
-              </div>
+                </div>
+              </Link>
             );
           })}
         </div>

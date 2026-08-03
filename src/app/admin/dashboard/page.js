@@ -46,9 +46,9 @@ export default function AdminDashboard() {
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .admin-hero-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 28px 56px rgba(0, 0, 0, 0.8), 0 0 32px rgba(212, 168, 67, 0.15);
-          border-color: rgba(212, 168, 67, 0.3);
+          transform: scale(1.02);
+          box-shadow: 0 28px 56px rgba(0, 0, 0, 0.8), 0 0 32px rgba(212, 168, 67, 0.25);
+          border-color: rgba(212, 168, 67, 0.6);
         }
 
         .scroll-admin-row {
@@ -81,8 +81,9 @@ export default function AdminDashboard() {
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
         }
         .admin-scroll-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(212, 168, 67, 0.6);
+          transform: scale(1.03);
+          border-color: rgba(212, 168, 67, 0.8);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
       `}</style>
 

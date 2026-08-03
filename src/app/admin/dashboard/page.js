@@ -48,8 +48,8 @@ export default function AdminDashboard() {
         }
         .admin-hero-card:hover {
           transform: scale(1.02);
-          box-shadow: 0 28px 56px rgba(0, 0, 0, 0.8), 0 0 32px rgba(212, 168, 67, 0.25);
-          border-color: rgba(212, 168, 67, 0.6);
+          border-color: transparent;
+          box-shadow: 0 28px 56px rgba(0, 0, 0, 0.8), inset 0 0 40px 10px rgba(212, 168, 67, 0.3);
         }
         .admin-hero-card:active {
           animation: shakeOnActive 0.3s ease-in-out;
@@ -87,8 +87,8 @@ export default function AdminDashboard() {
         }
         .admin-scroll-card:hover {
           transform: scale(1.03);
-          border-color: rgba(212, 168, 67, 0.8);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+          border-color: transparent;
+          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 0 40px 10px rgba(212, 168, 67, 0.3);
         }
         .admin-scroll-card:active {
           animation: shakeOnActive 0.3s ease-in-out;

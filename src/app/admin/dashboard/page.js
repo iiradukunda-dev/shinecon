@@ -119,9 +119,6 @@ export default function AdminDashboard() {
               </div>
             </div>
             
-            <div style={{ position: 'absolute', bottom: -10, right: 10, opacity: 0.05, zIndex: 1, pointerEvents: 'none' }}>
-              <OnlineLogoIcon name={kpi.iconName} size={120} color="#FFFFFF" />
-            </div>
           </div>
         ))}
       </div>

@@ -31,12 +31,7 @@ export default function MemberDashboard() {
           -webkit-backdrop-filter: blur(40px);
           border-radius: 32px;
           padding: 36px 40px;
-          border: 1px solid transparent;
-          background-image: 
-            linear-gradient(rgba(15, 15, 22, 0.8), rgba(15, 15, 22, 0.8)), 
-            linear-gradient(135deg, rgba(212, 168, 67, 0.6) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(212, 168, 67, 0.6) 100%);
-          background-origin: border-box;
-          background-clip: padding-box, border-box;
+          border: 1px solid rgba(212, 168, 67, 0.3);
           box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(212, 168, 67, 0.05);
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;

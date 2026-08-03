@@ -37,6 +37,7 @@ export default function SettingsPage() {
   
   const [adminForm, setAdminForm] = useState({ fullName: '', email: '', password: '' });
   const [adminStatus, setAdminStatus] = useState('');
+  const [activeTab, setActiveTab] = useState('account');
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files?.[0];
@@ -235,150 +236,265 @@ export default function SettingsPage() {
         <p>Configure SM Connect platform settings</p>
       </div>
 
-      {/* Admin Profile */}
-      <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-xl)', textAlign: 'center', marginBottom: 'var(--space-lg)' }}>
-        <div 
-          onClick={() => fileInputRef.current?.click()}
-          style={{
-          width: 80, height: 80, borderRadius: '50%',
-          background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          margin: '0 auto var(--space-md)', color: '#fff',
-          fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)',
-          cursor: 'pointer', position: 'relative', overflow: 'hidden',
-          opacity: photoUploading ? 0.5 : 1,
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-        }}>
-          {!user?.photo && getInitials(user?.name || 'Admin')}
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
-            background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 10, backdropFilter: 'blur(2px)'
-          }}>
-            Edit
-          </div>
-        </div>
-        <input type="file" ref={fileInputRef} onChange={handlePhotoChange} accept="image/*" style={{ display: 'none' }} />
-        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 2 }}>{user?.name || 'System Admin'}</h2>
-        <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{user?.email}</p>
-      </div>
-
-      {/* Security */}
-      <div className="glass-card-static animate-fade-in-up stagger-2" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Security & Password</h3>
-        
-        <form onSubmit={handlePasswordChange}>
-          <div style={{ marginBottom: 'var(--space-sm)' }}>
-            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Current Password</label>
-            <input type="password" required className="input" value={passwordForm.current} onChange={e => setPasswordForm({...passwordForm, current: e.target.value})} />
-          </div>
-          <div style={{ marginBottom: 'var(--space-sm)' }}>
-            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>New Password</label>
-            <input type="password" required className="input" value={passwordForm.new} onChange={e => setPasswordForm({...passwordForm, new: e.target.value})} />
-          </div>
-          <div style={{ marginBottom: 'var(--space-md)' }}>
-            <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Confirm New Password</label>
-            <input type="password" required className="input" value={passwordForm.confirm} onChange={e => setPasswordForm({...passwordForm, confirm: e.target.value})} />
-          </div>
-          <button type="submit" disabled={passwordStatus === 'saving'} className="btn btn-gold" style={{ width: '100%', maxWidth: 200 }}>
-            {passwordStatus === 'saving' ? 'Updating...' : 'Change Password'}
+      {/* Tabs Navigation */}
+      <div className="animate-fade-in-up" style={{ display: 'flex', gap: 16, borderBottom: '1px solid var(--border-medium)', marginBottom: 'var(--space-xl)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        {[
+          { id: 'account', label: 'My Account' },
+          { id: 'system', label: 'System Admin' },
+          { id: 'integrations', label: 'Integrations' },
+          { id: 'advanced', label: 'Advanced Config' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              background: 'none', border: 'none', padding: '12px 16px',
+              fontSize: 'var(--text-sm)', fontWeight: 600,
+              color: activeTab === tab.id ? 'var(--gold)' : 'var(--text-secondary)',
+              borderBottom: activeTab === tab.id ? '2px solid var(--gold)' : '2px solid transparent',
+              cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
           </button>
-        </form>
-      </div>
-
-      {/* Theme Toggle */}
-      <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
-        <div className="flex-between">
-          <div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="moon" size={20} /> Appearance</h3>
-            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Switch between light and dark mode</p>
-          </div>
-          <button onClick={toggleTheme} style={{
-            width: 56, height: 30, borderRadius: 'var(--radius-full)', padding: 3,
-            background: theme === 'dark' ? 'var(--gold)' : 'var(--gray-300)',
-            transition: 'background 0.3s', cursor: 'pointer', border: 'none',
-          }}>
-            <div style={{
-              width: 24, height: 24, borderRadius: '50%', background: '#fff',
-              transform: theme === 'dark' ? 'translateX(26px)' : 'translateX(0)',
-              transition: 'transform 0.3s var(--ease-spring)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
-            }}>
-              {theme === 'dark' ? <OnlineLogoIcon name="moon" size={14} color="#000" /> : <OnlineLogoIcon name="sun" size={14} color="#000" />}
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Create Alternative Admin Account */}
-      {user?.role === 'SUPER_ADMIN' || user?.role === 'admin' || user?.role === 'MEMBER' ? (
-        <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>System Administrators</h3>
-          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>Create an alternative admin account.</p>
-          <form onSubmit={handleCreateAdmin}>
-            <div className="grid grid-2" style={{ gap: 'var(--space-md)' }}>
-              <div>
-                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Full Name</label>
-                <input type="text" required className="input" value={adminForm.fullName} onChange={e => setAdminForm({...adminForm, fullName: e.target.value})} placeholder="Jane Doe" />
-              </div>
-              <div>
-                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Gmail Account</label>
-                <input type="email" required className="input" value={adminForm.email} onChange={e => setAdminForm({...adminForm, email: e.target.value})} placeholder="admin@gmail.com" />
-              </div>
-            </div>
-            <div style={{ marginTop: 'var(--space-md)', marginBottom: 'var(--space-md)' }}>
-              <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Temporary Password</label>
-              <input type="password" required className="input" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} />
-            </div>
-            <button type="submit" disabled={adminStatus === 'saving'} className="btn btn-gold" style={{ width: '100%', maxWidth: 200 }}>
-              {adminStatus === 'saving' ? 'Creating...' : 'Create Admin'}
-            </button>
-          </form>
-        </div>
-      ) : null}
-
-      {/* Settings Sections */}
-      <div className="grid grid-2">
-        {sections.map((section, i) => (
-          <div key={i} className={`glass-card-static animate-fade-in-up stagger-${Math.min(i + 2, 6)}`} style={{ padding: 'var(--space-lg)' }}>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
-              {section.title}
-            </h3>
-            {section.items.map(item => (
-              <div key={item.label} style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '10px 0', borderBottom: '1px solid var(--border-light)', gap: 16
-              }}>
-                <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', flexShrink: 0 }}>{item.label}</span>
-                {item.type === 'select' ? (
-                  <select 
-                    className="select" 
-                    value={settings[item.key] || ''} 
-                    onChange={e => handleChange(item.key, e.target.value)}
-                    style={{ flex: 1, maxWidth: 200, padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}
-                  >
-                    {item.options.map(o => (
-                      <option key={o.value} value={o.value}>{o.label}</option>
-                    ))}
-                  </select>
-                ) : (
-                  <input 
-                    type={item.type}
-                    className="input"
-                    value={settings[item.key] || ''}
-                    readOnly={item.readOnly}
-                    onChange={e => handleChange(item.key, e.target.value)}
-                    style={{ flex: 1, maxWidth: 200, fontSize: 'var(--text-sm)' }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
         ))}
       </div>
 
+      {/* Tab Content: Account */}
+      {activeTab === 'account' && (
+        <div className="grid grid-2" style={{ gap: 'var(--space-lg)', alignItems: 'start' }}>
+          <div>
+            <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-xl)', textAlign: 'center', marginBottom: 'var(--space-lg)' }}>
+              <div 
+                onClick={() => fileInputRef.current?.click()}
+                style={{
+                width: 80, height: 80, borderRadius: '50%',
+                background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                margin: '0 auto var(--space-md)', color: '#fff',
+                fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)',
+                cursor: 'pointer', position: 'relative', overflow: 'hidden',
+                opacity: photoUploading ? 0.5 : 1,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}>
+                {!user?.photo && getInitials(user?.name || 'Admin')}
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
+                  background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 10, backdropFilter: 'blur(2px)'
+                }}>
+                  Edit
+                </div>
+              </div>
+              <input type="file" ref={fileInputRef} onChange={handlePhotoChange} accept="image/*" style={{ display: 'none' }} />
+              <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 2 }}>{user?.name || 'System Admin'}</h2>
+              <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{user?.email}</p>
+            </div>
+
+            <div className="glass-card-static animate-fade-in-up stagger-2" style={{ padding: 'var(--space-lg)' }}>
+              <div className="flex-between">
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><OnlineLogoIcon name="moon" size={20} /> Appearance</h3>
+                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Switch between light and dark mode</p>
+                </div>
+                <button onClick={toggleTheme} style={{
+                  width: 56, height: 30, borderRadius: 'var(--radius-full)', padding: 3,
+                  background: theme === 'dark' ? 'var(--gold)' : 'var(--gray-300)',
+                  transition: 'background 0.3s', cursor: 'pointer', border: 'none',
+                }}>
+                  <div style={{
+                    width: 24, height: 24, borderRadius: '50%', background: '#fff',
+                    transform: theme === 'dark' ? 'translateX(26px)' : 'translateX(0)',
+                    transition: 'transform 0.3s var(--ease-spring)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
+                  }}>
+                    {theme === 'dark' ? <OnlineLogoIcon name="moon" size={14} color="#000" /> : <OnlineLogoIcon name="sun" size={14} color="#000" />}
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="glass-card-static animate-fade-in-up stagger-3" style={{ padding: 'var(--space-lg)' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Security & Password</h3>
+            <form onSubmit={handlePasswordChange}>
+              <div style={{ marginBottom: 'var(--space-sm)' }}>
+                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Current Password</label>
+                <input type="password" required className="input" value={passwordForm.current} onChange={e => setPasswordForm({...passwordForm, current: e.target.value})} />
+              </div>
+              <div style={{ marginBottom: 'var(--space-sm)' }}>
+                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>New Password</label>
+                <input type="password" required className="input" value={passwordForm.new} onChange={e => setPasswordForm({...passwordForm, new: e.target.value})} />
+              </div>
+              <div style={{ marginBottom: 'var(--space-md)' }}>
+                <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Confirm New Password</label>
+                <input type="password" required className="input" value={passwordForm.confirm} onChange={e => setPasswordForm({...passwordForm, confirm: e.target.value})} />
+              </div>
+              <button type="submit" disabled={passwordStatus === 'saving'} className="btn btn-gold" style={{ width: '100%' }}>
+                {passwordStatus === 'saving' ? 'Updating...' : 'Change Password'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Tab Content: System */}
+      {activeTab === 'system' && (
+        <div className="grid grid-2" style={{ gap: 'var(--space-lg)', alignItems: 'start' }}>
+          <div className="flex-col" style={{ gap: 'var(--space-lg)' }}>
+            {(user?.role === 'SUPER_ADMIN' || user?.role === 'admin' || user?.role === 'MEMBER') && (
+              <div className="glass-card-static animate-fade-in-up stagger-1" style={{ padding: 'var(--space-lg)' }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>System Administrators</h3>
+                <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)' }}>Create an alternative admin account.</p>
+                <form onSubmit={handleCreateAdmin}>
+                  <div style={{ marginBottom: 'var(--space-sm)' }}>
+                    <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Full Name</label>
+                    <input type="text" required className="input" value={adminForm.fullName} onChange={e => setAdminForm({...adminForm, fullName: e.target.value})} placeholder="Jane Doe" />
+                  </div>
+                  <div style={{ marginBottom: 'var(--space-sm)' }}>
+                    <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Gmail Account</label>
+                    <input type="email" required className="input" value={adminForm.email} onChange={e => setAdminForm({...adminForm, email: e.target.value})} placeholder="admin@gmail.com" />
+                  </div>
+                  <div style={{ marginBottom: 'var(--space-md)' }}>
+                    <label className="input-label" style={{ fontSize: 'var(--text-xs)' }}>Temporary Password</label>
+                    <input type="password" required className="input" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} />
+                  </div>
+                  <button type="submit" disabled={adminStatus === 'saving'} className="btn btn-gold" style={{ width: '100%' }}>
+                    {adminStatus === 'saving' ? 'Creating...' : 'Create Admin'}
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+          
+          <div className="flex-col" style={{ gap: 'var(--space-lg)' }}>
+            {[sections[0], sections[1]].map((section, i) => (
+              <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 2}`} style={{ padding: 'var(--space-lg)' }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
+                  {section.title}
+                </h3>
+                {section.items.map(item => (
+                  <div key={item.label} style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    padding: '10px 0', borderBottom: '1px solid var(--border-light)', gap: 16
+                  }}>
+                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', flexShrink: 0 }}>{item.label}</span>
+                    {item.type === 'select' ? (
+                      <select 
+                        className="select" 
+                        value={settings[item.key] || ''} 
+                        onChange={e => handleChange(item.key, e.target.value)}
+                        style={{ flex: 1, maxWidth: 200, padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}
+                      >
+                        {item.options.map(o => (
+                          <option key={o.value} value={o.value}>{o.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input 
+                        type={item.type}
+                        className="input"
+                        value={settings[item.key] || ''}
+                        readOnly={item.readOnly}
+                        onChange={e => handleChange(item.key, e.target.value)}
+                        style={{ flex: 1, maxWidth: 200, fontSize: 'var(--text-sm)' }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Tab Content: Integrations */}
+      {activeTab === 'integrations' && (
+        <div className="grid grid-2" style={{ gap: 'var(--space-lg)', alignItems: 'start' }}>
+          {[sections[2], sections[3]].map((section, i) => (
+            <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-lg)' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
+                {section.title}
+              </h3>
+              {section.items.map(item => (
+                <div key={item.label} style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  padding: '10px 0', borderBottom: '1px solid var(--border-light)', gap: 16
+                }}>
+                  <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', flexShrink: 0 }}>{item.label}</span>
+                  {item.type === 'select' ? (
+                    <select 
+                      className="select" 
+                      value={settings[item.key] || ''} 
+                      onChange={e => handleChange(item.key, e.target.value)}
+                      style={{ flex: 1, maxWidth: 200, padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}
+                    >
+                      {item.options.map(o => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input 
+                      type={item.type}
+                      className="input"
+                      value={settings[item.key] || ''}
+                      readOnly={item.readOnly}
+                      onChange={e => handleChange(item.key, e.target.value)}
+                      style={{ flex: 1, maxWidth: 200, fontSize: 'var(--text-sm)' }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Tab Content: Advanced */}
+      {activeTab === 'advanced' && (
+        <div className="grid grid-2" style={{ gap: 'var(--space-lg)', alignItems: 'start' }}>
+          {[sections[4], sections[5]].map((section, i) => (
+            <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-lg)' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>
+                {section.title}
+              </h3>
+              {section.items.map(item => (
+                <div key={item.label} style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  padding: '10px 0', borderBottom: '1px solid var(--border-light)', gap: 16
+                }}>
+                  <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', flexShrink: 0 }}>{item.label}</span>
+                  {item.type === 'select' ? (
+                    <select 
+                      className="select" 
+                      value={settings[item.key] || ''} 
+                      onChange={e => handleChange(item.key, e.target.value)}
+                      style={{ flex: 1, maxWidth: 200, padding: '4px 28px 4px 10px', fontSize: 'var(--text-sm)' }}
+                    >
+                      {item.options.map(o => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input 
+                      type={item.type}
+                      className="input"
+                      value={settings[item.key] || ''}
+                      readOnly={item.readOnly}
+                      onChange={e => handleChange(item.key, e.target.value)}
+                      style={{ flex: 1, maxWidth: 200, fontSize: 'var(--text-sm)' }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Actions */}
-      <div style={{ marginTop: 'var(--space-xl)', display: 'flex', gap: 'var(--space-sm)', justifyContent: 'flex-end' }}
+      <div style={{ marginTop: 'var(--space-xl)', display: 'flex', gap: 'var(--space-sm)', justifyContent: 'flex-end', borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-lg)' }}
+
         className="animate-fade-in-up">
         <button className="btn btn-secondary">Export Configuration</button>
         <button className="btn btn-gold" onClick={handleSave} disabled={saving}>

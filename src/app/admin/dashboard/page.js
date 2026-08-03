@@ -12,9 +12,9 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   const kpis = [
-    { label: 'Total Members', value: stats.totalMembers, icon: <IconUsers size={24} color="#D4A843" />, change: '+12% this month', positive: true, bg: 'rgba(212,168,67,0.15)', color: 'var(--gold)' },
-    { label: 'Monthly Contributions (RWF)', value: formatCurrency(stats.monthlyRWF, 'RWF'), icon: <IconGive size={24} color="#40C057" />, change: '+8% vs last month', positive: true, bg: 'rgba(43,138,62,0.15)', color: 'var(--emerald)' },
-    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, icon: <IconHourglass size={24} color="#FAB005" />, change: 'Requires Action', positive: false, bg: 'rgba(245,159,0,0.15)', color: 'var(--amber)' },
+    { label: 'Total Members', value: stats.totalMembers, iconName: 'users', change: '+12% this month', positive: true, color: '#D4A843' },
+    { label: 'Monthly Contributions', value: formatCurrency(stats.monthlyRWF, 'RWF'), iconName: 'wallet', change: '+8% vs last month', positive: true, color: '#40C057' },
+    { label: 'Pending Approvals', value: stats.pendingContributions + stats.pendingMembers, iconName: 'hourglass', change: 'Requires Action', positive: false, color: '#FAB005' },
   ];
 
   const pendingContributions = contributions.filter(c => c.status === 'pending');
@@ -31,10 +31,12 @@ export default function AdminDashboard() {
           background: rgba(15, 15, 22, 0.85);
           backdrop-filter: blur(40px);
           -webkit-backdrop-filter: blur(40px);
-          border-radius: 28px;
-          padding: 28px;
-          border: 1px solid rgba(212, 168, 67, 0.35);
+          border-radius: 20px;
+          padding: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
           box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+          position: relative;
+          overflow: hidden;
         }
 
         .scroll-admin-row {
@@ -67,22 +69,40 @@ export default function AdminDashboard() {
       `}</style>
 
       {/* KPI Big Clear Cards */}
-      <div className="grid grid-4" style={{ gap: 20 }}>
+      <div className="grid grid-3" style={{ gap: 20 }}>
         {kpis.map((kpi, i) => (
           <div key={kpi.label} className="admin-hero-card">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: 16, background: kpi.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
-                {kpi.icon}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div style={{ 
+                width: 56, 
+                height: 56, 
+                borderRadius: '50%', 
+                border: \`1px solid rgba(212, 168, 67, 0.6)\`,
+                boxShadow: \`0 0 20px rgba(212, 168, 67, 0.3), inset 0 0 15px rgba(212, 168, 67, 0.1)\`,
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center'
+              }}>
+                <OnlineLogoIcon name={kpi.iconName} size={28} color={kpi.color} />
               </div>
-              <span className={`badge ${kpi.positive ? 'badge-gold' : 'badge-amber'}`} style={{ fontSize: 11 }}>
-                {kpi.positive ? <OnlineLogoIcon name="arrow-up" size={12} color="var(--gold)" /> : <OnlineLogoIcon name="zap" size={12} color="var(--amber)" />} {kpi.change}
+              <span className={\`badge \${kpi.positive ? 'badge-gold' : 'badge-amber'}\`} style={{ fontSize: 12, padding: '6px 12px', background: 'rgba(212, 168, 67, 0.1)', border: '1px solid rgba(212, 168, 67, 0.2)' }}>
+                {kpi.positive ? <OnlineLogoIcon name="arrow-up" size={12} color="var(--gold)" /> : <OnlineLogoIcon name="zap" size={12} color="var(--amber)" />} <span style={{ marginLeft: 4 }}>{kpi.change}</span>
               </span>
             </div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, color: '#D4A843', marginBottom: 4 }}>
-              {kpi.value}
+            
+            <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)', marginBottom: 20 }} />
+
+            <div style={{ position: 'relative', zIndex: 2 }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 42, fontWeight: 800, color: kpi.color, lineHeight: 1, marginBottom: 8 }}>
+                {kpi.value}
+              </div>
+              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.7)', fontWeight: 500 }}>
+                {kpi.label}
+              </div>
             </div>
-            <div style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.75)', fontWeight: 500 }}>
-              {kpi.label}
+            
+            <div style={{ position: 'absolute', bottom: -10, right: 10, opacity: 0.05, zIndex: 1, pointerEvents: 'none' }}>
+              <OnlineLogoIcon name={kpi.iconName} size={120} color="#FFFFFF" />
             </div>
           </div>
         ))}

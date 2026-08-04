@@ -17,34 +17,25 @@ export default function ProfilePage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
-      addToast('Image must be less than 2MB', 'error');
-      return;
-    }
-
     setPhotoUploading(true);
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const base64Str = event.target.result;
-      try {
-        const res = await fetch('/api/user/profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
-        });
-        const data = await res.json();
-        if (data.success) {
-          updateUser({ photo: base64Str });
-          addToast('Profile photo updated', 'success');
-        } else {
-          addToast(data.error || 'Failed to update photo', 'error');
-        }
-      } catch (err) {
-        addToast('Network error', 'error');
+    try {
+      const base64Str = await import('@/lib/utils').then(m => m.resizeImageBase64(file));
+      const res = await fetch('/api/user/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        updateUser({ photo: base64Str });
+        addToast('Profile photo updated', 'success');
+      } else {
+        addToast(data.error || 'Failed to update photo', 'error');
       }
-      setPhotoUploading(false);
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      addToast('Error processing image', 'error');
+    }
+    setPhotoUploading(false);
   };
 
   const handlePasswordChange = async (e) => {

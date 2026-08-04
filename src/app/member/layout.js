@@ -6,6 +6,7 @@ import {
   IconHome, IconGive, IconTarget, IconClipboard, IconMegaphone, IconSparkles, IconUser, OnlineLogoIcon
 } from '@/components/icons';
 import { t } from '@/lib/i18n';
+import { getInitials } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { href: '/member/dashboard', icon: <IconHome size={20} />, label: 'Home' },
@@ -246,16 +247,30 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          {NAV_ITEMS.slice(4).map(item => (
-            <button
-              key={item.href}
-              className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
-              onClick={() => router.push(item.href)}
-            >
-              <span>{item.icon}</span>
-              <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
-            </button>
-          ))}
+          {NAV_ITEMS.slice(4).map(item => {
+            if (item.label === 'Profile') {
+              return (
+                <div key={item.href} className="user-avatar-pill" onClick={() => router.push(item.href)}>
+                  <div className="avatar-circle" style={{ 
+                    background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)', 
+                  }}>
+                    {!user?.photo && getInitials(user?.name || 'A')}
+                  </div>
+                  <span className="avatar-name">{user?.name ? user.name.split(' ')[0] : 'Profile'}</span>
+                </div>
+              );
+            }
+            return (
+              <button
+                key={item.href}
+                className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
+                onClick={() => router.push(item.href)}
+              >
+                <span>{item.icon}</span>
+                <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
+              </button>
+            );
+          })}
           <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>

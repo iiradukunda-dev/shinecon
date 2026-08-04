@@ -43,25 +43,34 @@ export default function SettingsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setPhotoUploading(true);
-    try {
-      const base64Str = await import('@/lib/utils').then(m => m.resizeImageBase64(file));
-      const res = await fetch('/api/user/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        updateUser({ photo: base64Str });
-        addToast('Profile photo updated', 'success');
-      } else {
-        addToast(data.error || 'Failed to update photo', 'error');
-      }
-    } catch (err) {
-      addToast('Error processing image', 'error');
+    if (file.size > 2 * 1024 * 1024) {
+      addToast('Image must be less than 2MB', 'error');
+      return;
     }
-    setPhotoUploading(false);
+
+    setPhotoUploading(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Str = event.target.result;
+      try {
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user?.id, action: 'update_photo', photoUrl: base64Str }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          updateUser({ photo: base64Str });
+          addToast('Profile photo updated', 'success');
+        } else {
+          addToast(data.error || 'Failed to update photo', 'error');
+        }
+      } catch (err) {
+        addToast('Network error', 'error');
+      }
+      setPhotoUploading(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handlePasswordChange = async (e) => {
@@ -263,7 +272,7 @@ export default function SettingsPage() {
                 onClick={() => fileInputRef.current?.click()}
                 style={{
                 width: 80, height: 80, borderRadius: '50%',
-                background: user?.photo ? `url(${user.photo}) center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 margin: '0 auto var(--space-md)', color: '#fff',
                 fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-2xl)',

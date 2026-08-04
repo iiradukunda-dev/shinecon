@@ -27,23 +27,9 @@ export default function MemberDashboard() {
         }
 
         .dash-hero-card {
-          background: rgba(15, 15, 22, 0.8);
-          backdrop-filter: blur(40px);
-          -webkit-backdrop-filter: blur(40px);
-          border-radius: 32px;
           padding: 36px 40px;
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(212, 168, 67, 0.05);
+          cursor: default;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        }
-        .dash-hero-card:hover {
-          transform: scale(1.02);
-          border-color: rgba(255, 255, 255, 0.25);
-          box-shadow: 0 32px 72px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-        .dash-hero-card:active {
-          animation: shakeOnActive 0.3s ease-in-out;
         }
 
         .scroll-row-container {
@@ -74,24 +60,9 @@ export default function MemberDashboard() {
           max-width: 360px;
           flex-shrink: 0;
           scroll-snap-align: start;
-          background: rgba(18, 18, 26, 0.85);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          border-radius: 28px;
           padding: 24px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
           cursor: pointer;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .big-scroll-card:hover {
-          transform: scale(1.03);
-          border-color: rgba(255, 255, 255, 0.25);
-          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 16px rgba(255, 255, 255, 0.05);
-        }
-        .big-scroll-card:active {
-          animation: shakeOnActive 0.3s ease-in-out;
         }
 
         .section-header {
@@ -108,9 +79,6 @@ export default function MemberDashboard() {
         }
 
         .quick-action-tile {
-          background: rgba(18, 18, 26, 0.8);
-          border: 1px solid rgba(212, 168, 67, 0.25);
-          border-radius: 24px;
           padding: 20px;
           display: flex;
           flex-direction: column;
@@ -118,17 +86,7 @@ export default function MemberDashboard() {
           gap: 12px;
           cursor: pointer;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
           text-align: center;
-        }
-        .quick-action-tile:hover {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.25);
-          transform: scale(1.05);
-          box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 0 16px rgba(255, 255, 255, 0.05);
-        }
-        .quick-action-tile:active {
-          animation: shakeOnActive 0.3s ease-in-out;
         }
         .quick-action-tile-icon {
           width: 52px;
@@ -141,16 +99,10 @@ export default function MemberDashboard() {
           margin-bottom: 8px;
         }
 
-        .dash-hero-card svg, .big-scroll-card svg, .quick-action-tile svg {
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .dash-hero-card:hover svg, .big-scroll-card:hover svg, .quick-action-tile:hover svg {
-          transform: scale(1.15);
-        }
       `}</style>
 
       {/* Welcome Hero Card */}
-      <div className="dash-hero-card">
+      <div className="glass-card dash-hero-card">
         <p suppressHydrationWarning style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#D4A843', fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
           {getGreeting()} <OnlineLogoIcon name="sun" size={16} />
         </p>
@@ -175,7 +127,7 @@ export default function MemberDashboard() {
             { icon: <IconClipboard size={26} color="#D4A843" />, label: 'Attendance', href: '/member/attendance', bg: 'rgba(212,168,67,0.2)' },
             { icon: <IconSparkles size={26} color="#D4A843" />, label: 'AI Assistant', href: '/member/ai', bg: 'rgba(212,168,67,0.2)' },
           ].map((action, i) => (
-            <Link key={action.label} href={action.href} className="quick-action-tile" style={{ animationDelay: `${0.2 + (i * 0.1)}s`, textDecoration: 'none' }}>
+            <Link key={action.label} href={action.href} className="glass-card quick-action-tile" style={{ animationDelay: `${0.2 + (i * 0.1)}s`, textDecoration: 'none' }}>
               <div className="quick-action-tile-icon" style={{ background: action.bg }}>{action.icon}</div>
               <span style={{ fontWeight: 700, fontSize: 15, color: '#FFFFFF' }}>{action.label}</span>
             </Link>
@@ -196,7 +148,7 @@ export default function MemberDashboard() {
           {campaigns.filter(c => c.status === 'active').map((campaign, i) => {
             const pct = Math.round((campaign.raised / campaign.goal) * 100);
             return (
-              <Link key={campaign.id} href="/member/campaigns" className="big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
+              <Link key={campaign.id} href="/member/campaigns" className="glass-card big-scroll-card" style={{ animationDelay: `${0.3 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{ fontSize: 38, width: 56, height: 56, borderRadius: 16, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <OnlineLogoIcon name={campaign.image || "church"} size={30} color="var(--gold)" />
@@ -238,7 +190,7 @@ export default function MemberDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <Link key={event.id} href="/member/attendance" className="big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
+              <Link key={event.id} href="/member/attendance" className="glass-card big-scroll-card" style={{ minWidth: 280, maxWidth: 300, animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 16 }}>
                   <div style={{
                     width: 52, height: 56, borderRadius: 14,
@@ -282,7 +234,7 @@ export default function MemberDashboard() {
 
         <div className="scroll-row-container">
           {[...announcements].sort((a, b) => new Date(b.date || b.createdAt || 0) - new Date(a.date || a.createdAt || 0)).map(ann => (
-            <div key={ann.id} className="big-scroll-card" style={{ minWidth: 320, maxWidth: 360 }}>
+            <div key={ann.id} className="glass-card big-scroll-card" style={{ minWidth: 320, maxWidth: 360 }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(212,168,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <OnlineLogoIcon name={ann.image || "megaphone"} size={24} color={ann.priority === 'high' ? 'var(--soft-red)' : 'var(--gold)'} />

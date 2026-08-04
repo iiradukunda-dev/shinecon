@@ -34,26 +34,9 @@ export default function AdminDashboard() {
         }
 
         .admin-hero-card {
-          background: rgba(15, 15, 22, 0.85);
-          backdrop-filter: blur(40px);
-          -webkit-backdrop-filter: blur(40px);
-          border-radius: 20px;
           padding: 24px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
-          position: relative;
-          overflow: hidden;
           cursor: pointer;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .admin-hero-card:hover {
-          transform: scale(1.02);
-          border-color: rgba(255, 255, 255, 0.25);
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 16px rgba(255, 255, 255, 0.05);
-        }
-        .admin-hero-card:active {
-          animation: shakeOnActive 0.3s ease-in-out;
         }
 
         .scroll-admin-row {
@@ -76,37 +59,16 @@ export default function AdminDashboard() {
           max-width: 320px;
           flex-shrink: 0;
           scroll-snap-align: start;
-          background: rgba(18, 18, 26, 0.85);
-          backdrop-filter: blur(24px);
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          border-radius: 24px;
           padding: 20px;
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
           cursor: pointer;
           animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
-        }
-        .admin-scroll-card:hover {
-          transform: scale(1.03);
-          border-color: rgba(255, 255, 255, 0.25);
-          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(255, 255, 255, 0.1), inset 0 0 16px rgba(255, 255, 255, 0.05);
-        }
-        .admin-scroll-card:active {
-          animation: shakeOnActive 0.3s ease-in-out;
-        }
-
-        .admin-hero-card svg, .admin-scroll-card svg {
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .admin-hero-card:hover svg, .admin-scroll-card:hover svg {
-          transform: scale(1.15);
         }
       `}</style>
 
       {/* KPI Big Clear Cards */}
       <div className="grid grid-3" style={{ gap: 20 }}>
         {kpis.map((kpi, i) => (
-          <Link key={kpi.label} href={kpi.href} className="admin-hero-card" style={{ animationDelay: `${i * 0.1}s`, textDecoration: 'none', display: 'block' }}>
+          <Link key={kpi.label} href={kpi.href} className="glass-card admin-hero-card" style={{ animationDelay: `${i * 0.1}s`, textDecoration: 'none', display: 'block' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
               <div style={{ 
                 width: 56, 
@@ -143,7 +105,7 @@ export default function AdminDashboard() {
       {/* Charts Row */}
       <div className="grid grid-2" style={{ gap: 20 }}>
         {/* Contribution Trend */}
-        <Link href="/admin/contributions" className="admin-hero-card" style={{ animationDelay: '0.3s', textDecoration: 'none', display: 'block' }}>
+        <Link href="/admin/contributions" className="glass-card admin-hero-card" style={{ animationDelay: '0.3s', textDecoration: 'none', display: 'block' }}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Contribution Trend</h3>
             <span className="badge badge-gold">2026 Fiscal</span>
@@ -173,7 +135,7 @@ export default function AdminDashboard() {
         </Link>
 
         {/* Member Growth Chart */}
-        <Link href="/admin/members" className="admin-hero-card" style={{ animationDelay: '0.4s', textDecoration: 'none', display: 'block' }}>
+        <Link href="/admin/members" className="glass-card admin-hero-card" style={{ animationDelay: '0.4s', textDecoration: 'none', display: 'block' }}>
           <div className="flex-between" style={{ marginBottom: 20 }}>
             <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#FFFFFF' }}>Member Growth Rate</h3>
             <span className="badge badge-gold">+12 New Members</span>
@@ -229,7 +191,7 @@ export default function AdminDashboard() {
           {events.map((event, i) => {
             const d = new Date(event.date);
             return (
-              <Link key={event.id} href="/admin/events" className="admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
+              <Link key={event.id} href="/admin/events" className="glass-card admin-scroll-card" style={{ animationDelay: `${0.4 + (i * 0.1)}s`, textDecoration: 'none', display: 'block' }}>
                 <div className="flex-between" style={{ marginBottom: 12 }}>
                   <span className="badge badge-gold">{event.category}</span>
                   <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{event.time}</span>

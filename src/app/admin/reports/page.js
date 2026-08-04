@@ -156,42 +156,25 @@ export default function AdminReportsPage() {
     <div className="flex-col gap-xl">
       <style>{`
         .reports-header-card {
-          background: rgba(15, 15, 22, 0.85);
-          backdrop-filter: blur(40px);
-          -webkit-backdrop-filter: blur(40px);
-          border: 1px solid rgba(212, 168, 67, 0.35);
-          border-radius: 28px;
           padding: 32px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
           gap: 20px;
-          box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
         }
 
         .report-glass-card {
-          background: rgba(18, 18, 26, 0.85);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(212, 168, 67, 0.3);
-          border-radius: 24px;
           padding: 28px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           gap: 20px;
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
-          transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-        .report-glass-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(212, 168, 67, 0.6);
         }
       `}</style>
 
       {/* Header & Controls */}
-      <div className="reports-header-card animate-fade-in-up">
+      <div className="glass-card reports-header-card animate-fade-in-up">
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, color: '#D4A843', marginBottom: 6 }}>
             Ministry Reports Center
@@ -223,7 +206,7 @@ export default function AdminReportsPage() {
       {/* Reports Grid */}
       <div className="grid grid-2" style={{ gap: 24 }}>
         {reportConfigs.map(report => (
-          <div key={report.id} className="report-glass-card animate-fade-in-up">
+          <div key={report.id} className="glass-card report-glass-card animate-fade-in-up">
             <div>
               <div className="flex-between" style={{ marginBottom: 16 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

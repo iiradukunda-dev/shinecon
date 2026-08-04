@@ -19,7 +19,7 @@ export async function POST(request) {
     });
 
     if (!user) {
-      return NextResponse.json({ success: false, error: 'User account not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'User account not found. Please check the email again.' }, { status: 404 });
     }
 
     if (user.passwordHash !== hashPassword(password)) {

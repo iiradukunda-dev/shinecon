@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
+import { sendVerificationEmail } from '@/lib/email';
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -10,6 +11,10 @@ export async function POST(request) {
   try {
     const data = await request.json();
     const email = data.email?.toLowerCase();
+    
+    if (!email || !email.endsWith('@gmail.com')) {
+      return NextResponse.json({ error: 'Only official @gmail.com accounts are allowed' }, { status: 400 });
+    }
     
     // Check if email already exists
     const existing = await prisma.user.findUnique({
@@ -24,6 +29,7 @@ export async function POST(request) {
         email: email,
         passwordHash: hashPassword(data.password || 'changeme123'),
         role: 'MEMBER',
+        emailVerified: false,
         profile: {
           create: {
             fullName: data.name,
@@ -34,9 +40,18 @@ export async function POST(request) {
             approvalStatus: 'PENDING',
           },
         },
+        emailVerifications: {
+          create: {
+            token: crypto.randomBytes(32).toString('hex'),
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+          }
+        }
       },
-      include: { profile: true },
+      include: { profile: true, emailVerifications: true },
     });
+
+    const verification = user.emailVerifications[0];
+    await sendVerificationEmail(user.email, verification.token);
 
     return NextResponse.json({
       id: user.id,

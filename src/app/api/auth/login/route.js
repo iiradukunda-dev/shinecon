@@ -26,6 +26,10 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Incorrect password' }, { status: 401 });
     }
 
+    if (!user.emailVerified) {
+      return NextResponse.json({ success: false, error: 'Please verify your Gmail account before logging in.' }, { status: 403 });
+    }
+
     if (user.role !== 'SUPER_ADMIN' && user.profile?.approvalStatus !== 'APPROVED') {
       return NextResponse.json({ success: false, error: 'Account is pending approval or suspended' }, { status: 403 });
     }

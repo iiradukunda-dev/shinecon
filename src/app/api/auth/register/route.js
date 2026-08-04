@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
+import { sendVerificationEmail } from '@/lib/email';
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -42,13 +43,25 @@ export async function POST(request) {
             employment: employment.toUpperCase(), // EMPLOYED or STUDENT
             approvalStatus: 'PENDING', // Require admin approval
           }
+        },
+        emailVerifications: {
+          create: {
+            token: crypto.randomBytes(32).toString('hex'),
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+          }
         }
+      },
+      include: {
+        emailVerifications: true
       }
     });
 
+    const verification = user.emailVerifications[0];
+    await sendVerificationEmail(user.email, verification.token);
+
     return NextResponse.json({
       success: true,
-      message: 'Account created successfully. Pending admin approval.'
+      message: 'Account created. Please check your email to verify your official Gmail account.'
     });
   } catch (error) {
     console.error('Registration error:', error);

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
+import { sendVerificationEmail } from '@/lib/email';
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -33,7 +34,7 @@ export async function POST(req) {
         email: email.toLowerCase(),
         passwordHash: hashPassword(password),
         role: 'SUPER_ADMIN', // using SUPER_ADMIN or MEMBER per schema
-        emailVerified: true,
+        emailVerified: false,
         profile: {
           create: {
             fullName: fullName,
@@ -43,11 +44,23 @@ export async function POST(req) {
             employment: 'EMPLOYED',
             approvalStatus: 'APPROVED'
           }
+        },
+        emailVerifications: {
+          create: {
+            token: crypto.randomBytes(32).toString('hex'),
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+          }
         }
+      },
+      include: {
+        emailVerifications: true
       }
     });
 
-    return NextResponse.json({ success: true, user: { id: newUser.id, email: newUser.email } });
+    const verification = newUser.emailVerifications[0];
+    await sendVerificationEmail(newUser.email, verification.token);
+
+    return NextResponse.json({ success: true, message: 'Admin account created. Verification email sent.' });
   } catch (error) {
     console.error('Failed to create alternative admin account:', error);
     return NextResponse.json({ success: false, error: 'Server error while creating admin account.' }, { status: 500 });

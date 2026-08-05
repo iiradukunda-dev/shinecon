@@ -227,7 +227,13 @@ export default function MemberLayout({ children }) {
 
 
         <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="Home">
-          <OnlineLogoIcon size={32} />
+          <div className="avatar-circle" style={{ 
+            width: 32, height: 32, fontSize: 14, 
+            background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))', 
+            color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
+          }}>
+            {!user?.photo && <IconUser size={18} />}
+          </div>
         </div>
 
         {/* Desktop Nav Links */}
@@ -277,7 +283,13 @@ export default function MemberLayout({ children }) {
           <div className="mobile-nav-drawer">
             <div className="drawer-header" style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <OnlineLogoIcon size={24} />
+                <div className="avatar-circle" style={{ 
+                  width: 32, height: 32, fontSize: 14, 
+                  background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))', 
+                  color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
+                }}>
+                  {!user?.photo && <IconUser size={18} />}
+                </div>
                 <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>
                   {settings?.['branding.ministryName'] || 'Shining Ministries'}
                 </span>

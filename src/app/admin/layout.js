@@ -4,7 +4,7 @@ import { useApp } from '@/context/app-context';
 import { useEffect, useState } from 'react';
 import {
   IconChart, IconUsers, IconGive, IconTarget, IconClipboard, IconCalendar,
-  IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield, OnlineLogoIcon
+  IconMegaphone, IconMessage, IconFileText, IconSettings, IconShield, IconUser, OnlineLogoIcon
 } from '@/components/icons';
 import { t } from '@/lib/i18n';
 
@@ -70,7 +70,7 @@ export default function AdminLayout({ children }) {
             background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)', 
             color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
           }}>
-            {!user?.photo && (user?.name || 'A')[0]}
+            {!user?.photo && <IconUser size={24} />}
           </div>
         </div>
 

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { useApp } from '@/context/app-context';
 import { useRouter } from 'next/navigation';
 import { getInitials, formatCurrency } from '@/lib/utils';
-import { OnlineLogoIcon } from '@/components/icons';
+import { OnlineLogoIcon, IconUser } from '@/components/icons';
 
 export default function ProfilePage() {
   const { user, updateUser, theme, toggleTheme, language, setLanguage, logout, contributions, addToast } = useApp();
@@ -105,7 +105,7 @@ export default function ProfilePage() {
           opacity: photoUploading ? 0.5 : 1,
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
         }}>
-          {!user?.photo && getInitials(user?.name || 'JP')}
+          {!user?.photo && <IconUser size={32} />}
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
             background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',

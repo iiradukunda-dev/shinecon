@@ -259,7 +259,7 @@ export default function MemberLayout({ children }) {
             onMouseEnter={(e) => e.currentTarget.style.borderColor = '#D4A843'}
             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
           >
-            {!user?.photo && (user?.name || 'A')[0]}
+            {!user?.photo && <IconUser size={18} />}
           </div>
           <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}

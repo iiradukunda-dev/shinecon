@@ -197,6 +197,7 @@ export default function MemberLayout({ children }) {
             .member-nav-links { display: none; }
             .user-avatar-pill .avatar-name { display: none; }
             .mobile-toggle-btn { display: flex; }
+            .avatar-circle-brand { display: none !important; }
             .member-logout-desktop { display: none; }
           }
 
@@ -226,9 +227,11 @@ export default function MemberLayout({ children }) {
         `}</style>
 
 
-        <div className="member-brand" onClick={() => router.push('/member/profile')} title="View Profile">
+        <div className="member-brand">
           <div 
-            className="avatar-circle" 
+            className="avatar-circle avatar-circle-brand" 
+            onClick={() => router.push('/member/profile')}
+            title="View Profile"
             style={{
               width: 32, height: 32, fontSize: 14,
               cursor: 'pointer',
@@ -242,6 +245,9 @@ export default function MemberLayout({ children }) {
           >
             {!user?.photo && <IconUser size={18} />}
           </div>
+          <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
+          </button>
         </div>
 
         {/* Desktop Nav Links */}
@@ -260,9 +266,6 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
-          </button>
         </div>
       </header>
 

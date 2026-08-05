@@ -232,7 +232,7 @@ export default function MemberLayout({ children }) {
 
         {/* Desktop Nav Links */}
         <nav className="member-nav-links">
-          {NAV_ITEMS.slice(0, 4).map(item => (
+          {NAV_ITEMS.map(item => (
             <button
               key={item.href}
               className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
@@ -246,16 +246,6 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          {NAV_ITEMS.slice(4).map(item => (
-            <button
-              key={item.href}
-              className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
-              onClick={() => router.push(item.href)}
-            >
-              <span>{item.icon}</span>
-              <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
-            </button>
-          ))}
           <div 
             className="avatar-circle" 
             onClick={() => router.push('/member/profile')} 

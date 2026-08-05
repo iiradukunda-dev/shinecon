@@ -77,6 +77,8 @@ export default function MemberLayout({ children }) {
             align-items: center;
             gap: 12px;
             cursor: pointer;
+            flex: 1;
+            justify-content: flex-start;
           }
 
           .member-nav-links {
@@ -125,6 +127,8 @@ export default function MemberLayout({ children }) {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex: 1;
+            justify-content: flex-end;
           }
 
           .user-avatar-pill {

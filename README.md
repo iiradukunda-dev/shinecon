@@ -76,6 +76,7 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 ---
 
 ## Recent Improvements
+- **Lightning Fast AI Assistant:** Integrated Gemini AI using the lightweight `gemini-3.5-flash-lite` model for instantaneous, context-aware answers to member questions.
 - **Admin Tabbed Interface:** Reorganized system settings into intuitive tabs (Account, System, Integrations, Advanced).
 - **Dynamic Application State:** Changes to settings (e.g. Ministry Name, Currency) apply instantly across the application via context syncing without needing a page refresh.
 - **Real-Time Localization:** Multilingual implementation supporting dynamic translations across English, Français, Kiswahili, and Kinyarwanda without a reload.
@@ -136,8 +137,17 @@ In the root folder of your project (where `package.json` is located), create a `
 
 ```env
 DATABASE_URL="postgresql://postgres:admin@localhost:5432/smconnect"
+
+# Gmail SMTP Configuration
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT=587
+SMTP_USER="your-email@gmail.com"
+SMTP_PASS="your-app-password"
+
+# AI Integration
+GEMINI_API_KEY="your-gemini-api-key"
 ```
-*(If your local PostgreSQL user/password differs, adjust the URL accordingly).*
+*(If your local PostgreSQL user/password differs, adjust the URL accordingly. Get your Gemini API key from [Google AI Studio](https://aistudio.google.com/)).*
 
 ### 2. Creating and Migrating the Database
 

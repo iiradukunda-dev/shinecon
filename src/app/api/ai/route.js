@@ -45,7 +45,7 @@ export async function POST(request) {
     const lastMessage = messages[messages.length - 1].content;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: 'gemini-3.5-flash-lite',
       contents: [
         ...formattedHistory,
         { role: 'user', parts: [{ text: lastMessage }] }

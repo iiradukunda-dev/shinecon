@@ -187,6 +187,7 @@ export function AppProvider({ children }) {
     setUser(null);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('smconnect_user');
+      window.location.href = '/';
     }
   }, []);
 

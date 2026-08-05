@@ -104,7 +104,7 @@ export default function AdminLayout({ children }) {
         </nav>
 
         <div style={{ padding: 'var(--space-md)', borderTop: '1px solid var(--border-light)' }}>
-          <button className="sidebar-link" onClick={() => { logout(); router.push('/'); }} style={{ width: '100%', color: 'var(--soft-red)' }}>
+          <button className="sidebar-link" onClick={() => { logout(); }} style={{ width: '100%', color: 'var(--soft-red)' }}>
             <span className="link-icon"><OnlineLogoIcon name="log-out" /></span>
             Logout
           </button>

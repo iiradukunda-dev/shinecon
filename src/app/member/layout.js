@@ -309,7 +309,7 @@ export default function MemberLayout({ children }) {
             <div style={{ height: 1, background: 'var(--border-light)', margin: '8px 0' }} />
             <button
               className="member-nav-item"
-              onClick={() => { logout(); router.push('/login'); }}
+              onClick={() => { logout(); }}
               style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px', color: 'var(--soft-red)' }}
             >
               <span style={{ fontSize: 18 }}><OnlineLogoIcon name="log-out" size={20} /></span>

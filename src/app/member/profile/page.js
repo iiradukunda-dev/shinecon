@@ -85,7 +85,6 @@ export default function ProfilePage() {
 
   const handleLogout = () => {
     logout();
-    router.push('/');
   };
 
   return (

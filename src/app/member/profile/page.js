@@ -12,6 +12,7 @@ export default function ProfilePage() {
   const [photoUploading, setPhotoUploading] = useState(false);
   const [passwordForm, setPasswordForm] = useState({ current: '', new: '', confirm: '' });
   const [passwordStatus, setPasswordStatus] = useState('');
+  const [activeTab, setActiveTab] = useState('overview');
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files?.[0];
@@ -125,40 +126,72 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-sm)', marginBottom: 'var(--space-lg)' }}>
+      {/* Tabs Navigation */}
+      <div className="animate-fade-in-up" style={{ 
+        display: 'flex', gap: 16, borderBottom: '1px solid var(--border-medium)', 
+        marginBottom: 'var(--space-xl)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' 
+      }}>
         {[
-          { label: 'Total Given', value: formatCurrency(total, currency), icon: <OnlineLogoIcon name="dollar-sign" size={24} /> },
-          { label: 'Transactions', value: myContribs.length, icon: <OnlineLogoIcon name="bar-chart" size={24} /> },
-          { label: 'Member Since', value: '2024', icon: <OnlineLogoIcon name="calendar" size={24} /> },
-        ].map((stat, i) => (
-          <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-md)', textAlign: 'center' }}>
-            <span style={{ fontSize: 24 }}>{stat.icon}</span>
-            <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)', marginTop: 4 }}>
-              {stat.value}
-            </p>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{stat.label}</p>
-          </div>
+          { id: 'overview', label: 'Overview' },
+          { id: 'settings', label: 'Settings & Security' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              background: 'none', border: 'none', padding: '12px 16px',
+              fontSize: 'var(--text-sm)', fontWeight: 600,
+              color: activeTab === tab.id ? 'var(--gold)' : 'var(--text-secondary)',
+              borderBottom: activeTab === tab.id ? '2px solid var(--gold)' : '2px solid transparent',
+              cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
         ))}
       </div>
 
-      {/* Personal Info */}
-      <div className="glass-card-static animate-fade-in-up stagger-4" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Personal Information</h3>
-        {[
-          { label: 'Phone', value: user?.phone || '+250 788 123 456' },
-          { label: 'Country', value: user?.country || 'Rwanda' },
-          { label: 'Status', value: <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><OnlineLogoIcon name="check-circle" size={16} /> Approved</span> },
-        ].map(item => (
-          <div key={item.label} style={{
-            display: 'flex', justifyContent: 'space-between', padding: '12px 0',
-            borderBottom: '1px solid var(--border-light)',
-          }}>
-            <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{item.label}</span>
-            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 500 }}>{item.value}</span>
+      {activeTab === 'overview' && (
+        <>
+          {/* Stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--space-sm)', marginBottom: 'var(--space-lg)' }}>
+            {[
+              { label: 'Total Given', value: formatCurrency(total, currency), icon: <OnlineLogoIcon name="dollar-sign" size={24} /> },
+              { label: 'Transactions', value: myContribs.length, icon: <OnlineLogoIcon name="bar-chart" size={24} /> },
+              { label: 'Member Since', value: '2024', icon: <OnlineLogoIcon name="calendar" size={24} /> },
+            ].map((stat, i) => (
+              <div key={i} className={`glass-card-static animate-fade-in-up stagger-${i + 1}`} style={{ padding: 'var(--space-md)', textAlign: 'center' }}>
+                <span style={{ fontSize: 24 }}>{stat.icon}</span>
+                <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)', marginTop: 4 }}>
+                  {stat.value}
+                </p>
+                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>{stat.label}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+
+          {/* Personal Info */}
+          <div className="glass-card-static animate-fade-in-up stagger-4" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Personal Information</h3>
+            {[
+              { label: 'Phone', value: user?.phone || '+250 788 123 456' },
+              { label: 'Country', value: user?.country || 'Rwanda' },
+              { label: 'Status', value: <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><OnlineLogoIcon name="check-circle" size={16} /> Approved</span> },
+            ].map(item => (
+              <div key={item.label} style={{
+                display: 'flex', justifyContent: 'space-between', padding: '12px 0',
+                borderBottom: '1px solid var(--border-light)',
+              }}>
+                <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>{item.label}</span>
+                <span style={{ fontSize: 'var(--text-sm)', fontWeight: 500 }}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {activeTab === 'settings' && (
+        <>
 
       {/* Settings */}
       <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
@@ -231,6 +264,8 @@ export default function ProfilePage() {
       <button className="btn btn-danger btn-lg animate-fade-in-up stagger-6" style={{ width: '100%' }} onClick={handleLogout}>
         Logout
       </button>
+        </>
+      )}
 
       <p style={{ textAlign: 'center', fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', marginTop: 'var(--space-lg)' }}>
         SM Connect v1.0.0 • Shining Ministries

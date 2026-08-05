@@ -226,12 +226,20 @@ export default function MemberLayout({ children }) {
         `}</style>
 
 
-        <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="Home">
-          <div className="avatar-circle" style={{ 
-            width: 32, height: 32, fontSize: 14, 
-            background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))', 
-            color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
-          }}>
+        <div className="member-brand" onClick={() => router.push('/member/profile')} title="View Profile">
+          <div 
+            className="avatar-circle" 
+            style={{
+              width: 32, height: 32, fontSize: 14,
+              cursor: 'pointer',
+              background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
+              border: '2px solid transparent',
+              transition: 'border-color 0.2s',
+              color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = '#D4A843'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
+          >
             {!user?.photo && <IconUser size={18} />}
           </div>
         </div>
@@ -252,21 +260,6 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <div 
-            className="avatar-circle" 
-            onClick={() => router.push('/member/profile')} 
-            title="View Profile"
-            style={{
-              cursor: 'pointer',
-              background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
-              border: '2px solid transparent',
-              transition: 'border-color 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = '#D4A843'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
-          >
-            {!user?.photo && <IconUser size={18} />}
-          </div>
           <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>

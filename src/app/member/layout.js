@@ -13,7 +13,6 @@ const NAV_ITEMS = [
   { href: '/member/attendance', icon: <IconClipboard size={20} />, label: 'Attendance' },
   { href: '/member/announcements', icon: <IconMegaphone size={20} />, label: 'Announcements' },
   { href: '/member/ai', icon: <IconSparkles size={20} />, label: 'AI Help' },
-  { href: '/member/profile', icon: <IconUser size={20} />, label: 'Profile' },
 ];
 
 export default function MemberLayout({ children }) {
@@ -223,11 +222,8 @@ export default function MemberLayout({ children }) {
         `}</style>
 
 
-        <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="View Profile">
+        <div className="member-brand" onClick={() => router.push('/member/dashboard')} title="Home">
           <OnlineLogoIcon size={32} />
-          <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.5px' }}>
-            {settings?.['branding.ministryName'] || 'Shining Ministries'}
-          </span>
         </div>
 
         {/* Desktop Nav Links */}
@@ -246,16 +242,6 @@ export default function MemberLayout({ children }) {
 
         {/* Right Actions */}
         <div className="member-nav-right">
-          <div className="user-avatar-pill" onClick={() => router.push('/member/profile')} title="View Profile">
-            <div className="avatar-circle" style={{
-              background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
-            }}>
-              {!user?.photo && (user?.name || 'A')[0]}
-            </div>
-            <span className="avatar-name" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '120px' }}>
-              {user?.name || 'Member'}
-            </span>
-          </div>
           {NAV_ITEMS.slice(4).map(item => (
             <button
               key={item.href}
@@ -266,6 +252,21 @@ export default function MemberLayout({ children }) {
               <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
             </button>
           ))}
+          <div 
+            className="avatar-circle" 
+            onClick={() => router.push('/member/profile')} 
+            title="View Profile"
+            style={{
+              cursor: 'pointer',
+              background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
+              border: '2px solid transparent',
+              transition: 'border-color 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = '#D4A843'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
+          >
+            {!user?.photo && (user?.name || 'A')[0]}
+          </div>
           <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
           </button>

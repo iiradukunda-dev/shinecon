@@ -133,7 +133,8 @@ export default function ProfilePage() {
       }}>
         {[
           { id: 'overview', label: 'Overview' },
-          { id: 'settings', label: 'Settings & Security' },
+          { id: 'settings', label: 'Settings' },
+          { id: 'security', label: 'Security' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -236,7 +237,11 @@ export default function ProfilePage() {
           </button>
         </div>
       </div>
+        </>
+      )}
 
+      {activeTab === 'security' && (
+        <>
       {/* Security */}
       <div className="glass-card-static animate-fade-in-up stagger-5" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-lg)' }}>
         <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: 'var(--space-md)' }}>Security</h3>

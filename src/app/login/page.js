@@ -26,14 +26,13 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise(r => setTimeout(r, 800));
     const result = await login(email, password);
-    setLoading(false);
 
     if (result.success) {
       addToast('Welcome back! God bless you.', 'success');
       router.push(result.role === 'admin' ? '/admin/dashboard' : '/member/dashboard');
     } else {
+      setLoading(false);
       if (result.error === 'Account is pending approval or suspended') {
         setShowReviewModal(true);
       } else {

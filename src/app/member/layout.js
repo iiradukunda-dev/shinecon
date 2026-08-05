@@ -278,7 +278,11 @@ export default function MemberLayout({ children }) {
           }} />
           <div className="mobile-nav-drawer">
             <div className="drawer-header" style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div 
+                style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+                onClick={() => { router.push('/member/profile'); setMobileMenuOpen(false); }}
+                title="View Profile"
+              >
                 <div className="avatar-circle" style={{ 
                   width: 32, height: 32, fontSize: 14, 
                   background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))', 

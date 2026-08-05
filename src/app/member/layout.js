@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { href: '/member/campaigns', icon: <IconTarget size={20} />, label: 'Campaigns' },
   { href: '/member/attendance', icon: <IconClipboard size={20} />, label: 'Attendance' },
   { href: '/member/announcements', icon: <IconMegaphone size={20} />, label: 'Announcements' },
-  { href: '/member/ai', icon: <IconSparkles size={20} />, label: 'AI Help' },
+  { href: '/member/ai', icon: <IconSparkles size={20} />, label: 'Help' },
 ];
 
 export default function MemberLayout({ children }) {

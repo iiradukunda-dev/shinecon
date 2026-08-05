@@ -13,6 +13,7 @@ export const TRANSLATIONS = {
     reports: 'Reports',
     settings: 'Settings',
     ai_assistant: 'AI Help',
+    help: 'Help',
     profile: 'Profile',
     overview: 'OVERVIEW',
     management: 'MANAGEMENT',

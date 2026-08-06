@@ -1,12 +1,12 @@
 /* ============================================================
-   SM CONNECT ΓÇö LIQUID GLASS DESIGN SYSTEM
+   SM CONNECT — LIQUID GLASS DESIGN SYSTEM
    Shining Ministries Digital Platform
-   "Arise, shine, for your light has come." ΓÇö Isaiah 60:1
+   "Arise, shine, for your light has come." — Isaiah 60:1
    ============================================================ */
 
-/* Fonts are self-hosted via next/font/google ΓÇö no CDN import needed */
+/* Fonts are self-hosted via next/font/google — no CDN import needed */
 
-/* ΓöÇΓöÇ CSS Reset ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── CSS Reset ─────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -70,7 +70,7 @@ h6 {
   line-height: 1.2;
 }
 
-/* ΓöÇΓöÇ Custom Scrollbar ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Custom Scrollbar ──────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -81,16 +81,16 @@ h6 {
 ::-webkit-scrollbar-thumb {
   background: rgba(212, 168, 67, 0.4);
   border-radius: 10px;
-  border: 2px solid var(--bg-primary);
+  border: none;
 }
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
   background: var(--gold);
 }
 
-/* ΓöÇΓöÇ Design Tokens ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  /* ΓÇö Primary Palette ΓÇö */
+  /* — Primary Palette — */
   --gold: #d4a843;
   --gold-light: #e8c876;
   --gold-dark: #b08a2e;
@@ -101,7 +101,7 @@ h6 {
   --white: #ffffff;
   --glass-white: rgba(255, 255, 255, 0.85);
 
-  /* ΓÇö Secondary Palette ΓÇö */
+  /* — Secondary Palette — */
   --royal-blue: #3b5bdb;
   --royal-blue-light: #5c7cfa;
   --emerald: #2b8a3e;
@@ -111,7 +111,7 @@ h6 {
   --soft-red: #e03131;
   --soft-red-light: #ff6b6b;
 
-  /* ΓÇö Neutral Scale ΓÇö */
+  /* — Neutral Scale — */
   --gray-50: #fafafa;
   --gray-100: #f5f5f5;
   --gray-200: #e8e8e8;
@@ -123,7 +123,7 @@ h6 {
   --gray-800: #262626;
   --gray-900: #171717;
 
-  /* ΓÇö Semantic Colors (Default Dark Obsidian Liquid Glass) ΓÇö */
+  /* — Semantic Colors (Default Dark Obsidian Liquid Glass) — */
   --bg-primary: #0a0a0e;
   --bg-secondary: rgba(15, 15, 22, 0.75);
   --bg-tertiary: rgba(22, 22, 32, 0.85);
@@ -134,7 +134,7 @@ h6 {
   --border-light: rgba(212, 168, 67, 0.25);
   --border-medium: rgba(212, 168, 67, 0.35);
 
-  /* ΓÇö Glass Materials ΓÇö */
+  /* — Glass Materials — */
   --glass-bg: rgba(15, 15, 22, 0.75);
   --glass-bg-hover: rgba(15, 15, 22, 0.4);
   --glass-bg-heavy: rgba(12, 12, 18, 0.88);
@@ -145,7 +145,7 @@ h6 {
   --glass-blur: 24px;
   --glass-blur-heavy: 40px;
 
-  /* ΓÇö Spacing (Compacted for less scrolling) ΓÇö */
+  /* — Spacing (Compacted for less scrolling) — */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
@@ -155,7 +155,7 @@ h6 {
   --space-3xl: 48px;
   --space-4xl: 64px;
 
-  /* ΓÇö Typography (Standard Sizing) ΓÇö */
+  /* — Typography (Standard Sizing) — */
   --font-display: var(--font-outfit, 'Outfit', sans-serif);
   --font-body: var(--font-inter, 'Inter', sans-serif);
   --text-xs: 0.75rem; /* 12px */
@@ -169,7 +169,7 @@ h6 {
   --text-5xl: 2.75rem; /* 44px */
   --text-6xl: 3.25rem; /* 52px */
 
-  /* ΓÇö Radius ΓÇö */
+  /* — Radius — */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -177,14 +177,14 @@ h6 {
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* ΓÇö Transitions ΓÇö */
+  /* — Transitions — */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 500ms;
 
-  /* ΓÇö Z-index ΓÇö */
+  /* — Z-index — */
   --z-base: 1;
   --z-dropdown: 100;
   --z-sticky: 200;
@@ -192,14 +192,14 @@ h6 {
   --z-toast: 400;
   --z-tooltip: 500;
 
-  /* ΓÇö Sidebar ΓÇö */
+  /* — Sidebar — */
   --sidebar-width: 240px;
   --sidebar-collapsed: 72px;
   --topbar-height: 64px;
   --bottom-nav-height: 72px;
 }
 
-/* ΓöÇΓöÇ Dark Mode ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Dark Mode ─────────────────────────────────────────────── */
 [data-theme='dark'] {
   --bg-primary: #0d0d14;
   --bg-secondary: #141420;
@@ -209,7 +209,7 @@ h6 {
   --text-tertiary: #737373;
   --border-light: rgba(255, 255, 255, 0.06);
   --border-medium: rgba(255, 255, 255, 0.1);
-  /* ΓÇö Dark Mode Glass ΓÇö */
+  /* — Dark Mode Glass — */
   --glass-bg: rgba(26, 26, 46, 0.65);
   --glass-bg-hover: rgba(26, 26, 46, 0.3);
   --glass-bg-heavy: rgba(26, 26, 46, 0.85);
@@ -221,7 +221,7 @@ h6 {
   --champagne-light: #4a3f2a;
 }
 
-/* ΓöÇΓöÇ Base Styles ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Base Styles ───────────────────────────────────────────── */
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -249,12 +249,12 @@ body {
   background: var(--gray-700);
 }
 
-/* ΓöÇΓöÇ Glass Materials ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Glass Materials ───────────────────────────────────────── */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  border: none;
   box-shadow: var(--glass-shadow);
 }
 
@@ -262,7 +262,7 @@ body {
   background: var(--glass-bg-heavy);
   backdrop-filter: blur(var(--glass-blur-heavy));
   -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
-  border: 1px solid var(--glass-border);
+  border: none;
   box-shadow: var(--glass-shadow-lg);
 }
 
@@ -271,7 +271,7 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  border: none;
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
   transition:
@@ -293,7 +293,7 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  border: none;
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
 }
@@ -302,11 +302,11 @@ body {
   background: linear-gradient(135deg, rgba(212, 168, 67, 0.15), rgba(245, 230, 200, 0.1));
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid rgba(212, 168, 67, 0.25);
+  border: none;
   box-shadow: 0 8px 32px rgba(212, 168, 67, 0.1);
 }
 
-/* ΓöÇΓöÇ Typography ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Typography ────────────────────────────────────────────── */
 .heading-1 {
   font-family: var(--font-display);
   font-size: var(--text-5xl);
@@ -396,7 +396,7 @@ body {
   }
 }
 
-/* ΓöÇΓöÇ Icon Interactions ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Icon Interactions ─────────────────────────────────────── */
 button svg,
 a svg,
 .glass-card svg,
@@ -410,7 +410,7 @@ a:hover svg,
   transform: scale(1.15);
 }
 
-/* ΓöÇΓöÇ Buttons ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Buttons ───────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -433,9 +433,7 @@ a:hover svg,
   -webkit-backdrop-filter: blur(16px);
 
   /* Asymmetric Border (White top/right) */
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-top-color: rgba(255, 255, 255, 0.35);
-  border-right-color: rgba(255, 255, 255, 0.15);
+  border: none;
 
   color: var(--white);
   box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.2);
@@ -451,7 +449,7 @@ button:active {
   transform: scale(0.96);
 }
 
-/* ΓöÇΓöÇ Button Glow Pulse Keyframes ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Button Glow Pulse Keyframes ─────────────────────────────── */
 @keyframes glow-pulse-gold {
   0%,
   100% {
@@ -507,8 +505,7 @@ button:active {
 /* Base glow logic */
 .btn-gold {
   --glow-color: rgba(212, 168, 67, 0.55);
-  border-left-color: rgba(212, 168, 67, 0.6);
-  border-bottom-color: rgba(212, 168, 67, 0.3);
+
   animation: glow-pulse-gold 2.8s ease-in-out infinite;
 }
 .btn-gold:hover {
@@ -535,8 +532,7 @@ button:active {
 
 .btn-primary {
   --glow-color: rgba(59, 91, 219, 0.55);
-  border-left-color: rgba(59, 91, 219, 0.6);
-  border-bottom-color: rgba(59, 91, 219, 0.3);
+
   animation: glow-pulse-primary 2.8s ease-in-out infinite;
 }
 .btn-primary:hover {
@@ -563,8 +559,7 @@ button:active {
 
 .btn-danger {
   --glow-color: rgba(224, 49, 49, 0.55);
-  border-left-color: rgba(224, 49, 49, 0.6);
-  border-bottom-color: rgba(224, 49, 49, 0.3);
+
   animation: glow-pulse-danger 2.8s ease-in-out infinite;
 }
 .btn-danger:hover {
@@ -590,8 +585,6 @@ button:active {
 }
 
 .btn-secondary {
-  border-left-color: rgba(255, 255, 255, 0.3);
-  border-bottom-color: rgba(255, 255, 255, 0.15);
   box-shadow:
     -6px 6px 20px -4px rgba(0, 0, 0, 0.6),
     inset -2px -2px 8px rgba(255, 255, 255, 0.07),
@@ -633,9 +626,8 @@ button:active {
   font-size: 16px;
   font-weight: 700;
   color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-top-color: rgba(255, 255, 255, 0.4);
-  border-right-color: rgba(255, 255, 255, 0.15);
+  border: none;
+
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -738,7 +730,7 @@ button:active {
   border-radius: var(--radius-lg);
 }
 
-/* ΓöÇΓöÇ Inputs ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Inputs ────────────────────────────────────────────────── */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -757,7 +749,7 @@ button:active {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-medium);
+  border: none;
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: var(--text-base);
@@ -765,7 +757,7 @@ button:active {
   outline: none;
 }
 
-/* ΓöÇΓöÇ Uniform Icon Hover Effects ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Uniform Icon Hover Effects ────────────────────────────── */
 .btn svg,
 .btn-action-glass svg,
 .sidebar-link svg {
@@ -814,7 +806,7 @@ button:active {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8.5L1 3.5h10L6 8.5z' fill='%23737373'/%3E%3C/svg%3E")
     no-repeat right 14px center;
   backdrop-filter: blur(10px);
-  border: 1px solid var(--border-medium);
+  border: none;
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: var(--text-base);
@@ -830,7 +822,7 @@ button:active {
   width: 100%;
   padding: 12px 16px;
   background: var(--glass-bg);
-  border: 1px solid var(--border-medium);
+  border: none;
   border-radius: var(--radius-md);
   color: var(--text-primary);
   resize: vertical;
@@ -843,7 +835,7 @@ button:active {
   box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.15);
 }
 
-/* ΓöÇΓöÇ Badges ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Badges ────────────────────────────────────────────────── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -884,8 +876,8 @@ button:active {
   color: var(--gray-500);
 }
 
-/* ΓöÇΓöÇ Cards ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-/* ΓöÇΓöÇ Cards ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Cards ─────────────────────────────────────────────────── */
+/* ── Cards ─────────────────────────────────────────────────── */
 .card {
   background: var(--bg-secondary);
   backdrop-filter: blur(20px);
@@ -973,7 +965,7 @@ button:active {
   color: var(--soft-red-light);
 }
 
-/* ΓöÇΓöÇ Tables ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Tables ────────────────────────────────────────────────── */
 .table-container {
   overflow-x: auto;
   border-radius: var(--radius-xl);
@@ -1014,7 +1006,7 @@ button:active {
   background: rgba(212, 168, 67, 0.08);
 }
 
-/* ΓöÇΓöÇ Navigation ΓÇö Sidebar ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Navigation — Sidebar ──────────────────────────────────── */
 .sidebar {
   position: fixed;
   left: 0;
@@ -1114,7 +1106,7 @@ button:active {
   color: var(--text-tertiary);
 }
 
-/* ΓöÇΓöÇ Navigation ΓÇö Top Bar ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Navigation — Top Bar ──────────────────────────────────── */
 .topbar {
   position: fixed;
   top: 0;
@@ -1205,7 +1197,7 @@ button:active {
   transform: scale(1.08);
 }
 
-/* ΓöÇΓöÇ Navigation ΓÇö Bottom Nav (Replaced with Top Navigation Header) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Navigation — Bottom Nav (Replaced with Top Navigation Header) ──────────────────── */
 .bottom-nav {
   display: none !important;
 }
@@ -1247,7 +1239,7 @@ button:active {
   border-radius: 0 0 var(--radius-full) var(--radius-full);
 }
 
-/* ΓöÇΓöÇ Layout Utilities ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Layout Utilities ──────────────────────────────────────── */
 .page-admin {
   margin-left: var(--sidebar-width);
   padding-top: var(--topbar-height);
@@ -1256,7 +1248,7 @@ button:active {
 }
 .page-admin-content {
   padding: var(--space-xl);
-  max-width: 1600px;
+  max-width: 1400px;
 }
 
 .page-member {
@@ -1336,7 +1328,7 @@ button:active {
   gap: var(--space-xl);
 }
 
-/* ΓöÇΓöÇ Progress ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Progress ──────────────────────────────────────────────── */
 .progress-bar {
   width: 100%;
   height: 8px;
@@ -1385,7 +1377,7 @@ button:active {
   font-weight: 800;
 }
 
-/* ΓöÇΓöÇ Chat Bubbles ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Chat Bubbles ──────────────────────────────────────────── */
 .chat-bubble {
   max-width: 80%;
   padding: 12px 16px;
@@ -1425,7 +1417,7 @@ button:active {
   animation-delay: 0.4s;
 }
 
-/* ΓöÇΓöÇ Timeline ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Timeline ──────────────────────────────────────────────── */
 .timeline {
   position: relative;
   padding-left: 28px;
@@ -1455,7 +1447,7 @@ button:active {
   border: 3px solid var(--bg-primary);
 }
 
-/* ΓöÇΓöÇ Modal ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Modal ─────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1498,7 +1490,7 @@ button:active {
   gap: var(--space-sm);
 }
 
-/* ΓöÇΓöÇ Toast ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Toast ─────────────────────────────────────────────────── */
 .toast-container {
   position: fixed;
   top: var(--space-lg);
@@ -1523,7 +1515,7 @@ button:active {
   min-width: 300px;
 }
 
-/* ΓöÇΓöÇ Loading Skeleton ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Loading Skeleton ──────────────────────────────────────── */
 .skeleton {
   background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
   background-size: 200% 100%;
@@ -1557,7 +1549,7 @@ button:active {
   border-radius: var(--radius-xl);
 }
 
-/* ΓöÇΓöÇ Floating AI Button ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Floating AI Button ────────────────────────────────────── */
 .fab-ai {
   position: fixed;
   bottom: calc(var(--bottom-nav-height) + var(--space-lg));
@@ -1581,7 +1573,7 @@ button:active {
   box-shadow: 0 8px 30px rgba(212, 168, 67, 0.5);
 }
 
-/* ΓöÇΓöÇ Animations ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Animations ────────────────────────────────────────────── */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1780,7 +1772,7 @@ button:active {
   animation-fill-mode: both;
 }
 
-/* ΓöÇΓöÇ Auth Pages ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Auth Pages ────────────────────────────────────────────── */
 .auth-page {
   height: 100dvh;
   width: 100vw;
@@ -1887,7 +1879,7 @@ button:active {
   text-decoration: underline;
 }
 
-/* ΓöÇΓöÇ Splash Screen ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Splash Screen ─────────────────────────────────────────── */
 .splash {
   min-height: 100vh;
   display: flex;
@@ -2007,7 +1999,7 @@ button:active {
   opacity: 0.3;
 }
 
-/* ΓöÇΓöÇ Welcome Card (Dashboard) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Welcome Card (Dashboard) ──────────────────────────────── */
 .welcome-card {
   padding: var(--space-xl);
   border-radius: var(--radius-2xl);
@@ -2050,7 +2042,7 @@ button:active {
   font-style: italic;
 }
 
-/* ΓöÇΓöÇ Quick Actions ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Quick Actions ─────────────────────────────────────────── */
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2090,7 +2082,7 @@ button:active {
   color: var(--text-secondary);
 }
 
-/* ΓöÇΓöÇ Campaign Card ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Campaign Card ─────────────────────────────────────────── */
 .campaign-card {
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -2127,7 +2119,7 @@ button:active {
   margin-bottom: var(--space-md);
 }
 
-/* ΓöÇΓöÇ Event Card ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Event Card ────────────────────────────────────────────── */
 .event-card {
   display: flex;
   gap: var(--space-md);
@@ -2169,7 +2161,7 @@ button:active {
   color: var(--text-tertiary);
 }
 
-/* ΓöÇΓöÇ Empty State ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Empty State ───────────────────────────────────────────── */
 .empty-state {
   text-align: center;
   padding: var(--space-3xl) var(--space-lg);
@@ -2192,7 +2184,7 @@ button:active {
   margin: 0 auto;
 }
 
-/* ΓöÇΓöÇ Demo Banner ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Demo Banner ───────────────────────────────────────────── */
 .demo-banner {
   position: fixed;
   top: 0;
@@ -2209,7 +2201,7 @@ button:active {
   z-index: 9999;
 }
 
-/* ΓöÇΓöÇ Responsive ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 1200px) {
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
@@ -2274,7 +2266,7 @@ button:active {
   }
 }
 
-/* ΓöÇΓöÇ Modals ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Modals ────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -2353,7 +2345,7 @@ button:active {
   }
 }
 
-/* ΓöÇΓöÇ Print ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Print ─────────────────────────────────────────────────── */
 @media print {
   .sidebar,
   .topbar,
@@ -2378,7 +2370,7 @@ button:active {
   }
 }
 
-/* ΓöÇΓöÇ Page Transitions ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Page Transitions ───────────────────────────────────────── */
 @keyframes pageTransition {
   from {
     opacity: 0;
@@ -2394,7 +2386,7 @@ button:active {
   animation: pageTransition 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* ΓöÇΓöÇ Tabs / Pills ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Tabs / Pills ───────────────────────────────────────────── */
 .tab-container {
   display: flex;
   gap: 4px;
@@ -2469,7 +2461,7 @@ button:active {
   }
 }
 
-/* ΓöÇΓöÇ Interactive Shake Animation ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+/* ── Interactive Shake Animation ───────────────────────────── */
 @keyframes shakeOnActive {
   0% {
     transform: translateX(0);

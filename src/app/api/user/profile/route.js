@@ -27,11 +27,17 @@ export async function POST(request) {
     if (action === 'change_password') {
       const { currentPassword, newPassword } = data;
       if (!currentPassword || !newPassword) {
-        return NextResponse.json({ success: false, error: 'Both current and new password are required' }, { status: 400 });
+        return NextResponse.json(
+          { success: false, error: 'Both current and new password are required' },
+          { status: 400 },
+        );
       }
 
       if (user.passwordHash !== hashPassword(currentPassword)) {
-        return NextResponse.json({ success: false, error: 'Incorrect current password' }, { status: 401 });
+        return NextResponse.json(
+          { success: false, error: 'Incorrect current password' },
+          { status: 401 },
+        );
       }
 
       await prisma.user.update({
@@ -45,7 +51,10 @@ export async function POST(request) {
     if (action === 'update_photo') {
       const { photoUrl } = data;
       if (!photoUrl) {
-        return NextResponse.json({ success: false, error: 'Photo data is required' }, { status: 400 });
+        return NextResponse.json(
+          { success: false, error: 'Photo data is required' },
+          { status: 400 },
+        );
       }
 
       // If the user has a MemberProfile, update it. If not (e.g. Admin without profile), create it.
@@ -64,12 +73,16 @@ export async function POST(request) {
             photoUrl,
             memberType: 'LOCAL',
             employment: 'EMPLOYED',
-            approvalStatus: 'APPROVED'
-          }
+            approvalStatus: 'APPROVED',
+          },
         });
       }
 
-      return NextResponse.json({ success: true, message: 'Profile photo updated successfully', photoUrl });
+      return NextResponse.json({
+        success: true,
+        message: 'Profile photo updated successfully',
+        photoUrl,
+      });
     }
 
     return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });

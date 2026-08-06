@@ -11,11 +11,14 @@ export async function POST(request) {
   try {
     const data = await request.json();
     const email = data.email?.toLowerCase();
-    
+
     if (!email || !email.endsWith('@gmail.com')) {
-      return NextResponse.json({ error: 'Only official @gmail.com accounts are allowed' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Only official @gmail.com accounts are allowed' },
+        { status: 400 },
+      );
     }
-    
+
     // Check if email already exists
     const existing = await prisma.user.findUnique({
       where: { email },
@@ -43,9 +46,9 @@ export async function POST(request) {
         emailVerifications: {
           create: {
             token: crypto.randomBytes(32).toString('hex'),
-            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
-          }
-        }
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          },
+        },
       },
       include: { profile: true, emailVerifications: true },
     });
@@ -73,7 +76,7 @@ export async function POST(request) {
 export async function PUT(request) {
   try {
     const { id, ...data } = await request.json();
-    
+
     const updateData = {};
     if (data.name) updateData.fullName = data.name;
     if (data.phone) updateData.phone = data.phone;
@@ -113,11 +116,17 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
     }
 
-    const contributions = await prisma.contribution.findMany({ where: { userId: id }, select: { id: true } });
-    const contributionIds = contributions.map(c => c.id);
+    const contributions = await prisma.contribution.findMany({
+      where: { userId: id },
+      select: { id: true },
+    });
+    const contributionIds = contributions.map((c) => c.id);
 
-    const aiConversations = await prisma.aIConversation.findMany({ where: { userId: id }, select: { id: true } });
-    const aiConversationIds = aiConversations.map(c => c.id);
+    const aiConversations = await prisma.aIConversation.findMany({
+      where: { userId: id },
+      select: { id: true },
+    });
+    const aiConversationIds = aiConversations.map((c) => c.id);
 
     await prisma.$transaction([
       prisma.payment.deleteMany({ where: { contributionId: { in: contributionIds } } }),

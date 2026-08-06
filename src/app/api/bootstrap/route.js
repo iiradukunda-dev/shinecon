@@ -22,13 +22,13 @@ export async function GET() {
             employment: true,
             approvalStatus: true,
             joinedDate: true,
-          }
-        }
+          },
+        },
       },
     });
     const members = users
-      .filter(u => u.role === 'MEMBER')
-      .map(u => ({
+      .filter((u) => u.role === 'MEMBER')
+      .map((u) => ({
         id: u.id,
         name: u.profile?.fullName || '',
         email: u.email,
@@ -38,7 +38,9 @@ export async function GET() {
         type: u.profile?.memberType?.toLowerCase() || 'local',
         employment: u.profile?.employment?.toLowerCase() || 'employed',
         status: u.profile?.approvalStatus?.toLowerCase() || 'pending',
-        joinedDate: u.profile?.joinedDate ? new Date(u.profile.joinedDate).toISOString().split('T')[0] : '',
+        joinedDate: u.profile?.joinedDate
+          ? new Date(u.profile.joinedDate).toISOString().split('T')[0]
+          : '',
         lastLogin: u.createdAt ? new Date(u.createdAt).toISOString().split('T')[0] : '',
       }));
 
@@ -56,7 +58,7 @@ export async function GET() {
         payment: { select: { transactionRef: true, phone: true } },
       },
     });
-    const contributions = dbContributions.map(c => ({
+    const contributions = dbContributions.map((c) => ({
       id: c.id,
       memberId: c.userId,
       memberName: c.user.profile?.fullName || 'Unknown Member',
@@ -86,7 +88,7 @@ export async function GET() {
         donations: { select: { id: true } },
       },
     });
-    const campaigns = dbCampaigns.map(camp => ({
+    const campaigns = dbCampaigns.map((camp) => ({
       id: camp.id,
       title: camp.title,
       description: camp.description,
@@ -103,7 +105,7 @@ export async function GET() {
 
     // 4. Contribution Types
     const dbTypes = await prisma.contributionType.findMany();
-    const contributionTypes = dbTypes.map(t => ({
+    const contributionTypes = dbTypes.map((t) => ({
       id: t.id,
       name: t.name,
       description: t.description || '',
@@ -121,7 +123,7 @@ export async function GET() {
 
     // 5. Events
     const dbEvents = await prisma.calendarEvent.findMany();
-    const events = dbEvents.map(e => ({
+    const events = dbEvents.map((e) => ({
       id: e.id,
       title: e.title,
       date: e.startTime ? new Date(e.startTime).toISOString().split('T')[0] : '',
@@ -136,7 +138,7 @@ export async function GET() {
     const dbAnnouncements = await prisma.announcement.findMany({
       orderBy: { publishDate: 'desc' },
     });
-    const announcements = dbAnnouncements.map(a => ({
+    const announcements = dbAnnouncements.map((a) => ({
       id: a.id,
       title: a.title,
       category: a.category,
@@ -156,19 +158,19 @@ export async function GET() {
         qrCode: true,
         records: {
           select: {
-            user: { select: { email: true, profile: { select: { fullName: true } } } }
-          }
-        }
+            user: { select: { email: true, profile: { select: { fullName: true } } } },
+          },
+        },
       },
     });
-    const attendance = dbAttendance.map(att => ({
+    const attendance = dbAttendance.map((att) => ({
       id: att.id,
       event: att.title,
       date: att.startTime ? new Date(att.startTime).toISOString().split('T')[0] : '',
       total: att.records.length,
       capacity: att.gpsRadius || 250,
       qrCode: att.qrCode,
-      attendees: att.records.map(r => r.user.profile?.fullName || r.user.email),
+      attendees: att.records.map((r) => r.user.profile?.fullName || r.user.email),
     }));
 
     // 8. Messages
@@ -184,7 +186,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
       take: 100, // Limit to last 100 messages for performance
     });
-    const messages = dbMessages.map(m => ({
+    const messages = dbMessages.map((m) => ({
       id: m.id,
       from: m.sender.profile?.fullName || 'Anonymous',
       subject: m.conversation.subject,
@@ -198,7 +200,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
       take: 50,
     });
-    const notifications = dbNotifications.map(n => ({
+    const notifications = dbNotifications.map((n) => ({
       id: n.id,
       userId: n.userId,
       title: n.title,
@@ -221,6 +223,9 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Failed to bootstrap application:', error);
-    return NextResponse.json({ error: 'Failed to bootstrap data', details: error.message, stack: error.stack }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to bootstrap data', details: error.message, stack: error.stack },
+      { status: 500 },
+    );
   }
 }

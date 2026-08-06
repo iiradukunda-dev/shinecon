@@ -17,7 +17,7 @@ export async function POST(request) {
       // Return a successful response even if the user doesn't exist to prevent email enumeration
       return NextResponse.json({
         success: true,
-        message: 'If the email exists, a reset code has been sent.'
+        message: 'If the email exists, a reset code has been sent.',
       });
     }
 
@@ -27,7 +27,7 @@ export async function POST(request) {
 
     // Invalidate old tokens for this user
     await prisma.passwordReset.deleteMany({
-      where: { userId: user.id }
+      where: { userId: user.id },
     });
 
     // Save new token
@@ -36,8 +36,8 @@ export async function POST(request) {
         userId: user.id,
         token: code,
         expiresAt,
-        used: false
-      }
+        used: false,
+      },
     });
 
     let transporter;
@@ -48,22 +48,24 @@ export async function POST(request) {
         secure: process.env.SMTP_PORT == 465,
         auth: {
           user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
-        }
+          pass: process.env.SMTP_PASS,
+        },
       });
     } else {
       // Fallback to Ethereal email for testing without credentials
       const testAccount = await nodemailer.createTestAccount();
       transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
+        host: 'smtp.ethereal.email',
         port: 587,
         secure: false,
         auth: {
           user: testAccount.user,
-          pass: testAccount.pass
-        }
+          pass: testAccount.pass,
+        },
       });
-      console.warn("⚠️ Using Ethereal Email (test credentials) since SMTP environment variables are missing.");
+      console.warn(
+        '⚠️ Using Ethereal Email (test credentials) since SMTP environment variables are missing.',
+      );
     }
 
     const info = await transporter.sendMail({
@@ -80,7 +82,7 @@ export async function POST(request) {
           </div>
           <p style="color: #888; font-size: 14px;">This code will expire in 15 minutes. If you did not request this, please ignore this email.</p>
         </div>
-      `
+      `,
     });
 
     console.log(`✉️ Email sent! Message ID: ${info.messageId}`);
@@ -91,9 +93,8 @@ export async function POST(request) {
     return NextResponse.json({
       success: true,
       message: 'If the email exists, a reset code has been sent.',
-      testUrl: !process.env.SMTP_HOST ? nodemailer.getTestMessageUrl(info) : null
+      testUrl: !process.env.SMTP_HOST ? nodemailer.getTestMessageUrl(info) : null,
     });
-
   } catch (error) {
     console.error('Forgot password error:', error);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });

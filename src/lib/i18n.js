@@ -75,7 +75,7 @@ export const TRANSLATIONS = {
     overview: 'INCAMAKE',
     management: 'IMICUNGIRE',
     system: 'SISTEMU',
-  }
+  },
 };
 
 export function t(key, lang = 'en') {

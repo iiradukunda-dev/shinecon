@@ -12,27 +12,33 @@ export async function GET(request) {
   try {
     const verification = await prisma.emailVerification.findUnique({
       where: { token },
-      include: { user: true }
+      include: { user: true },
     });
 
     if (!verification) {
-      return NextResponse.json({ success: false, error: 'Invalid or expired token' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Invalid or expired token' },
+        { status: 400 },
+      );
     }
 
     if (verification.expiresAt < new Date()) {
       await prisma.emailVerification.delete({ where: { id: verification.id } });
-      return NextResponse.json({ success: false, error: 'Token has expired. Please register again.' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Token has expired. Please register again.' },
+        { status: 400 },
+      );
     }
 
     // Verify user and delete token
     await prisma.$transaction([
       prisma.user.update({
         where: { id: verification.userId },
-        data: { emailVerified: true }
+        data: { emailVerified: true },
       }),
       prisma.emailVerification.delete({
-        where: { id: verification.id }
-      })
+        where: { id: verification.id },
+      }),
     ]);
 
     // Redirect to login with success message

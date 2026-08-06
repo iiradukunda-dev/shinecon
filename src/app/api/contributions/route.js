@@ -46,7 +46,12 @@ export async function POST(request) {
         phone: data.phone || contribution.user.profile?.phone || '',
         amount: Number(data.amount),
         currency: data.currency || 'RWF',
-        status: contribution.status === 'APPROVED' ? 'SUCCESSFUL' : contribution.status === 'REJECTED' ? 'FAILED' : 'PENDING',
+        status:
+          contribution.status === 'APPROVED'
+            ? 'SUCCESSFUL'
+            : contribution.status === 'REJECTED'
+              ? 'FAILED'
+              : 'PENDING',
       },
     });
 
@@ -56,13 +61,13 @@ export async function POST(request) {
       if (momoResult.success) {
         await prisma.payment.update({
           where: { id: payment.id },
-          data: { transactionRef: momoResult.transactionId }
+          data: { transactionRef: momoResult.transactionId },
         });
         payment.transactionRef = momoResult.transactionId;
       } else {
         await prisma.payment.update({
           where: { id: payment.id },
-          data: { status: 'FAILED' }
+          data: { status: 'FAILED' },
         });
         payment.status = 'FAILED';
       }
@@ -76,7 +81,8 @@ export async function POST(request) {
       amount: Number(contribution.amount),
       currency: contribution.currency,
       reference: payment.transactionRef,
-      status: payment.status.toLowerCase() === 'failed' ? 'failed' : contribution.status.toLowerCase(),
+      status:
+        payment.status.toLowerCase() === 'failed' ? 'failed' : contribution.status.toLowerCase(),
       date: contribution.createdAt.toISOString().split('T')[0],
       phone: payment.phone,
     });

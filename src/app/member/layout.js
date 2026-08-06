@@ -3,7 +3,14 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useApp } from '@/context/app-context';
 import { useEffect, useState } from 'react';
 import {
-  IconHome, IconGive, IconTarget, IconClipboard, IconMegaphone, IconSparkles, IconUser, OnlineLogoIcon
+  IconHome,
+  IconGive,
+  IconTarget,
+  IconClipboard,
+  IconMegaphone,
+  IconSparkles,
+  IconUser,
+  OnlineLogoIcon,
 } from '@/components/icons';
 import { t } from '@/lib/i18n';
 
@@ -44,7 +51,10 @@ export default function MemberLayout({ children }) {
   if (!isInitialized || !user) return null;
 
   return (
-    <div className="page-member" style={{ background: '#0A0A0E', minHeight: '100vh', color: '#FFFFFF' }}>
+    <div
+      className="page-member"
+      style={{ background: '#0A0A0E', minHeight: '100vh', color: '#FFFFFF' }}
+    >
       {/* Top Navigation Bar */}
       <header className={`member-top-nav ${isScrolled ? 'scrolled' : ''}`}>
         <style>{`
@@ -226,68 +236,114 @@ export default function MemberLayout({ children }) {
 
         `}</style>
 
-
         <div className="member-brand">
-          <div 
-            className="avatar-circle avatar-circle-brand" 
+          <div
+            className="avatar-circle avatar-circle-brand"
             onClick={() => router.push('/member/profile')}
             title="View Profile"
             style={{
-              width: 32, height: 32, fontSize: 14,
+              width: 32,
+              height: 32,
+              fontSize: 14,
               cursor: 'pointer',
-              background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
+              background: user?.photo
+                ? `url("${user.photo}") center/cover`
+                : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
               border: '2px solid transparent',
               transition: 'border-color 0.2s',
-              color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
+              color: '#fff',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = '#D4A843'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#D4A843')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'transparent')}
           >
             {!user?.photo && <IconUser size={18} />}
           </div>
-          <button className="btn btn-secondary btn-icon mobile-toggle-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <OnlineLogoIcon name="x" size={20} /> : <OnlineLogoIcon name="menu" size={20} />}
+          <button
+            className="btn btn-secondary btn-icon mobile-toggle-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <OnlineLogoIcon name="x" size={20} />
+            ) : (
+              <OnlineLogoIcon name="menu" size={20} />
+            )}
           </button>
         </div>
 
         {/* Desktop Nav Links */}
         <nav className="member-nav-links">
-          {NAV_ITEMS.map(item => (
+          {NAV_ITEMS.map((item) => (
             <button
               key={item.href}
               className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
               onClick={() => router.push(item.href)}
             >
               <span>{item.icon}</span>
-              <span className="nav-label">{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
+              <span className="nav-label">
+                {t(item.label.toLowerCase().replace(' ', '_'), language)}
+              </span>
             </button>
           ))}
         </nav>
 
         {/* Right Actions */}
-        <div className="member-nav-right">
-        </div>
+        <div className="member-nav-right"></div>
       </header>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <>
-          <div onClick={() => setMobileMenuOpen(false)} style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
-            zIndex: 198, backdropFilter: 'blur(4px)'
-          }} />
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.5)',
+              zIndex: 198,
+              backdropFilter: 'blur(4px)',
+            }}
+          />
           <div className="mobile-nav-drawer">
-            <div className="drawer-header" style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <div 
+            <div
+              className="drawer-header"
+              style={{
+                padding: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderBottom: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <div
                 style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
-                onClick={() => { router.push('/member/profile'); setMobileMenuOpen(false); }}
+                onClick={() => {
+                  router.push('/member/profile');
+                  setMobileMenuOpen(false);
+                }}
                 title="View Profile"
               >
-                <div className="avatar-circle" style={{ 
-                  width: 32, height: 32, fontSize: 14, 
-                  background: user?.photo ? `url("${user.photo}") center/cover` : 'linear-gradient(135deg, var(--gold), var(--gold-dark))', 
-                  color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' 
-                }}>
+                <div
+                  className="avatar-circle"
+                  style={{
+                    width: 32,
+                    height: 32,
+                    fontSize: 14,
+                    background: user?.photo
+                      ? `url("${user.photo}") center/cover`
+                      : 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                    color: '#fff',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
                   {!user?.photo && <IconUser size={18} />}
                 </div>
                 <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>
@@ -295,24 +351,38 @@ export default function MemberLayout({ children }) {
                 </span>
               </div>
             </div>
-            {NAV_ITEMS.map(item => (
+            {NAV_ITEMS.map((item) => (
               <button
                 key={item.href}
                 className={`member-nav-item ${pathname === item.href ? 'active' : ''}`}
-                onClick={() => { router.push(item.href); setMobileMenuOpen(false); }}
+                onClick={() => {
+                  router.push(item.href);
+                  setMobileMenuOpen(false);
+                }}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px' }}
               >
                 <span style={{ fontSize: 18 }}>{item.icon}</span>
-                <span style={{ fontSize: 15 }}>{t(item.label.toLowerCase().replace(' ', '_'), language)}</span>
+                <span style={{ fontSize: 15 }}>
+                  {t(item.label.toLowerCase().replace(' ', '_'), language)}
+                </span>
               </button>
             ))}
             <div style={{ height: 1, background: 'var(--border-light)', margin: '8px 0' }} />
             <button
               className="member-nav-item"
-              onClick={() => { logout(); }}
-              style={{ width: '100%', justifyContent: 'flex-start', padding: '12px 16px', color: 'var(--soft-red)' }}
+              onClick={() => {
+                logout();
+              }}
+              style={{
+                width: '100%',
+                justifyContent: 'flex-start',
+                padding: '12px 16px',
+                color: 'var(--soft-red)',
+              }}
             >
-              <span style={{ fontSize: 18 }}><OnlineLogoIcon name="log-out" size={20} /></span>
+              <span style={{ fontSize: 18 }}>
+                <OnlineLogoIcon name="log-out" size={20} />
+              </span>
               <span style={{ fontSize: 15 }}>Logout</span>
             </button>
           </div>
@@ -320,10 +390,7 @@ export default function MemberLayout({ children }) {
       )}
 
       {/* Main Content */}
-      <main className="member-main">
-        {children}
-      </main>
-
+      <main className="member-main">{children}</main>
     </div>
   );
 }

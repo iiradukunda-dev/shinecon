@@ -14,18 +14,27 @@ export async function POST(request) {
     const email = body.email?.toLowerCase();
 
     if (!fullName || !email || !password || !phone) {
-      return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Missing required fields' },
+        { status: 400 },
+      );
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ success: false, error: 'Only official Gmail accounts (@gmail.com) are allowed' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Only official Gmail accounts (@gmail.com) are allowed' },
+        { status: 400 },
+      );
     }
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return NextResponse.json({ success: false, error: 'Email already registered' }, { status: 409 });
+      return NextResponse.json(
+        { success: false, error: 'Email already registered' },
+        { status: 409 },
+      );
     }
 
     // Create User and MemberProfile in a transaction
@@ -42,18 +51,18 @@ export async function POST(request) {
             memberType: type.toUpperCase(), // LOCAL or DIASPORA
             employment: employment.toUpperCase(), // EMPLOYED or STUDENT
             approvalStatus: 'PENDING', // Require admin approval
-          }
+          },
         },
         emailVerifications: {
           create: {
             token: crypto.randomBytes(32).toString('hex'),
-            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
-          }
-        }
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          },
+        },
       },
       include: {
-        emailVerifications: true
-      }
+        emailVerifications: true,
+      },
     });
 
     const verification = user.emailVerifications[0];
@@ -61,19 +70,18 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Account created. Please check your email to verify your official Gmail account.'
+      message: 'Account created. Please check your email to verify your official Gmail account.',
     });
   } catch (error) {
     console.error('Registration error:', error);
-    
+
     let errorMessage = 'Internal server error';
     if (error.code === 'P2002') {
       errorMessage = 'Email or phone number is already registered.';
     } else if (error.message) {
       errorMessage = error.message;
     }
-    
+
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 });
   }
 }
-

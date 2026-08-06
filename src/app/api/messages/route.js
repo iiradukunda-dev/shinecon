@@ -96,7 +96,7 @@ export async function DELETE(request) {
     }
 
     const message = await prisma.message.findUnique({ where: { id } });
-    
+
     await prisma.message.delete({
       where: { id },
     });

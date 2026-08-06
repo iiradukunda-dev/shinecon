@@ -9,7 +9,7 @@ export async function POST(req) {
     if (!amount || !phone) {
       return NextResponse.json(
         { success: false, error: 'Amount and phone number are required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -21,14 +21,11 @@ export async function POST(req) {
     } else {
       return NextResponse.json(
         { success: false, error: result.error || 'Payment failed' },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error) {
     console.error('[API MoMo RequestToPay] Error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

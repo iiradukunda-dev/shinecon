@@ -32,17 +32,19 @@ const colorMap = {
   'var(--royal-blue)': '3B5BDB',
   'var(--white)': 'FFFFFF',
   'var(--text-primary)': 'FFFFFF',
-  'var(--text-secondary)': 'CCCCCC'
+  'var(--text-secondary)': 'CCCCCC',
 };
 
 export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = '' }) {
   const mappedName = emojiMap[name] || name;
   const isUrl = String(mappedName).startsWith('http');
-  
+
   let cleanColor = colorMap[color] || color.replace('#', '');
   if (cleanColor.includes('var(')) cleanColor = 'D4A843'; // fallback for unknown vars
-  
-  const iconUrl = isUrl ? mappedName : `https://api.iconify.design/lucide:${mappedName}.svg?color=%23${cleanColor}`;
+
+  const iconUrl = isUrl
+    ? mappedName
+    : `https://api.iconify.design/lucide:${mappedName}.svg?color=%23${cleanColor}`;
 
   return (
     <img
@@ -56,7 +58,7 @@ export function OnlineLogoIcon({ name, color = 'D4A843', size = 20, className = 
         objectFit: 'contain',
         display: 'inline-block',
         verticalAlign: 'middle',
-        filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))'
+        filter: 'drop-shadow(0 0 2px rgba(212, 168, 67, 0.3))',
       }}
       className={className}
       loading="lazy"

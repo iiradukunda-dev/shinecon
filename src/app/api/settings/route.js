@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const settings = await prisma.systemSetting.findMany();
-    
+
     // Convert array of {key, value} into a simple object map
     const settingsMap = settings.reduce((acc, curr) => {
       acc[curr.key] = curr.value;
@@ -23,7 +23,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
-    
+
     // We expect data to be an object: { "branding.ministryName": "Shining Ministries", ... }
     const updatePromises = Object.entries(data).map(([key, value]) => {
       return prisma.systemSetting.upsert({

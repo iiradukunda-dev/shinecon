@@ -12,11 +12,20 @@ export async function POST(req) {
     const { fullName, email, password } = await req.json();
 
     if (!fullName || !email || !password) {
-      return NextResponse.json({ success: false, error: 'All fields are required' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'All fields are required' },
+        { status: 400 },
+      );
     }
 
     if (!email.toLowerCase().endsWith('@gmail.com')) {
-      return NextResponse.json({ success: false, error: 'Only official @gmail.com accounts are allowed for admin access.' }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Only official @gmail.com accounts are allowed for admin access.',
+        },
+        { status: 400 },
+      );
     }
 
     // Check for duplicate
@@ -25,7 +34,10 @@ export async function POST(req) {
     });
 
     if (existingUser) {
-      return NextResponse.json({ success: false, error: 'An account with this email already exists.' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'An account with this email already exists.' },
+        { status: 400 },
+      );
     }
 
     // Create the admin user
@@ -42,27 +54,33 @@ export async function POST(req) {
             country: 'N/A', // defaults
             memberType: 'LOCAL',
             employment: 'EMPLOYED',
-            approvalStatus: 'APPROVED'
-          }
+            approvalStatus: 'APPROVED',
+          },
         },
         emailVerifications: {
           create: {
             token: crypto.randomBytes(32).toString('hex'),
-            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
-          }
-        }
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          },
+        },
       },
       include: {
-        emailVerifications: true
-      }
+        emailVerifications: true,
+      },
     });
 
     const verification = newUser.emailVerifications[0];
     await sendVerificationEmail(newUser.email, verification.token);
 
-    return NextResponse.json({ success: true, message: 'Admin account created. Verification email sent.' });
+    return NextResponse.json({
+      success: true,
+      message: 'Admin account created. Verification email sent.',
+    });
   } catch (error) {
     console.error('Failed to create alternative admin account:', error);
-    return NextResponse.json({ success: false, error: 'Server error while creating admin account.' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Server error while creating admin account.' },
+      { status: 500 },
+    );
   }
 }

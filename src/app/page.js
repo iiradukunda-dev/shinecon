@@ -56,17 +56,17 @@ export default function SplashPage() {
 //           background: rgba(15, 15, 20, 0.7);
 //           backdrop-filter: blur(40px);
 //           -webkit-backdrop-filter: blur(40px);
-//           
+//
 //           /* Refractive border gradient for 3D liquid glass effect */
 //           border: 1px solid transparent;
-//           background-image: 
-//             linear-gradient(rgba(15, 15, 20, 0.7), rgba(15, 15, 20, 0.7)), 
+//           background-image:
+//             linear-gradient(rgba(15, 15, 20, 0.7), rgba(15, 15, 20, 0.7)),
 //             linear-gradient(135deg, rgba(212, 168, 67, 0.7) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.05) 70%, rgba(212, 168, 67, 0.7) 100%);
 //           background-origin: border-box;
 //           background-clip: padding-box, border-box;
-//           
-//           box-shadow: 
-//             0 32px 64px rgba(0, 0, 0, 0.8), 
+//
+//           box-shadow:
+//             0 32px 64px rgba(0, 0, 0, 0.8),
 //             inset 0 0 24px rgba(212, 168, 67, 0.06),
 //             inset 0 1px 1px rgba(255, 255, 255, 0.25);
 //           border-radius: 32px;
@@ -181,8 +181,8 @@ export default function SplashPage() {
 //         </p>
 //
 //         {/* Action Button */}
-//         <button 
-//           className="btn btn-gold" 
+//         <button
+//           className="btn btn-gold"
 //           style={{ width: 200, marginBottom: 28 }}
 //           onClick={() => router.push('/login')}
 //         >

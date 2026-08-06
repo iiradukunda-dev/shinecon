@@ -7,11 +7,11 @@ import ParticlesBackground from '@/components/ParticlesBackground';
 export default function ForgotPasswordPage() {
   const router = useRouter();
   const { addToast } = useApp();
-  
+
   // Steps: 1 = Email, 2 = Code, 3 = New Password
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  
+
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -28,10 +28,10 @@ export default function ForgotPasswordPage() {
       const res = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
       });
       const data = await res.json();
-      
+
       if (res.ok && data.success) {
         addToast(data.message, 'success');
         if (data.testUrl) {
@@ -65,10 +65,10 @@ export default function ForgotPasswordPage() {
       const res = await fetch('/api/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code, newPassword })
+        body: JSON.stringify({ email, code, newPassword }),
       });
       const data = await res.json();
-      
+
       if (res.ok && data.success) {
         addToast('Password reset successful! Please log in.', 'success');
         router.push('/login');
@@ -128,25 +128,58 @@ export default function ForgotPasswordPage() {
       `}</style>
       <ParticlesBackground />
 
-      <div className="auth-card glass-heavy" style={{ borderRadius: 'var(--radius-xl)', maxWidth: 360, padding: '24px 20px', animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-        
-        <div className="auth-logo" onClick={() => router.push('/')} style={{ cursor: 'pointer', margin: '0 auto 12px', width: 48, height: 48 }}>
-          <img src="/logo.png" alt="SM" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+      <div
+        className="auth-card glass-heavy"
+        style={{
+          borderRadius: 'var(--radius-xl)',
+          maxWidth: 360,
+          padding: '24px 20px',
+          animation: 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      >
+        <div
+          className="auth-logo"
+          onClick={() => router.push('/')}
+          style={{ cursor: 'pointer', margin: '0 auto 12px', width: 48, height: 48 }}
+        >
+          <img
+            src="/logo.png"
+            alt="SM"
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          />
         </div>
-        
-        <h1 className="auth-title" style={{ fontSize: '20px', marginBottom: 4 }}>Reset Password</h1>
+
+        <h1 className="auth-title" style={{ fontSize: '20px', marginBottom: 4 }}>
+          Reset Password
+        </h1>
         <p className="auth-subtitle" style={{ marginBottom: 20, fontSize: '13px', opacity: 0.8 }}>
           {step === 1 && 'Enter your email to receive a code'}
           {step === 2 && 'Enter the 6-digit code sent to your email'}
           {step === 3 && 'Create a new secure password'}
         </p>
 
-        <form className="auth-form" onSubmit={step === 1 ? handleRequestCode : (step === 2 ? handleVerifyCode : handleResetPassword)}>
-          
+        <form
+          className="auth-form"
+          onSubmit={
+            step === 1 ? handleRequestCode : step === 2 ? handleVerifyCode : handleResetPassword
+          }
+        >
           {step === 1 && (
             <div className="auth-input-wrapper">
               <span className="auth-input-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
               </span>
               <input
                 type="email"
@@ -162,7 +195,19 @@ export default function ForgotPasswordPage() {
           {step === 2 && (
             <div className="auth-input-wrapper">
               <span className="auth-input-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
               </span>
               <input
                 type="text"
@@ -180,7 +225,19 @@ export default function ForgotPasswordPage() {
             <>
               <div className="auth-input-wrapper">
                 <span className="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
                 </span>
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -195,21 +252,64 @@ export default function ForgotPasswordPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
-                    position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)',
-                    background: 'none', border: 'none', color: 'var(--text-tertiary)',
-                    cursor: 'pointer', display: 'flex', padding: 0
+                    position: 'absolute',
+                    right: 16,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-tertiary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    padding: 0,
                   }}
                 >
                   {showPassword ? (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
                   ) : (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
                   )}
                 </button>
               </div>
               <div className="auth-input-wrapper">
                 <span className="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
                 </span>
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -233,20 +333,26 @@ export default function ForgotPasswordPage() {
                 borderRadius: '999px',
                 height: '42px',
                 fontWeight: 600,
-                letterSpacing: '0.5px'
+                letterSpacing: '0.5px',
               }}
             >
               {loading ? (
                 <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
+              ) : step === 1 ? (
+                'Send Code'
+              ) : step === 2 ? (
+                'Verify Code'
               ) : (
-                step === 1 ? 'Send Code' : (step === 2 ? 'Verify Code' : 'Reset Password')
+                'Reset Password'
               )}
             </button>
           </div>
         </form>
 
         <div className="auth-login-link" style={{ textAlign: 'center', marginTop: 16 }}>
-          <span style={{ color: 'var(--text-secondary)', fontSize: 13 }}>Remember your password? </span>
+          <span style={{ color: 'var(--text-secondary)', fontSize: 13 }}>
+            Remember your password?{' '}
+          </span>
           <span
             onClick={() => router.push('/login')}
             style={{ color: 'var(--gold)', fontWeight: 600, cursor: 'pointer', fontSize: 13 }}
@@ -256,11 +362,37 @@ export default function ForgotPasswordPage() {
         </div>
 
         {testUrl && (
-          <div style={{ marginTop: 24, padding: 12, borderRadius: 8, background: 'rgba(212, 168, 67, 0.1)', border: '1px solid rgba(212, 168, 67, 0.3)', textAlign: 'center' }}>
-            <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.7)', display: 'block', marginBottom: 4 }}>
+          <div
+            style={{
+              marginTop: 24,
+              padding: 12,
+              borderRadius: 8,
+              background: 'rgba(212, 168, 67, 0.1)',
+              border: '1px solid rgba(212, 168, 67, 0.3)',
+              textAlign: 'center',
+            }}
+          >
+            <span
+              style={{
+                fontSize: 12,
+                color: 'rgba(255, 255, 255, 0.7)',
+                display: 'block',
+                marginBottom: 4,
+              }}
+            >
               🛠️ <b>Development Mode</b>
             </span>
-            <a href={testUrl} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: 'var(--gold)', fontWeight: 600, textDecoration: 'none' }}>
+            <a
+              href={testUrl}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontSize: 13,
+                color: 'var(--gold)',
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
               Click here to view the test email
             </a>
           </div>

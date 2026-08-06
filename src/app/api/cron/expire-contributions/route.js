@@ -9,23 +9,23 @@ export async function GET(request) {
     const result = await prisma.payment.updateMany({
       where: {
         status: 'PENDING',
-        createdAt: { lte: fifteenMinutesAgo }
+        createdAt: { lte: fifteenMinutesAgo },
       },
-      data: { status: 'TIMEOUT' }
+      data: { status: 'TIMEOUT' },
     });
 
     // Also mark their parent contributions as REJECTED or FAILED (here using REJECTED)
     if (result.count > 0) {
       // Find all payments that timed out (simplification, would normally batch update directly)
       const timedOutPayments = await prisma.payment.findMany({
-        where: { status: 'TIMEOUT' }
+        where: { status: 'TIMEOUT' },
       });
-      
-      const contributionIds = timedOutPayments.map(p => p.contributionId);
-      
+
+      const contributionIds = timedOutPayments.map((p) => p.contributionId);
+
       await prisma.contribution.updateMany({
         where: { id: { in: contributionIds }, status: 'PENDING' },
-        data: { status: 'REJECTED', rejectionReason: 'Payment timeout' }
+        data: { status: 'REJECTED', rejectionReason: 'Payment timeout' },
       });
     }
 

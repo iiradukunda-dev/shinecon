@@ -41,7 +41,6 @@ export default function RootLayout({ children }) {
           {children}
           <GlobalToasts />
         </AppProvider>
-
       </body>
     </html>
   );

@@ -53,8 +53,10 @@ export async function PUT(request) {
     if (data.category) updateData.category = data.category;
     if (data.localStudent !== undefined) updateData.localStudentAmt = Number(data.localStudent);
     if (data.localEmployed !== undefined) updateData.localEmployedAmt = Number(data.localEmployed);
-    if (data.diasporaStudent !== undefined) updateData.diasporaStudentAmt = Number(data.diasporaStudent);
-    if (data.diasporaEmployed !== undefined) updateData.diasporaEmployedAmt = Number(data.diasporaEmployed);
+    if (data.diasporaStudent !== undefined)
+      updateData.diasporaStudentAmt = Number(data.diasporaStudent);
+    if (data.diasporaEmployed !== undefined)
+      updateData.diasporaEmployedAmt = Number(data.diasporaEmployed);
     if (data.currency) updateData.currency = data.currency;
     if (data.recurring !== undefined) updateData.recurring = data.recurring === true;
     if (data.active !== undefined) updateData.active = data.active === true;

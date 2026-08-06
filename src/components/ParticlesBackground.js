@@ -59,7 +59,7 @@ export default function ParticlesBackground() {
       <div className="particles-base-bg" />
       <div className="ambient-glow-comp" />
       <div className="particles-bg-comp">
-        {particles.map(p => (
+        {particles.map((p) => (
           <span
             key={p.id}
             className="particle-comp"

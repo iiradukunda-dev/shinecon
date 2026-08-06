@@ -12,7 +12,7 @@ export async function POST(request) {
 
     // Check if event exists
     const event = await prisma.attendanceEvent.findUnique({
-      where: { id: eventId }
+      where: { id: eventId },
     });
 
     if (!event) {
@@ -25,7 +25,10 @@ export async function POST(request) {
     const diffInMinutes = (now - eventCreated) / (1000 * 60);
 
     if (diffInMinutes > 30) {
-      return NextResponse.json({ error: 'Attendance session has expired (30 minute limit)' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Attendance session has expired (30 minute limit)' },
+        { status: 403 },
+      );
     }
 
     // Check if user already checked in
@@ -34,12 +37,15 @@ export async function POST(request) {
         attendanceEventId_userId: {
           attendanceEventId: eventId,
           userId: userId,
-        }
-      }
+        },
+      },
     });
 
     if (existingRecord) {
-      return NextResponse.json({ error: 'You have already checked in to this session' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'You have already checked in to this session' },
+        { status: 400 },
+      );
     }
 
     // Create attendance record
@@ -50,7 +56,7 @@ export async function POST(request) {
         gpsLatitude: lat || null,
         gpsLongitude: lng || null,
         locationVerified: true, // We already validated distance in the frontend
-      }
+      },
     });
 
     return NextResponse.json({ success: true, record });

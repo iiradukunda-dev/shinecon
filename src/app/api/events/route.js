@@ -51,7 +51,8 @@ export async function PUT(request) {
       const currentEvent = await prisma.calendarEvent.findUnique({ where: { id } });
       if (currentEvent) {
         const currentDate = data.date || currentEvent.startTime.toISOString().split('T')[0];
-        const currentTime = data.time || currentEvent.startTime.toISOString().split('T')[1].substring(0, 5);
+        const currentTime =
+          data.time || currentEvent.startTime.toISOString().split('T')[1].substring(0, 5);
         updateData.startTime = new Date(`${currentDate}T${currentTime}:00Z`);
         updateData.endTime = new Date(updateData.startTime.getTime() + 2 * 60 * 60 * 1000);
       }

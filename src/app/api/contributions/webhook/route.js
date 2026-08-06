@@ -12,7 +12,7 @@ export async function POST(request) {
 
     let mappedStatus = 'PENDING';
     let contributionStatus = 'PENDING';
-    
+
     if (status.toUpperCase() === 'SUCCESSFUL') {
       mappedStatus = 'SUCCESSFUL';
       contributionStatus = 'APPROVED';
@@ -24,22 +24,22 @@ export async function POST(request) {
     // Find the payment record
     const payment = await prisma.payment.findUnique({
       where: { id: externalId },
-      include: { contribution: true }
+      include: { contribution: true },
     });
 
     if (payment) {
       await prisma.payment.update({
         where: { id: externalId },
-        data: { 
+        data: {
           status: mappedStatus,
-          transactionRef: transactionId || payment.transactionRef 
-        }
+          transactionRef: transactionId || payment.transactionRef,
+        },
       });
 
       if (payment.contribution) {
         await prisma.contribution.update({
           where: { id: payment.contributionId },
-          data: { status: contributionStatus }
+          data: { status: contributionStatus },
         });
       }
     }

@@ -12,24 +12,27 @@ export async function POST(request) {
     const { password } = body;
     const email = body.email?.toLowerCase();
 
-
     const user = await prisma.user.findUnique({
       where: { email },
       include: { profile: true },
     });
 
     if (!user) {
-      return NextResponse.json({ success: false, error: 'User account not found. Please check the email again.' }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: 'User account not found. Please check the email again.' },
+        { status: 404 },
+      );
     }
 
     if (user.passwordHash !== hashPassword(password)) {
       return NextResponse.json({ success: false, error: 'Incorrect password' }, { status: 401 });
     }
 
-
-
     if (user.role !== 'SUPER_ADMIN' && user.profile?.approvalStatus !== 'APPROVED') {
-      return NextResponse.json({ success: false, error: 'Account is pending approval or suspended' }, { status: 403 });
+      return NextResponse.json(
+        { success: false, error: 'Account is pending approval or suspended' },
+        { status: 403 },
+      );
     }
 
     return NextResponse.json({
@@ -46,7 +49,9 @@ export async function POST(request) {
         type: user.profile?.memberType?.toLowerCase() || 'local',
         employment: user.profile?.employment?.toLowerCase() || 'employed',
         status: user.profile?.approvalStatus?.toLowerCase() || 'approved',
-        joinedDate: user.profile?.joinedDate ? new Date(user.profile.joinedDate).toISOString().split('T')[0] : '',
+        joinedDate: user.profile?.joinedDate
+          ? new Date(user.profile.joinedDate).toISOString().split('T')[0]
+          : '',
       },
     });
   } catch (error) {

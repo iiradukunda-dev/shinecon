@@ -131,7 +131,7 @@ export default function ProfilePage() {
             position: 'relative',
             overflow: 'hidden',
             opacity: photoUploading ? 0.5 : 1,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            boxShadow: "none",
           }}
         >
           {!user?.photo && <IconUser size={32} />}

@@ -116,14 +116,14 @@ export default function ForgotPasswordPage() {
         }
         .auth-input-custom {
           width: 100%; padding: 10px 16px 10px 40px;
-          background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(212, 168, 67, 0.3);
+          background: rgba(255, 255, 255, 0.07); border: 1px solid var(--border-light);
           border-radius: 999px; color: #FFFFFF; font-size: 15px; outline: none;
           transition: all 0.2s; backdrop-filter: blur(10px);
         }
         .auth-input-custom::placeholder { color: rgba(255, 255, 255, 0.25); font-size: 13px; }
         .auth-input-custom:focus {
           background: rgba(255, 255, 255, 0.12); border-color: var(--gold);
-          box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.25);
+          box-shadow: none;
         }
       `}</style>
       <ParticlesBackground />

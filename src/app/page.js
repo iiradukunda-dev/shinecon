@@ -65,10 +65,7 @@ export default function SplashPage() {
 //           background-origin: border-box;
 //           background-clip: padding-box, border-box;
 //
-//           box-shadow:
-//             0 32px 64px rgba(0, 0, 0, 0.8),
-//             inset 0 0 24px rgba(212, 168, 67, 0.06),
-//             inset 0 1px 1px rgba(255, 255, 255, 0.25);
+//           box-shadow: none;
 //           border-radius: 32px;
 //           padding: 24px 24px;
 //           display: flex;

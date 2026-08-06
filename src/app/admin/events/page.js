@@ -323,7 +323,7 @@ export default function AdminEventsPage() {
                         marginTop: 4,
                         maxHeight: 200,
                         overflowY: 'auto',
-                        boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                        boxShadow: "none",
                       }}
                     >
                       {locationResults.map((place, i) => (

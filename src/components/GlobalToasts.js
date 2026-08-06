@@ -23,7 +23,7 @@ export default function GlobalToasts() {
                 border: '1px solid rgba(220, 38, 38, 0.4)',
                 borderRadius: '12px',
                 padding: '12px 16px',
-                boxShadow: '0 8px 16px rgba(0,0,0,0.4)',
+                boxShadow: "none",
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center' }}>

@@ -243,7 +243,7 @@ export default function AdminLayout({ children }) {
                   background: 'var(--card-bg)',
                   border: '1px solid var(--border-medium)',
                   borderRadius: 'var(--radius-lg)',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                  boxShadow: "none",
                   zIndex: 100,
                   overflow: 'hidden',
                   backdropFilter: 'blur(16px)',

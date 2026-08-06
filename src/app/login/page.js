@@ -67,10 +67,7 @@ export default function LoginPage() {
           background-origin: border-box;
           background-clip: padding-box, border-box;
 
-          box-shadow: 
-            0 32px 64px rgba(0, 0, 0, 0.8), 
-            inset 0 0 24px rgba(212, 168, 67, 0.06),
-            inset 0 1px 1px rgba(255, 255, 255, 0.25);
+          box-shadow: none;
           color: #fff;
           overflow: hidden;
           animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -137,7 +134,7 @@ export default function LoginPage() {
           width: 100%;
           padding: 10px 16px 10px 40px;
           background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(212, 168, 67, 0.3);
+          border: 1px solid var(--border-light);
           border-radius: 999px;
           color: #FFFFFF;
           font-size: 15px;
@@ -152,7 +149,7 @@ export default function LoginPage() {
         .auth-input-custom:focus {
           background: rgba(255, 255, 255, 0.12);
           border-color: var(--gold);
-          box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.25);
+          box-shadow: none;
         }
 
         .auth-options {
@@ -174,7 +171,7 @@ export default function LoginPage() {
           appearance: none;
           width: 14px;
           height: 14px;
-          border: 1px solid rgba(212, 168, 67, 0.4);
+          border: 1px solid var(--border-light);
           border-radius: 4px;
           background: rgba(255, 255, 255, 0.1);
           position: relative;

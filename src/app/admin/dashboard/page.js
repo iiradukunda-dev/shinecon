@@ -114,8 +114,7 @@ export default function AdminDashboard() {
                   height: 56,
                   borderRadius: '50%',
                   border: '1px solid rgba(212, 168, 67, 0.6)',
-                  boxShadow:
-                    '0 0 20px rgba(212, 168, 67, 0.3), inset 0 0 15px rgba(212, 168, 67, 0.1)',
+                  boxShadow: "none",
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

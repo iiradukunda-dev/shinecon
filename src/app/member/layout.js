@@ -79,7 +79,7 @@ export default function MemberLayout({ children }) {
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border-bottom: 1px solid rgba(212, 168, 67, 0.2);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: none;
           }
 
           .member-brand {
@@ -123,7 +123,7 @@ export default function MemberLayout({ children }) {
             --glow-color: rgba(212, 168, 67, 0.5);
             border-left: 1px solid rgba(212, 168, 67, 0.5);
             border-bottom-color: rgba(212, 168, 67, 0.25);
-            box-shadow: -4px 6px 20px -2px var(--glow-color);
+            box-shadow: none;
           }
           .member-nav-item.active {
             font-weight: 700;
@@ -148,7 +148,7 @@ export default function MemberLayout({ children }) {
             padding: 8px 16px 8px 10px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(212, 168, 67, 0.35);
+            border: 1px solid var(--border-light);
             cursor: pointer;
             transition: all 0.2s ease;
           }
@@ -188,14 +188,14 @@ export default function MemberLayout({ children }) {
             background: rgba(15, 15, 22, 0.95);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(212, 168, 67, 0.35);
+            border: 1px solid var(--border-light);
             border-radius: 24px;
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
             z-index: 199;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9);
+            box-shadow: none;
             animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
 

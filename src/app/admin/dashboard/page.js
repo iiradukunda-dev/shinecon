@@ -81,8 +81,8 @@ export default function AdminDashboard() {
         }
 
         .admin-scroll-card {
-          min-width: 280px;
-          max-width: 320px;
+          min-width: 350px;
+          max-width: 420px;
           flex-shrink: 0;
           scroll-snap-align: start;
           padding: 20px;

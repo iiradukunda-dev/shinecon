@@ -22,6 +22,14 @@ export const metadata = {
   description: 'Digital Ministry Platform',
   keywords: 'SM Connect, church, ministry, contributions, digital platform',
   manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'SM Connect',
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport = {

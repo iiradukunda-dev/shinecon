@@ -1,6 +1,9 @@
 import { GoogleGenAI } from '@google/genai';
+import dotenv from 'dotenv';
 
-const ai = new GoogleGenAI({ apiKey: 'AQ.Ab8RN6L8xhMo8ZIzx-CUJ4auYvIRScVP9S0XioXZIBc7WcFUKQ' });
+dotenv.config();
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 async function run() {
   try {

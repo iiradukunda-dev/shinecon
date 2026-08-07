@@ -55,7 +55,7 @@ flowchart LR
     %% User Journey
     Member([ Member]) -->|Accesses| App[ Member App]
     App -->|Makes| Contrib[ Contributions]
-    App -->|Consults| AI[✨ AI Assistant]
+    App -->|Consults| AI[ AI Assistant]
     
     %% Admin Journey
     Admin([👑 Admin]) -->|Manages| Dash[💻 Admin Dashboard]

@@ -362,7 +362,7 @@ export default function RegisterPage() {
                           display: 'inline-block',
                           width: 14,
                           height: 14,
-                          border: '2px solid rgba(255,255,255,0.3)',
+                          border: 'none',
                           borderTopColor: '#fff',
                           borderRadius: '50%',
                         }}
@@ -380,7 +380,7 @@ export default function RegisterPage() {
                   padding: '8px 12px',
                   borderRadius: 'var(--radius-md)',
                   background: 'rgba(212, 168, 67, 0.08)',
-                  border: '1px solid rgba(212, 168, 67, 0.15)',
+                  border: 'none',
                   fontSize: '11px',
                   color: 'var(--text-secondary)',
                   textAlign: 'center',

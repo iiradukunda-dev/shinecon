@@ -381,7 +381,7 @@ export default function AttendancePage() {
                 padding: 'var(--space-md)',
                 borderRadius: 'var(--radius-md)',
                 background: 'rgba(43,138,62,0.08)',
-                border: '1px solid rgba(43,138,62,0.15)',
+                border: 'none',
                 fontSize: 'var(--text-sm)',
               }}
             >

@@ -156,7 +156,7 @@ export default function AIPage() {
           background: 'var(--glass-bg)',
           borderRadius: 'var(--radius-full)',
           padding: 6,
-          border: '1px solid var(--border-light)',
+          border: 'none',
         }}
       >
         <input

@@ -102,7 +102,7 @@ export default function AdminLayout({ children }) {
           className="sidebar-brand"
           style={{
             padding: 'var(--space-lg)',
-            borderBottom: '1px solid var(--border-light)',
+
             display: 'flex',
             alignItems: 'center',
           }}
@@ -165,7 +165,7 @@ export default function AdminLayout({ children }) {
           ))}
         </nav>
 
-        <div style={{ padding: 'var(--space-md)', borderTop: '1px solid var(--border-light)' }}>
+        <div style={{ padding: 'var(--space-md)' }}>
           <button
             className="sidebar-link"
             onClick={() => {
@@ -241,9 +241,9 @@ export default function AdminLayout({ children }) {
                   right: 0,
                   width: 320,
                   background: 'var(--card-bg)',
-                  border: '1px solid var(--border-medium)',
+                  border: 'none',
                   borderRadius: 'var(--radius-lg)',
-                  boxShadow: "none",
+                  boxShadow: 'none',
                   zIndex: 100,
                   overflow: 'hidden',
                   backdropFilter: 'blur(16px)',
@@ -252,7 +252,7 @@ export default function AdminLayout({ children }) {
                 <div
                   style={{
                     padding: '16px',
-                    borderBottom: '1px solid var(--border-medium)',
+
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
@@ -292,7 +292,7 @@ export default function AdminLayout({ children }) {
                         key={n.id}
                         style={{
                           padding: '12px 16px',
-                          borderBottom: '1px solid var(--border-light)',
+
                           background: n.unread ? 'rgba(212, 168, 67, 0.05)' : 'transparent',
                           display: 'flex',
                           flexDirection: 'column',

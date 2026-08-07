@@ -20,7 +20,7 @@ export default function GlobalToasts() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 backgroundColor: '#0c0c10',
-                border: '1px solid rgba(220, 38, 38, 0.4)',
+                border: 'none',
                 borderRadius: '12px',
                 padding: '12px 16px',
                 boxShadow: "none",
@@ -61,7 +61,7 @@ export default function GlobalToasts() {
             key={t.id}
             className="toast"
             style={{
-              borderLeft: `4px solid ${t.type === 'success' ? 'var(--emerald)' : 'var(--gold)'}`,
+              success' ? 'var(--emerald)' : 'var(--gold)'}`,
               backgroundColor: 'rgba(255,255,255,0.05)',
               backdropFilter: 'blur(10px)',
             }}

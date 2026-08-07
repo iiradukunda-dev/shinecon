@@ -315,7 +315,7 @@ export default function SettingsPage() {
         style={{
           display: 'flex',
           gap: 16,
-          borderBottom: '1px solid var(--border-medium)',
+
           marginBottom: 'var(--space-xl)',
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',
@@ -382,7 +382,7 @@ export default function SettingsPage() {
                   position: 'relative',
                   overflow: 'hidden',
                   opacity: photoUploading ? 0.5 : 1,
-                  boxShadow: "none",
+                  boxShadow: 'none',
                 }}
               >
                 {!user?.photo && <IconUser size={32} />}
@@ -646,7 +646,7 @@ export default function SettingsPage() {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '10px 0',
-                      borderBottom: '1px solid var(--border-light)',
+
                       gap: 16,
                     }}
                   >
@@ -721,7 +721,7 @@ export default function SettingsPage() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px 0',
-                    borderBottom: '1px solid var(--border-light)',
+
                     gap: 16,
                   }}
                 >
@@ -795,7 +795,7 @@ export default function SettingsPage() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px 0',
-                    borderBottom: '1px solid var(--border-light)',
+
                     gap: 16,
                   }}
                 >
@@ -850,7 +850,7 @@ export default function SettingsPage() {
           display: 'flex',
           gap: 'var(--space-sm)',
           justifyContent: 'flex-end',
-          borderTop: '1px solid var(--border-light)',
+
           paddingTop: 'var(--space-lg)',
         }}
 

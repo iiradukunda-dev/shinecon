@@ -158,7 +158,7 @@ export default function ContributionsPage() {
                         color: 'var(--gold-dark)',
                         background: 'transparent',
                         border: 'none',
-                        borderBottom: '2px solid var(--gold)',
+
                         borderRadius: 0,
                         padding: '0 0 4px 0',
                         width: 200,
@@ -216,7 +216,7 @@ export default function ContributionsPage() {
                   padding: 'var(--space-md)',
                   borderRadius: 'var(--radius-md)',
                   background: 'rgba(43,138,62,0.08)',
-                  border: '1px solid rgba(43,138,62,0.15)',
+                  border: 'none',
                   marginBottom: 'var(--space-lg)',
                   textAlign: 'left',
                   fontSize: 'var(--text-sm)',

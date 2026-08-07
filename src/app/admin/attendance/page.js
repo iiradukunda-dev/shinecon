@@ -292,7 +292,7 @@ export default function AdminAttendancePage() {
                     padding: 'var(--space-md)',
                     borderRadius: 'var(--radius-lg)',
                     background: 'rgba(212,168,67,0.08)',
-                    border: '1px solid rgba(212,168,67,0.2)',
+                    border: 'none',
                     textAlign: 'center',
                   }}
                 >
@@ -413,7 +413,7 @@ export default function AdminAttendancePage() {
                   padding: 24,
                   borderRadius: 16,
                   display: 'inline-block',
-                  border: '1px solid var(--border-medium)',
+                  border: 'none',
                 }}
               >
                 <QRCodeSVG
@@ -543,7 +543,7 @@ export default function AdminAttendancePage() {
                         padding: '12px 16px',
                         background: 'var(--surface-light)',
                         borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border-light)',
+                        border: 'none',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 12,

@@ -446,7 +446,6 @@ export default function MemberDashboard() {
                     fontSize: 12,
                     color: 'rgba(255,255,255,0.5)',
                     paddingTop: 12,
-                    borderTop: '1px solid rgba(255,255,255,0.08)',
                   }}
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>

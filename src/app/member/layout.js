@@ -249,7 +249,7 @@ export default function MemberLayout({ children }) {
               background: user?.photo
                 ? `url("${user.photo}") center/cover`
                 : 'linear-gradient(180deg, #D4A843 0%, #A37A24 100%)',
-              border: '2px solid transparent',
+              border: 'none',
               transition: 'border-color 0.2s',
               color: '#fff',
               borderRadius: '50%',
@@ -316,7 +316,6 @@ export default function MemberLayout({ children }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                borderBottom: '1px solid rgba(255,255,255,0.1)',
               }}
             >
               <div

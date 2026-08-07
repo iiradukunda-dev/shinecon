@@ -378,7 +378,7 @@ export default function AdminReportsPage() {
                   padding: '12px 16px',
                   background: 'rgba(255, 255, 255, 0.04)',
                   borderRadius: 14,
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  border: 'none',
                 }}
               >
                 <span style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.6)' }}>
@@ -478,7 +478,7 @@ export default function AdminReportsPage() {
             <div
               style={{
                 padding: '16px 24px',
-                borderBottom: '1px solid rgba(212, 168, 67, 0.2)',
+
                 background: 'rgba(12, 12, 18, 0.6)',
               }}
             >

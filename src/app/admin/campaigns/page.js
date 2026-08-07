@@ -129,7 +129,7 @@ export default function AdminCampaignsPage() {
                 style={{
                   marginTop: 'var(--space-md)',
                   paddingTop: 'var(--space-md)',
-                  borderTop: '1px solid var(--border-light)',
+
                   display: 'flex',
                   justifyContent: 'space-between',
                   fontSize: 'var(--text-xs)',

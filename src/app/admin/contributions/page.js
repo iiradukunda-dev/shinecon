@@ -385,7 +385,6 @@ export default function AdminContributionsPage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     padding: '10px 0',
-                    borderBottom: '1px solid var(--border-light)',
                   }}
                 >
                   <span style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>

@@ -81,8 +81,8 @@ export default function AdminDashboard() {
         }
 
         .admin-scroll-card {
-          min-width: 350px;
-          max-width: 420px;
+          min-width: 280px;
+          max-width: 320px;
           flex-shrink: 0;
           scroll-snap-align: start;
           padding: 20px;
@@ -113,8 +113,8 @@ export default function AdminDashboard() {
                   width: 56,
                   height: 56,
                   borderRadius: '50%',
-                  border: '1px solid rgba(212, 168, 67, 0.6)',
-                  boxShadow: "none",
+                  border: 'none',
+                  boxShadow: 'none',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                   fontSize: 12,
                   padding: '6px 12px',
                   background: 'rgba(212, 168, 67, 0.1)',
-                  border: '1px solid rgba(212, 168, 67, 0.2)',
+                  border: 'none',
                 }}
               >
                 {kpi.positive ? (
@@ -292,7 +292,7 @@ export default function AdminDashboard() {
                 alignItems: 'flex-end',
                 justifyContent: 'space-between',
                 marginTop: 12,
-                borderTop: '1px solid rgba(255,255,255,0.05)',
+
                 paddingTop: 12,
               }}
             >

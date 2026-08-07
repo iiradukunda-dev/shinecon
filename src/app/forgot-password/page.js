@@ -368,7 +368,7 @@ export default function ForgotPasswordPage() {
               padding: 12,
               borderRadius: 8,
               background: 'rgba(212, 168, 67, 0.1)',
-              border: '1px solid rgba(212, 168, 67, 0.3)',
+              border: 'none',
               textAlign: 'center',
             }}
           >

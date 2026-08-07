@@ -131,7 +131,7 @@ export default function ProfilePage() {
             position: 'relative',
             overflow: 'hidden',
             opacity: photoUploading ? 0.5 : 1,
-            boxShadow: "none",
+            boxShadow: 'none',
           }}
         >
           {!user?.photo && <IconUser size={32} />}
@@ -187,7 +187,7 @@ export default function ProfilePage() {
         style={{
           display: 'flex',
           gap: 16,
-          borderBottom: '1px solid var(--border-medium)',
+
           marginBottom: 'var(--space-xl)',
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',
@@ -303,7 +303,6 @@ export default function ProfilePage() {
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '12px 0',
-                  borderBottom: '1px solid var(--border-light)',
                 }}
               >
                 <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
@@ -340,7 +339,6 @@ export default function ProfilePage() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '12px 0',
-                borderBottom: '1px solid var(--border-light)',
               }}
             >
               <span
@@ -386,7 +384,6 @@ export default function ProfilePage() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '12px 0',
-                borderBottom: '1px solid var(--border-light)',
               }}
             >
               <span
@@ -412,7 +409,7 @@ export default function ProfilePage() {
               </select>
             </div>
 
-            <div style={{ padding: '12px 0', borderBottom: '1px solid var(--border-light)' }}>
+            <div style={{ padding: '12px 0' }}>
               <button
                 className="btn btn-ghost"
                 style={{

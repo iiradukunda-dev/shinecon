@@ -988,7 +988,7 @@ button:active {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--gold);
-  border-bottom: 1px solid rgba(212, 168, 67, 0.3);
+  border-bottom: none;
   background: rgba(22, 22, 32, 0.9);
   white-space: nowrap;
 }
@@ -996,7 +996,7 @@ button:active {
   padding: 16px var(--space-lg);
   font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: none;
   vertical-align: middle;
 }
 .table tr:last-child td {
@@ -1059,14 +1059,14 @@ button:active {
 .sidebar-link:hover:not(.active) {
   --glow-color: rgba(212, 168, 67, 0.5);
   border-left: 1px solid rgba(212, 168, 67, 0.5);
-  border-bottom-color: rgba(212, 168, 67, 0.25);
+  border-bottom-color: transparent;
   box-shadow: -4px 6px 20px -2px var(--glow-color);
 }
 .sidebar-link.active {
   font-weight: 700;
   --glow-color: rgba(212, 168, 67, 0.7);
   border-left: 3px solid rgba(212, 168, 67, 0.7);
-  border-bottom-color: rgba(212, 168, 67, 0.4);
+  border-bottom-color: transparent;
   animation: pulseShadow 8s infinite ease-in-out;
 }
 [data-theme='dark'] .sidebar-link.active {
@@ -1132,7 +1132,7 @@ button:active {
   background: rgba(12, 12, 18, 0.65);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border-bottom: 1px solid rgba(212, 168, 67, 0.2);
+  border-bottom: none;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -1474,7 +1474,7 @@ button:active {
 }
 .modal-header {
   padding: var(--space-lg);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2430,7 +2430,7 @@ button:active {
 .tab-btn:hover:not(.active) {
   --glow-color: rgba(212, 168, 67, 0.5);
   border-left-color: rgba(212, 168, 67, 0.5);
-  border-bottom-color: rgba(212, 168, 67, 0.25);
+  border-bottom-color: transparent;
   box-shadow:
     -4px 6px 20px -2px var(--glow-color),
     inset -2px -2px 8px rgba(212, 168, 67, 0.2);
@@ -2439,7 +2439,7 @@ button:active {
 .tab-btn.active {
   --glow-color: rgba(212, 168, 67, 0.7);
   border-left-color: rgba(212, 168, 67, 0.7);
-  border-bottom-color: rgba(212, 168, 67, 0.4);
+  border-bottom-color: transparent;
   animation: pulseShadow 8s infinite ease-in-out;
 }
 

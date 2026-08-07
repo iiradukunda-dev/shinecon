@@ -318,12 +318,12 @@ export default function AdminEventsPage() {
                         right: 0,
                         zIndex: 50,
                         background: 'var(--surface-light)',
-                        border: '1px solid var(--border)',
+                        border: 'none',
                         borderRadius: 8,
                         marginTop: 4,
                         maxHeight: 200,
                         overflowY: 'auto',
-                        boxShadow: "none",
+                        boxShadow: 'none',
                       }}
                     >
                       {locationResults.map((place, i) => (
@@ -333,7 +333,6 @@ export default function AdminEventsPage() {
                             padding: '10px 12px',
                             fontSize: 13,
                             cursor: 'pointer',
-                            borderBottom: '1px solid var(--border)',
                           }}
                           onClick={() => selectLocation(place)}
                           onMouseEnter={(e) => (e.target.style.background = 'var(--glass-bg)')}

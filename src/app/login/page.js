@@ -392,7 +392,7 @@ export default function LoginPage() {
                       display: 'inline-block',
                       width: 18,
                       height: 18,
-                      border: '2px solid rgba(255,255,255,0.3)',
+                      border: 'none',
                       borderTopColor: '#fff',
                       borderRadius: '50%',
                     }}

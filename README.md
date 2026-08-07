@@ -76,13 +76,12 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 ---
 
 ## Recent Improvements
-- **Full PWA Support:** Transformed the application into a true Progressive Web App (PWA). It is fully installable on iOS, macOS, Android, and Windows directly to the home screen with offline caching via `next-pwa`.
-- **UI & Code Cleanliness:** Implemented a massive repository-wide code standardization using Prettier. Refined the Liquid Glass Design System by removing excessive borders and box-shadows, resulting in a significantly flatter, cleaner, and more modern aesthetic.
 - **Lightning Fast AI Assistant:** Integrated Gemini AI using the lightweight `gemini-3.5-flash-lite` model for instantaneous, context-aware answers to member questions.
 - **Admin Tabbed Interface:** Reorganized system settings into intuitive tabs (Account, System, Integrations, Advanced).
 - **Dynamic Application State:** Changes to settings (e.g. Ministry Name, Currency) apply instantly across the application via context syncing without needing a page refresh.
 - **Real-Time Localization:** Multilingual implementation supporting dynamic translations across English, Français, Kiswahili, and Kinyarwanda without a reload.
 - **Mobile Touch Enhancements:** Upgraded mobile responsiveness by migrating from `onClick` handlers to `next/link` for superior tap targets on Dashboard and KPI cards.
+- **Liquid Glass Interactivity:** Enhanced internal buttons and cards with a dynamic shake-on-click effect and refined hover states that enhance internal shadows.
 
 ---
 

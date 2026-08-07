@@ -60,7 +60,7 @@ flowchart LR
     %% Admin Journey
     Admin([👑 Admin]) -->|Manages| Dash[ Admin Dashboard]
     Dash -->|Approves| Contrib
-    Dash -->|Monitors| Analytics[📊 Analytics & Reports]
+    Dash -->|Monitors| Analytics[ Analytics & Reports]
     
     %% Styling
     style Member fill:#0a0a0e,stroke:#d4a843,stroke-width:2px,color:#fff

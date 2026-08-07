@@ -23,7 +23,7 @@ export default function GlobalToasts() {
                 border: 'none',
                 borderRadius: '12px',
                 padding: '12px 16px',
-                boxShadow: "none",
+                boxShadow: 'none',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -61,7 +61,6 @@ export default function GlobalToasts() {
             key={t.id}
             className="toast"
             style={{
-              success' ? 'var(--emerald)' : 'var(--gold)'}`,
               backgroundColor: 'rgba(255,255,255,0.05)',
               backdropFilter: 'blur(10px)',
             }}

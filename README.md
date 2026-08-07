@@ -58,7 +58,7 @@ flowchart LR
     App -->|Consults| AI[ AI Assistant]
     
     %% Admin Journey
-    Admin([👑 Admin]) -->|Manages| Dash[ Admin Dashboard]
+    Admin([ Admin]) -->|Manages| Dash[ Admin Dashboard]
     Dash -->|Approves| Contrib
     Dash -->|Monitors| Analytics[ Analytics & Reports]
     

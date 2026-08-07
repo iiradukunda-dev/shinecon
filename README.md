@@ -54,7 +54,7 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 flowchart LR
     %% User Journey
     Member([ Member]) -->|Accesses| App[ Member App]
-    App -->|Makes| Contrib[💸 Contributions]
+    App -->|Makes| Contrib[ Contributions]
     App -->|Consults| AI[✨ AI Assistant]
     
     %% Admin Journey

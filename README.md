@@ -48,40 +48,61 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 
 ---
 
-## Features
+## System Architecture & Features
 
-### Member PWA
-- Premium dashboard with contribution tracking
-- Dynamic contribution types with MTN MoMo payment flow
-- Campaign browsing and donations
-- QR-based attendance with GPS verification
-- AI Assistant with natural language queries
-- Profile management with theme/language settings
-
-### Admin Dashboard
-- Executive command center with KPI cards
-- Complete member management (approve/reject/suspend)
-- Contribution approval workflow with fraud detection
-- Campaign management with progress analytics
-- Enterprise analytics with charts and trends
-- Report generation (Excel, CSV, PDF)
-- System settings and configuration
-
-### Multi-Language Support
-- English
-- Français
-- Kiswahili
-- Kinyarwanda
-
----
-
-## Recent Improvements
-- **Lightning Fast AI Assistant:** Integrated Gemini AI using the lightweight `gemini-3.5-flash-lite` model for instantaneous, context-aware answers to member questions.
-- **Admin Tabbed Interface:** Reorganized system settings into intuitive tabs (Account, System, Integrations, Advanced).
-- **Dynamic Application State:** Changes to settings (e.g. Ministry Name, Currency) apply instantly across the application via context syncing without needing a page refresh.
-- **Real-Time Localization:** Multilingual implementation supporting dynamic translations across English, Français, Kiswahili, and Kinyarwanda without a reload.
-- **Mobile Touch Enhancements:** Upgraded mobile responsiveness by migrating from `onClick` handlers to `next/link` for superior tap targets on Dashboard and KPI cards.
-- **Liquid Glass Interactivity:** Enhanced internal buttons and cards with a dynamic shake-on-click effect and refined hover states that enhance internal shadows.
+```mermaid
+flowchart TD
+    %% Users
+    Admin(("👑 Admin"))
+    Member(("👤 Member"))
+    
+    %% Platforms
+    subgraph PWA ["📱 Member PWA"]
+        direction TB
+        M_Dash["Dashboard"]
+        M_Cont["Contributions & MoMo"]
+        M_Camp["Campaigns"]
+        M_Att["QR Attendance"]
+        M_AI["Gemini AI Assistant"]
+    end
+    
+    subgraph AdminDB ["💻 Admin Dashboard"]
+        direction TB
+        A_Dash["KPI & Analytics"]
+        A_Mem["Member Management"]
+        A_App["Approvals & Fraud"]
+        A_Rep["Custom Reports"]
+        A_Set["System Settings"]
+    end
+    
+    %% Backend
+    subgraph Core ["⚙️ Core Backend (Next.js & Prisma)"]
+        Auth["Authentication & Email"]
+        i18n["Multi-Language Engine"]
+        Context["Global State Management"]
+    end
+    
+    %% External
+    DB[("🐘 PostgreSQL DB")]
+    Gemini["✨ Gemini AI API"]
+    MoMo["💸 MTN MoMo API"]
+    
+    %% Connections
+    Member --> PWA
+    Admin --> AdminDB
+    
+    PWA --> Core
+    AdminDB --> Core
+    
+    Core --> DB
+    M_AI -.-> Gemini
+    M_Cont -.-> MoMo
+    
+    classDef platform fill:#0a0a0e,stroke:#d4a843,stroke-width:2px,color:#fff;
+    classDef external fill:#141420,stroke:#5c7cfa,stroke-width:2px,color:#fff;
+    class PWA,AdminDB platform;
+    class DB,Gemini,MoMo external;
+```
 
 ---
 

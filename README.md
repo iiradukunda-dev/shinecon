@@ -51,57 +51,20 @@ SM Connect uses a custom **Liquid Glass Design System** featuring:
 ## System Architecture & Features
 
 ```mermaid
-flowchart TD
-    %% Users
-    Admin(("👑 Admin"))
-    Member(("👤 Member"))
+flowchart LR
+    %% User Journey
+    Member([👤 Member]) -->|Accesses| App[📱 Member App]
+    App -->|Makes| Contrib[💸 Contributions]
+    App -->|Consults| AI[✨ AI Assistant]
     
-    %% Platforms
-    subgraph PWA ["📱 Member PWA"]
-        direction TB
-        M_Dash["Dashboard"]
-        M_Cont["Contributions & MoMo"]
-        M_Camp["Campaigns"]
-        M_Att["QR Attendance"]
-        M_AI["Gemini AI Assistant"]
-    end
+    %% Admin Journey
+    Admin([👑 Admin]) -->|Manages| Dash[💻 Admin Dashboard]
+    Dash -->|Approves| Contrib
+    Dash -->|Monitors| Analytics[📊 Analytics & Reports]
     
-    subgraph AdminDB ["💻 Admin Dashboard"]
-        direction TB
-        A_Dash["KPI & Analytics"]
-        A_Mem["Member Management"]
-        A_App["Approvals & Fraud"]
-        A_Rep["Custom Reports"]
-        A_Set["System Settings"]
-    end
-    
-    %% Backend
-    subgraph Core ["⚙️ Core Backend (Next.js & Prisma)"]
-        Auth["Authentication & Email"]
-        i18n["Multi-Language Engine"]
-        Context["Global State Management"]
-    end
-    
-    %% External
-    DB[("🐘 PostgreSQL DB")]
-    Gemini["✨ Gemini AI API"]
-    MoMo["💸 MTN MoMo API"]
-    
-    %% Connections
-    Member --> PWA
-    Admin --> AdminDB
-    
-    PWA --> Core
-    AdminDB --> Core
-    
-    Core --> DB
-    M_AI -.-> Gemini
-    M_Cont -.-> MoMo
-    
-    classDef platform fill:#0a0a0e,stroke:#d4a843,stroke-width:2px,color:#fff;
-    classDef external fill:#141420,stroke:#5c7cfa,stroke-width:2px,color:#fff;
-    class PWA,AdminDB platform;
-    class DB,Gemini,MoMo external;
+    %% Styling
+    style Member fill:#0a0a0e,stroke:#d4a843,stroke-width:2px,color:#fff
+    style Admin fill:#0a0a0e,stroke:#d4a843,stroke-width:2px,color:#fff
 ```
 
 ---

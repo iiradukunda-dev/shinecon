@@ -109,7 +109,12 @@ export default function AdminLayout({ children }) {
         >
           <div
             className="avatar-circle"
+            onClick={() => {
+              router.push('/admin/settings');
+              setSidebarOpen(false);
+            }}
             style={{
+              cursor: 'pointer',
               width: 40,
               height: 40,
               fontSize: 18,

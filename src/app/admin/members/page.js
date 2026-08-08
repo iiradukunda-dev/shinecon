@@ -112,10 +112,10 @@ export default function AdminMembersPage() {
             <tr>
               <th>Member</th>
               <th>Contact</th>
-              <th>Country</th>
-              <th>Type</th>
+              <th className="hide-on-mobile">Country</th>
+              <th className="hide-on-mobile">Type</th>
               <th>Status</th>
-              <th>Joined</th>
+              <th className="hide-on-mobile">Joined</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -155,8 +155,8 @@ export default function AdminMembersPage() {
                     {m.phone}
                   </p>
                 </td>
-                <td style={{ fontSize: 'var(--text-sm)' }}>{m.country}</td>
-                <td>
+                <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)' }}>{m.country}</td>
+                <td className="hide-on-mobile">
                   <span className={`badge ${m.type === 'local' ? 'badge-gold' : 'badge-blue'}`}>
                     {m.type}
                   </span>
@@ -168,7 +168,7 @@ export default function AdminMembersPage() {
                     {m.status}
                   </span>
                 </td>
-                <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
                   {formatDate(m.joinedDate)}
                 </td>
                 <td>

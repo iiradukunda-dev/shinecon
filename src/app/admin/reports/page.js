@@ -503,7 +503,7 @@ export default function AdminReportsPage() {
                   <thead>
                     <tr>
                       {previewData.headers.map((h, i) => (
-                        <th key={i}>{h}</th>
+                        <th key={i} className={i > 2 ? 'hide-on-mobile' : ''}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -517,7 +517,7 @@ export default function AdminReportsPage() {
                       .map((row, i) => (
                         <tr key={i}>
                           {row.map((cell, j) => (
-                            <td key={j}>
+                            <td key={j} className={j > 2 ? 'hide-on-mobile' : ''}>
                               {typeof cell === 'number' && j >= 4
                                 ? formatCurrency(cell, 'RWF')
                                 : String(cell)}

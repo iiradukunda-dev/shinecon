@@ -106,9 +106,9 @@ export default function AdminAttendancePage() {
           <thead>
             <tr>
               <th>Event</th>
-              <th>Date</th>
+              <th className="hide-on-mobile">Date</th>
               <th>Attendees</th>
-              <th>Capacity</th>
+              <th className="hide-on-mobile">Capacity</th>
               <th>Rate</th>
               <th>Actions</th>
             </tr>
@@ -119,13 +119,13 @@ export default function AdminAttendancePage() {
               return (
                 <tr key={att.id}>
                   <td style={{ fontWeight: 500, fontSize: 'var(--text-sm)' }}>{att.event}</td>
-                  <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                  <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
                     {formatDate(att.date)}
                   </td>
                   <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
                     {att.total}
                   </td>
-                  <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                  <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
                     {att.capacity}
                   </td>
                   <td>

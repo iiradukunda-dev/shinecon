@@ -151,10 +151,10 @@ export default function AdminContributionsPage() {
               <thead>
                 <tr>
                   <th>Member</th>
-                  <th>Type</th>
+                  <th className="hide-on-mobile">Type</th>
                   <th>Amount</th>
-                  <th>Reference</th>
-                  <th>Date</th>
+                  <th className="hide-on-mobile">Reference</th>
+                  <th className="hide-on-mobile">Date</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -163,13 +163,13 @@ export default function AdminContributionsPage() {
                 {filtered.map((c) => (
                   <tr key={c.id}>
                     <td style={{ fontWeight: 500, fontSize: 'var(--text-sm)' }}>{c.memberName}</td>
-                    <td style={{ fontSize: 'var(--text-sm)' }}>{c.type}</td>
+                    <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)' }}>{c.type}</td>
                     <td>
                       <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
                         {formatCurrency(c.amount, c.currency)}
                       </span>
                     </td>
-                    <td>
+                    <td className="hide-on-mobile">
                       <code
                         style={{
                           padding: '2px 8px',
@@ -181,7 +181,7 @@ export default function AdminContributionsPage() {
                         {c.reference}
                       </code>
                     </td>
-                    <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                    <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
                       {formatDate(c.date)}
                     </td>
                     <td>

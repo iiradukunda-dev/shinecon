@@ -139,9 +139,9 @@ export default function AdminEventsPage() {
             <tr>
               <th>Event</th>
               <th>Date</th>
-              <th>Time</th>
+              <th className="hide-on-mobile">Time</th>
               <th>Location</th>
-              <th>Category</th>
+              <th className="hide-on-mobile">Category</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -150,7 +150,7 @@ export default function AdminEventsPage() {
               <tr key={e.id}>
                 <td style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>{e.title}</td>
                 <td style={{ fontSize: 'var(--text-sm)' }}>{formatDate(e.date)}</td>
-                <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
+                <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
                   {e.time}
                 </td>
                 <td style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>
@@ -167,7 +167,7 @@ export default function AdminEventsPage() {
                     ''
                   )}
                 </td>
-                <td>
+                <td className="hide-on-mobile">
                   <span className="badge badge-gold">{e.category}</span>
                 </td>
                 <td>

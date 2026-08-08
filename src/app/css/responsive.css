@@ -49,6 +49,9 @@
     margin: 0 calc(-1 * var(--space-lg));
     border-radius: 0;
   }
+  .hide-on-mobile {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {

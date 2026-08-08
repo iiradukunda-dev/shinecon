@@ -19,6 +19,11 @@ export const ADMIN_AI_SUGGESTIONS = [
   'Generate ministry performance report',
 ];
 
+/**
+ * Calculates monthly contribution data for the past 6 months.
+ * @param {Array} contributions - Array of contribution objects.
+ * @returns {Object} Chart data containing labels and datasets for local/diaspora.
+ */
 export function getMonthlyContributionData(contributions = []) {
   const months = [
     'Jan',
@@ -65,6 +70,11 @@ export function getMonthlyContributionData(contributions = []) {
   return { labels, local, diaspora };
 }
 
+/**
+ * Calculates attendance trends for the past 6 months.
+ * @param {Array} attendance - Array of attendance records.
+ * @returns {Object} Chart data containing labels and attendance counts.
+ */
 export function getAttendanceTrend(attendance = []) {
   const months = [
     'Jan',
@@ -101,6 +111,11 @@ export function getAttendanceTrend(attendance = []) {
   return { labels, data };
 }
 
+/**
+ * Calculates member growth over the past 6 months.
+ * @param {Array} members - Array of member objects.
+ * @returns {Object} Chart data containing labels and cumulative member counts.
+ */
 export function getMemberGrowth(members = []) {
   const months = [
     'Jan',
@@ -139,6 +154,12 @@ export function getMemberGrowth(members = []) {
   return { labels, data };
 }
 
+/**
+ * Calculates contribution breakdown by category.
+ * @param {Array} contributions - Array of contribution objects.
+ * @param {Array} contributionTypes - Array of contribution type definitions.
+ * @returns {Object} Doughnut chart data with labels, data percentages, and colors.
+ */
 export function getContributionByCategory(contributions = [], contributionTypes = []) {
   const categoryTotals = {};
   let totalAmount = 0;
@@ -173,6 +194,10 @@ export function getContributionByCategory(contributions = [], contributionTypes 
   return { labels, data, colors };
 }
 
+/**
+ * Returns a time-appropriate greeting message.
+ * @returns {string} The greeting message (e.g., "Good Morning").
+ */
 export function getGreeting() {
   const hour = new Date().getHours();
   if (hour < 12) return 'Good Morning';
@@ -180,12 +205,23 @@ export function getGreeting() {
   return 'Good Evening';
 }
 
+/**
+ * Formats an amount to a currency string.
+ * @param {number} amount - The amount to format.
+ * @param {string} currency - The currency code (default: 'RWF').
+ * @returns {string} The formatted currency string.
+ */
 export function formatCurrency(amount, currency = 'RWF') {
   if (currency === 'USD') return `$${amount.toLocaleString()}`;
   if (currency === 'EUR') return `€${amount.toLocaleString()}`;
   return `${amount.toLocaleString()} ${currency}`;
 }
 
+/**
+ * Formats a date string into a readable format (e.g., "Jan 1, 2023").
+ * @param {string|Date} dateStr - The date to format.
+ * @returns {string} The formatted date string.
+ */
 export function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -194,6 +230,11 @@ export function formatDate(dateStr) {
   });
 }
 
+/**
+ * Extracts up to two initials from a name string.
+ * @param {string} name - The full name.
+ * @returns {string} The capitalized initials.
+ */
 export function getInitials(name) {
   return name
     .split(' ')

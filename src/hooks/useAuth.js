@@ -1,14 +1,23 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 export function useAuth(addToast) {
-  const [user, setUser] = useState({
-    id: '1',
-    name: 'Admin User',
-    email: 'admin@shine.com',
-    role: 'admin',
-    avatar: 'https://i.pravatar.cc/150?u=admin',
-  });
+  const [user, setUser] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('smconnect_user');
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (e) {
+          console.error('Failed to parse saved user state', e);
+        }
+      }
+    }
+    setIsInitialized(true);
+  }, []);
 
   const [churchInfo, setChurchInfo] = useState({
     name: 'Shine Community Church',
@@ -20,13 +29,17 @@ export function useAuth(addToast) {
     (email, password) => {
       // Mock login
       if (email && password) {
-        setUser({
+        const newUser = {
           id: '1',
           name: 'Admin User',
           email,
           role: 'admin',
           avatar: 'https://i.pravatar.cc/150?u=admin',
-        });
+        };
+        setUser(newUser);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('smconnect_user', JSON.stringify(newUser));
+        }
         addToast('Logged in successfully', 'success');
         return true;
       }
@@ -37,6 +50,9 @@ export function useAuth(addToast) {
 
   const logout = useCallback(() => {
     setUser(null);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('smconnect_user');
+    }
     addToast('Logged out successfully', 'info');
   }, [addToast]);
 
@@ -50,6 +66,7 @@ export function useAuth(addToast) {
 
   return {
     user,
+    isInitialized,
     setUser,
     login,
     logout,

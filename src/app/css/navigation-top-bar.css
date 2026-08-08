@@ -52,7 +52,7 @@
   gap: var(--space-sm);
   padding: 8px 16px;
   background: var(--glass-bg);
-  border: 1px solid var(--border-light);
+  border: none;
   border-radius: var(--radius-full);
   color: var(--text-tertiary);
   font-size: var(--text-sm);
@@ -60,7 +60,6 @@
   transition: all var(--duration-fast);
 }
 .topbar-search:focus-within {
-  border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.1);
 }
 .topbar-search input {

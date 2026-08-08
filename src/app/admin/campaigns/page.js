@@ -93,16 +93,16 @@ export default function AdminCampaignsPage() {
                     </span>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: 4 }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => openEdit(campaign)}>
-                    <OnlineLogoIcon name="pencil" size={16} />
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button className="btn-action-glass edit" onClick={() => openEdit(campaign)} title="Edit">
+                    <OnlineLogoIcon name="pencil" size={14} />
                   </button>
                   <button
-                    className="btn btn-ghost btn-sm"
+                    className="btn-action-glass reject"
                     onClick={() => setDeleteTarget(campaign)}
-                    style={{ color: 'var(--soft-red)' }}
+                    title="Delete"
                   >
-                    <OnlineLogoIcon name="trash-2" size={16} />
+                    <OnlineLogoIcon name="trash-2" size={14} />
                   </button>
                 </div>
               </div>

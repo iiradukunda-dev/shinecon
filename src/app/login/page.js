@@ -82,7 +82,7 @@ export default function LoginPage() {
           color: rgba(212, 168, 67, 0.04);
           z-index: -1;
           pointer-events: none;
-          font-family: serif;
+          font-family: var(--font-lato, 'Lato', sans-serif);
         }
         .auth-logo-custom {
           width: 48px;

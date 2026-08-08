@@ -1,0 +1,90 @@
+/* ── Navigation — Top Bar ──────────────────────────────────── */
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  height: var(--topbar-height);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+  z-index: var(--z-sticky);
+  transition:
+    left var(--duration-normal) var(--ease-out),
+    background 0.3s ease,
+    border-bottom 0.3s ease,
+    box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+.topbar.scrolled {
+  background: rgba(12, 12, 18, 0.65);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-bottom: none;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.topbar-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.topbar-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  min-width: 220px;
+  transition: all var(--duration-fast);
+}
+.topbar-search:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.1);
+}
+.topbar-search input {
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--text-primary);
+  width: 100%;
+}
+
+.topbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+.topbar-avatar:hover {
+  transform: scale(1.08);
+}

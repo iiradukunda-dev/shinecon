@@ -1,0 +1,74 @@
+/* ── Tabs / Pills ───────────────────────────────────────────── */
+.tab-container {
+  display: flex;
+  gap: 4px;
+  background: var(--glass-bg);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  width: fit-content;
+  border: 1px solid var(--border-light);
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-spring);
+  text-transform: capitalize;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  color: var(--text-primary);
+  font-weight: 600;
+
+  /* Glassmorphism Base */
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  /* Asymmetric Border */
+  border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+}
+
+.tab-btn:hover:not(.active) {
+  --glow-color: rgba(212, 168, 67, 0.5);
+  border-left-color: rgba(212, 168, 67, 0.5);
+  border-bottom-color: transparent;
+  box-shadow:
+    -4px 6px 20px -2px var(--glow-color),
+    inset -2px -2px 8px rgba(212, 168, 67, 0.2);
+}
+
+.tab-btn.active {
+  --glow-color: rgba(212, 168, 67, 0.7);
+  border-left-color: rgba(212, 168, 67, 0.7);
+  border-bottom-color: transparent;
+  animation: pulseShadow 8s infinite ease-in-out;
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow:
+      -8px 8px 24px -6px rgba(212, 168, 67, 0.6),
+      inset -2px -2px 8px rgba(212, 168, 67, 0.3);
+  }
+  50% {
+    box-shadow:
+      -12px 12px 36px -4px rgba(212, 168, 67, 0.9),
+      inset -2px -2px 8px rgba(212, 168, 67, 0.5);
+  }
+  100% {
+    box-shadow:
+      -8px 8px 24px -6px rgba(212, 168, 67, 0.6),
+      inset -2px -2px 8px rgba(212, 168, 67, 0.3);
+  }
+}

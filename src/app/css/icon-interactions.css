@@ -1,0 +1,13 @@
+/* ── Icon Interactions ─────────────────────────────────────── */
+button svg,
+a svg,
+.glass-card svg,
+.interactive-icon {
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+button:hover svg,
+a:hover svg,
+.glass-card:hover svg,
+.interactive-icon:hover {
+  transform: scale(1.15);
+}

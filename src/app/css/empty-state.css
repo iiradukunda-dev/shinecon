@@ -1,0 +1,22 @@
+/* ── Empty State ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+}
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: var(--space-lg);
+  opacity: 0.3;
+}
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+.empty-state-description {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  max-width: 300px;
+  margin: 0 auto;
+}

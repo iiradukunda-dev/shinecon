@@ -1,0 +1,24 @@
+/* ── Print ─────────────────────────────────────────────────── */
+@media print {
+  .sidebar,
+  .topbar,
+  .bottom-nav,
+  .fab-ai,
+  .demo-banner {
+    display: none !important;
+  }
+  .page-admin,
+  .page-member {
+    padding-top: 0 !important;
+  }
+  body {
+    background: white;
+  }
+  .glass,
+  .glass-heavy,
+  .glass-card {
+    backdrop-filter: none;
+    background: white;
+    border: 1px solid #ddd;
+  }
+}

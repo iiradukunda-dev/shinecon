@@ -1,0 +1,110 @@
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* — Primary Palette — */
+  --gold: #d4a843;
+  --gold-light: #e8c876;
+  --gold-dark: #b08a2e;
+  --champagne: #f5e6c8;
+  --champagne-light: #fbf3e4;
+  --black: #0a0a0e;
+  --black-soft: #141420;
+  --white: #ffffff;
+  --glass-white: rgba(255, 255, 255, 0.85);
+
+  /* — Secondary Palette — */
+  --royal-blue: #3b5bdb;
+  --royal-blue-light: #5c7cfa;
+  --emerald: #2b8a3e;
+  --emerald-light: #51cf66;
+  --amber: #f59f00;
+  --amber-light: #ffd43b;
+  --soft-red: #e03131;
+  --soft-red-light: #ff6b6b;
+
+  /* — Neutral Scale — */
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e8e8e8;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+
+  /* — Semantic Colors (Default Dark Obsidian Liquid Glass) — */
+  --bg-primary: #0a0a0e;
+  --bg-secondary: rgba(15, 15, 22, 0.75);
+  --bg-tertiary: rgba(22, 22, 32, 0.85);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-inverse: #0a0a0e;
+  --border-light: rgba(212, 168, 67, 0.25);
+  --border-medium: rgba(212, 168, 67, 0.35);
+
+  /* — Glass Materials — */
+  --glass-bg: rgba(15, 15, 22, 0.75);
+  --glass-bg-hover: rgba(15, 15, 22, 0.4);
+  --glass-bg-heavy: rgba(12, 12, 18, 0.88);
+  --glass-border: rgba(212, 168, 67, 0.35);
+  --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 168, 67, 0.05);
+  --glass-shadow-lg: 0 32px 64px rgba(0, 0, 0, 0.85), inset 0 0 24px rgba(212, 168, 67, 0.08);
+  --glass-shadow-inset: inset 0 0 32px rgba(255, 255, 255, 0.05);
+  --glass-blur: 24px;
+  --glass-blur-heavy: 40px;
+
+  /* — Spacing (Compacted for less scrolling) — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+
+  /* — Typography (Standard Sizing) — */
+  --font-display: var(--font-outfit, 'Outfit', sans-serif);
+  --font-body: var(--font-inter, 'Inter', sans-serif);
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 2.75rem; /* 44px */
+  --text-6xl: 3.25rem; /* 52px */
+
+  /* — Radius — */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* — Transitions — */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* — Z-index — */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+
+  /* — Sidebar — */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 72px;
+  --topbar-height: 64px;
+  --bottom-nav-height: 72px;
+}

@@ -1,0 +1,41 @@
+/* ── Event Card ────────────────────────────────────────────── */
+.event-card {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+.event-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--glass-shadow);
+}
+.event-date-block {
+  width: 52px;
+  min-height: 52px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.1), rgba(212, 168, 67, 0.05));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.event-date-day {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  line-height: 1;
+  color: var(--gold-dark);
+}
+[data-theme='dark'] .event-date-day {
+  color: var(--gold-light);
+}
+.event-date-month {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}

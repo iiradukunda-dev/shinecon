@@ -1,0 +1,56 @@
+/* ── Glass Materials ───────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: none;
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-heavy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(var(--glass-blur-heavy));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy));
+  border: none;
+  box-shadow: var(--glass-shadow-lg);
+}
+
+.glass-card,
+.glass-card-static {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    box-shadow var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out);
+}
+
+.glass-card:hover,
+.glass-card-static:hover {
+  transform: translateY(-2px);
+  background: var(--glass-bg-hover);
+  border-color: transparent;
+  box-shadow: var(--glass-shadow-inset), var(--glass-shadow-lg);
+}
+
+.glass-card-static {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-gold {
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.15), rgba(245, 230, 200, 0.1));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: none;
+  box-shadow: 0 8px 32px rgba(212, 168, 67, 0.1);
+}

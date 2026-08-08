@@ -1,0 +1,27 @@
+/* ── Base Styles ───────────────────────────────────────────── */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background var(--duration-slow) var(--ease-out),
+    color var(--duration-slow) var(--ease-out);
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--white);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+}
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: var(--gray-700);
+}

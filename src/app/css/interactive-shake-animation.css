@@ -1,0 +1,24 @@
+/* ── Interactive Shake Animation ───────────────────────────── */
+@keyframes shakeOnActive {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(4px) rotate(1deg);
+  }
+  75% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.btn:active,
+.glass-card:active,
+.glass-card-static:active {
+  animation: shakeOnActive 0.3s ease-in-out;
+}

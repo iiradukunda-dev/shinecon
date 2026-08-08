@@ -1,0 +1,21 @@
+/* ── Dark Mode ─────────────────────────────────────────────── */
+[data-theme='dark'] {
+  --bg-primary: #0d0d14;
+  --bg-secondary: #141420;
+  --bg-tertiary: #1a1a2e;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #737373;
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  /* — Dark Mode Glass — */
+  --glass-bg: rgba(26, 26, 46, 0.65);
+  --glass-bg-hover: rgba(26, 26, 46, 0.3);
+  --glass-bg-heavy: rgba(26, 26, 46, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.3);
+  --glass-shadow-inset: inset 0 0 32px rgba(255, 255, 255, 0.03);
+  --champagne: #3d3422;
+  --champagne-light: #4a3f2a;
+}

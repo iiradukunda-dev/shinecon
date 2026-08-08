@@ -157,7 +157,7 @@ export default function AdminDashboard() {
               >
                 {kpi.value}
               </div>
-              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.7)', fontWeight: 500 }}>
+              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.4)', fontWeight: 500 }}>
                 {kpi.label}
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function AdminDashboard() {
                       minHeight: 8,
                     }}
                   />
-                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>{label}</span>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{label}</span>
                 </div>
               );
             })}
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
               }}
             >
               {MEMBER_GROWTH_DATA.labels.map((l) => (
-                <span key={l} style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>
+                <span key={l} style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>
                   {l}
                 </span>
               ))}
@@ -344,12 +344,12 @@ export default function AdminDashboard() {
               >
                 <div className="flex-between" style={{ marginBottom: 12 }}>
                   <span className="badge badge-gold">{event.category}</span>
-                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{event.time}</span>
+                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>{event.time}</span>
                 </div>
                 <p style={{ fontWeight: 700, fontSize: 16, color: '#FFFFFF', marginBottom: 6 }}>
                   {event.title}
                 </p>
-                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 14 }}>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 14 }}>
                   <OnlineLogoIcon name="calendar" size={14} color="var(--gold)" />{' '}
                   {d.toLocaleDateString('en', { month: 'short', day: 'numeric' })} •{' '}
                   <OnlineLogoIcon name="map-pin" size={14} color="var(--gold)" />

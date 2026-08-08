@@ -134,7 +134,7 @@ export default function MemberDashboard() {
         >
           Welcome, {user?.name?.split(' ')[0] || 'Jean-Pierre'}
         </h1>
-        <p style={{ fontStyle: 'italic', color: 'rgba(255, 255, 255, 0.75)', fontSize: 16 }}>
+        <p style={{ fontStyle: 'italic', color: 'rgba(255, 255, 255, 0.4)', fontSize: 16 }}>
           &ldquo;Arise, shine, for your light has come.&rdquo; &mdash; Isaiah 60:1
         </p>
       </div>
@@ -264,7 +264,7 @@ export default function MemberDashboard() {
 
                   <div
                     className="flex-between"
-                    style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginBottom: 20 }}
+                    style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 20 }}
                   >
                     <span>
                       Raised:{' '}
@@ -349,7 +349,7 @@ export default function MemberDashboard() {
                     alignItems: 'center',
                     gap: 6,
                     fontSize: 13,
-                    color: 'rgba(255,255,255,0.7)',
+                    color: 'rgba(255,255,255,0.4)',
                     marginBottom: 16,
                   }}
                 >
@@ -430,7 +430,7 @@ export default function MemberDashboard() {
                 <p
                   style={{
                     fontSize: 13,
-                    color: 'rgba(255,255,255,0.75)',
+                    color: 'rgba(255,255,255,0.4)',
                     lineHeight: 1.5,
                     marginBottom: 16,
                   }}
@@ -444,7 +444,7 @@ export default function MemberDashboard() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     fontSize: 12,
-                    color: 'rgba(255,255,255,0.5)',
+                    color: 'rgba(255,255,255,0.3)',
                     paddingTop: 12,
                   }}
                 >

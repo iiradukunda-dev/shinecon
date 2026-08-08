@@ -211,13 +211,7 @@ export default function AdminLayout({ children }) {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <button className="btn btn-icon" onClick={toggleTheme} title="Toggle theme">
-            {theme === 'dark' ? (
-              <OnlineLogoIcon name="sun" size={20} />
-            ) : (
-              <OnlineLogoIcon name="moon" size={20} />
-            )}
-          </button>
+
           <div style={{ position: 'relative' }}>
             <button
               className="btn btn-icon"

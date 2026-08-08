@@ -176,18 +176,20 @@ export default function AdminMembersPage() {
                     {m.status === 'pending' && (
                       <>
                         <button
-                          className="btn btn-gold btn-sm"
+                          className="btn btn-ghost btn-sm"
                           onClick={() => approveMember(m.id)}
                           title="Approve"
+                          style={{ color: 'var(--emerald)' }}
                         >
-                          ✓
+                          <OnlineLogoIcon name="check" size={16} />
                         </button>
                         <button
-                          className="btn btn-danger btn-sm"
+                          className="btn btn-ghost btn-sm"
                           onClick={() => rejectMember(m.id)}
                           title="Reject"
+                          style={{ color: 'var(--soft-red)' }}
                         >
-                          ✗
+                          <OnlineLogoIcon name="x" size={16} />
                         </button>
                       </>
                     )}
@@ -196,7 +198,7 @@ export default function AdminMembersPage() {
                       onClick={() => openEdit(m)}
                       title="Edit"
                     >
-                      <OnlineLogoIcon name="edit" size={16} />
+                      <OnlineLogoIcon name="pencil" size={16} />
                     </button>
                     <button
                       className="btn btn-ghost btn-sm"
@@ -204,7 +206,7 @@ export default function AdminMembersPage() {
                       title="Delete"
                       style={{ color: 'var(--soft-red)' }}
                     >
-                      <OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" />
+                      <OnlineLogoIcon name="trash-2" size={16} />
                     </button>
                   </div>
                 </td>

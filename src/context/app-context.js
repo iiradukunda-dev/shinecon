@@ -50,12 +50,7 @@ export function AppProvider({ children }) {
         if (!silent) console.error('Failed to load database entries:', error);
       }
     },
-    [
-      ui,
-      membersData,
-      financeData,
-      commsData,
-    ],
+    [] // Removing unstable object dependencies to prevent infinite loops
   );
 
   useEffect(() => {
@@ -64,7 +59,8 @@ export function AppProvider({ children }) {
       bootstrap(true);
     }, 60000); // Poll every 60 seconds
     return () => clearInterval(interval);
-  }, [bootstrap]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── Computed Stats ──────────────────────────────────
   const stats = useMemo(

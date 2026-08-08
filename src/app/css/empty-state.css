@@ -9,7 +9,7 @@
   opacity: 0.3;
 }
 .empty-state-title {
-  font-family: var(--font-display);
+  font-family: inherit;
   font-size: var(--text-xl);
   font-weight: 600;
   margin-bottom: var(--space-sm);

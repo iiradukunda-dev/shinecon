@@ -35,7 +35,7 @@ import GlobalToasts from '@/components/GlobalToasts';
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${lato.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${lato.className} ${lato.variable}`}>
       <body>
         <AppProvider>
           {children}

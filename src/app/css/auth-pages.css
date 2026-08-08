@@ -56,7 +56,7 @@
 
 .auth-title {
   text-align: center;
-  font-family: var(--font-display);
+  font-family: inherit;
   font-size: var(--text-xl);
   font-weight: 700;
   margin-bottom: 4px;

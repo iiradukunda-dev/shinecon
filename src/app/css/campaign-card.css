@@ -23,7 +23,7 @@
   padding: var(--space-lg);
 }
 .campaign-card-title {
-  font-family: var(--font-display);
+  font-family: inherit;
   font-weight: 700;
   margin-bottom: var(--space-sm);
 }

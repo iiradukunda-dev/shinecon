@@ -24,7 +24,7 @@
   flex-shrink: 0;
 }
 .event-date-day {
-  font-family: var(--font-display);
+  font-family: inherit;
   font-weight: 800;
   font-size: var(--text-xl);
   line-height: 1;

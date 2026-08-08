@@ -12,7 +12,7 @@
 .tab-btn {
   padding: 8px 16px;
   border-radius: var(--radius-full);
-  font-family: var(--font-display);
+  font-family: inherit;
   font-weight: 500;
   font-size: var(--text-sm);
   color: var(--text-secondary);

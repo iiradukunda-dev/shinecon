@@ -30,7 +30,7 @@
   margin-bottom: 4px;
 }
 .welcome-name {
-  font-family: var(--font-display);
+  font-family: inherit;
   font-size: var(--text-2xl);
   font-weight: 700;
   margin-bottom: var(--space-sm);

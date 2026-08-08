@@ -78,7 +78,6 @@ export default function MemberDashboard() {
           margin-bottom: 16px;
         }
         .section-title {
-          font-family: var(--font-lato, 'Lato', sans-serif);
           font-size: 22px;
           font-weight: 700;
           color: #FFFFFF;

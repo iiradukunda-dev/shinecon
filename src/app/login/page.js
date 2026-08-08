@@ -82,7 +82,6 @@ export default function LoginPage() {
           color: rgba(212, 168, 67, 0.04);
           z-index: -1;
           pointer-events: none;
-          font-family: var(--font-lato, 'Lato', sans-serif);
         }
         .auth-logo-custom {
           width: 48px;
@@ -95,7 +94,6 @@ export default function LoginPage() {
         }
         .auth-title-custom {
           text-align: center;
-          font-family: var(--font-display);
           font-size: 20px;
           font-weight: 700;
           color: var(--gold);

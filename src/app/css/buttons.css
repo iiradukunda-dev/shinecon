@@ -6,7 +6,7 @@
   gap: var(--space-sm);
   padding: 10px 24px;
   border-radius: var(--radius-full);
-  font-family: var(--font-display);
+  font-family: inherit;
   font-weight: 500;
   font-size: var(--text-base);
   letter-spacing: 0.02em;

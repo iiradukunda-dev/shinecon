@@ -1,5 +1,5 @@
 import './globals.css';
-import { Inter, Outfit, Playfair_Display } from 'next/font/google';
+import { Inter, Outfit, Lato } from 'next/font/google';
 import { AppProvider } from '@/context/app-context';
 
 // Self-hosted via next/font — no runtime network request to Google
@@ -17,10 +17,10 @@ const outfit = Outfit({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
+const lato = Lato({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-playfair',
+  weight: ['400', '700', '900'],
+  variable: '--font-lato',
   display: 'swap',
 });
 
@@ -50,7 +50,7 @@ import GlobalToasts from '@/components/GlobalToasts';
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${playfair.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${lato.variable}`}>
       <body>
         <AppProvider>
           {children}

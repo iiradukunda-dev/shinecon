@@ -66,7 +66,7 @@
   --space-4xl: 64px;
 
   /* — Typography (Standard Sizing) — */
-  --font-display: var(--font-playfair, 'Playfair Display', serif);
+  --font-display: var(--font-lato, 'Lato', sans-serif);
   --font-body: var(--font-inter, 'Inter', sans-serif);
   --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */

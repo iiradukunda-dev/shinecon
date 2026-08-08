@@ -16,7 +16,6 @@ export async function GET() {
           select: {
             fullName: true,
             phone: true,
-            country: true,
             photoUrl: true,
             memberType: true,
             employment: true,
@@ -33,7 +32,6 @@ export async function GET() {
         name: u.profile?.fullName || '',
         email: u.email,
         phone: u.profile?.phone || '',
-        country: u.profile?.country || '',
         photo: u.profile?.photoUrl || null,
         type: u.profile?.memberType?.toLowerCase() || 'local',
         employment: u.profile?.employment?.toLowerCase() || 'employed',

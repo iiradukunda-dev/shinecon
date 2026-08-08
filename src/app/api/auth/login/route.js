@@ -44,7 +44,6 @@ export async function POST(request) {
         name: user.profile?.fullName || 'System Admin',
         email: user.email,
         phone: user.profile?.phone || '',
-        country: user.profile?.country || '',
         photo: user.profile?.photoUrl || null,
         type: user.profile?.memberType?.toLowerCase() || 'local',
         employment: user.profile?.employment?.toLowerCase() || 'employed',

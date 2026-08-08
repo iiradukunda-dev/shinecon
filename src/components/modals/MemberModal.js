@@ -108,31 +108,10 @@ export function MemberModal({
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
+                gridTemplateColumns: '1fr 1fr',
                 gap: 'var(--space-sm)',
               }}
             >
-              <div className="input-group">
-                <label className="input-label">Country</label>
-                <select
-                  className="select"
-                  value={editData.country}
-                  onChange={(e) => setEditData((p) => ({ ...p, country: e.target.value }))}
-                >
-                  {[
-                    'Rwanda',
-                    'Belgium',
-                    'Canada',
-                    'France',
-                    'Germany',
-                    'United Kingdom',
-                    'United States',
-                    'Other',
-                  ].map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
               <div className="input-group">
                 <label className="input-label">Type</label>
                 <select

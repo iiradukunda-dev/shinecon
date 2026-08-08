@@ -287,7 +287,7 @@ export default function ProfilePage() {
             </h3>
             {[
               { label: 'Phone', value: user?.phone || '+250 788 123 456' },
-              { label: 'Country', value: user?.country || 'Rwanda' },
+              { label: 'Email', value: user?.email },
               {
                 label: 'Status',
                 value: (

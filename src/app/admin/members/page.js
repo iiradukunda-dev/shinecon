@@ -9,7 +9,6 @@ const EMPTY_MEMBER = {
   name: '',
   email: '',
   phone: '',
-  country: 'Rwanda',
   type: 'local',
   employment: 'employed',
 };
@@ -112,7 +111,6 @@ export default function AdminMembersPage() {
             <tr>
               <th>Member</th>
               <th>Contact</th>
-              <th className="hide-on-mobile">Country</th>
               <th className="hide-on-mobile">Type</th>
               <th>Status</th>
               <th className="hide-on-mobile">Joined</th>
@@ -155,7 +153,6 @@ export default function AdminMembersPage() {
                     {m.phone}
                   </p>
                 </td>
-                <td className="hide-on-mobile" style={{ fontSize: 'var(--text-sm)' }}>{m.country}</td>
                 <td className="hide-on-mobile">
                   <span className={`badge ${m.type === 'local' ? 'badge-gold' : 'badge-blue'}`}>
                     {m.type}

@@ -12,7 +12,6 @@ export default function RegisterPage() {
     fullName: '',
     email: '',
     phone: '',
-    country: 'Rwanda',
     type: 'local',
     employment: 'employed',
     password: '',
@@ -189,9 +188,6 @@ export default function RegisterPage() {
               </div>
               <div
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '8px',
                   marginTop: '12px',
                 }}
               >
@@ -207,26 +203,6 @@ export default function RegisterPage() {
                     onChange={(e) => update('email', e.target.value)}
                     required
                   />
-                </div>
-                <div className="input-group">
-                  <label className="input-label" style={{ fontSize: '12px', marginBottom: 2 }}>
-                    Country
-                  </label>
-                  <select
-                    className="select"
-                    value={form.country}
-                    onChange={(e) => update('country', e.target.value)}
-                    style={{ padding: '8px 12px' }}
-                  >
-                    <option>Rwanda</option>
-                    <option>Belgium</option>
-                    <option>Canada</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                    <option>UK</option>
-                    <option>USA</option>
-                    <option>Other</option>
-                  </select>
                 </div>
               </div>
               <div

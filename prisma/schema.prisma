@@ -73,7 +73,6 @@ model MemberProfile {
   userId        String         @unique
   fullName      String
   phone         String
-  country       String
   photoUrl      String?
   memberType    MemberType     @default(LOCAL)
   employment    Employment     @default(EMPLOYED)
@@ -86,7 +85,6 @@ model MemberProfile {
 
   @@index([approvalStatus])
   @@index([memberType])
-  @@index([country])
 }
 
 enum MemberType {

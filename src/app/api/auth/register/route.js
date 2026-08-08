@@ -10,7 +10,7 @@ function hashPassword(password) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { fullName, phone, country, type, employment, password } = body;
+    const { fullName, phone, type, employment, password } = body;
     const email = body.email?.toLowerCase();
 
     if (!fullName || !email || !password || !phone) {
@@ -47,8 +47,7 @@ export async function POST(request) {
           create: {
             fullName,
             phone,
-            country,
-            memberType: type.toUpperCase(), // LOCAL or DIASPORA
+            memberType: type === 'diaspora' ? 'DIASPORA' : 'LOCAL',
             employment: employment.toUpperCase(), // EMPLOYED or STUDENT
             approvalStatus: 'PENDING', // Require admin approval
           },

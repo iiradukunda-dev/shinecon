@@ -37,7 +37,6 @@ export async function POST(request) {
           create: {
             fullName: data.name,
             phone: data.phone,
-            country: data.country,
             memberType: (data.type || 'local').toUpperCase(),
             employment: (data.employment || 'employed').toUpperCase(),
             approvalStatus: 'PENDING',
@@ -61,7 +60,6 @@ export async function POST(request) {
       name: user.profile.fullName,
       email: user.email,
       phone: user.profile.phone,
-      country: user.profile.country,
       type: user.profile.memberType.toLowerCase(),
       employment: user.profile.employment.toLowerCase(),
       status: user.profile.approvalStatus.toLowerCase(),
@@ -80,7 +78,6 @@ export async function PUT(request) {
     const updateData = {};
     if (data.name) updateData.fullName = data.name;
     if (data.phone) updateData.phone = data.phone;
-    if (data.country) updateData.country = data.country;
     if (data.type) updateData.memberType = data.type.toUpperCase();
     if (data.employment) updateData.employment = data.employment.toUpperCase();
     if (data.status) updateData.approvalStatus = data.status.toUpperCase();
@@ -96,7 +93,6 @@ export async function PUT(request) {
       name: profile.fullName,
       email: profile.user.email,
       phone: profile.phone,
-      country: profile.country,
       type: profile.memberType.toLowerCase(),
       employment: profile.employment.toLowerCase(),
       status: profile.approvalStatus.toLowerCase(),

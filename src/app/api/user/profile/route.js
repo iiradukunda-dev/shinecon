@@ -69,7 +69,6 @@ export async function POST(request) {
             userId: user.id,
             fullName: 'System Admin',
             phone: '',
-            country: '',
             photoUrl,
             memberType: 'LOCAL',
             employment: 'EMPLOYED',

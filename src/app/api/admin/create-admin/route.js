@@ -51,7 +51,6 @@ export async function POST(req) {
           create: {
             fullName: fullName,
             phone: 'N/A', // defaults
-            country: 'N/A', // defaults
             memberType: 'LOCAL',
             employment: 'EMPLOYED',
             approvalStatus: 'APPROVED',

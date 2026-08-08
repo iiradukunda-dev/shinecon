@@ -172,18 +172,18 @@ export default function AdminMembersPage() {
                   {formatDate(m.joinedDate)}
                 </td>
                 <td>
-                  <div style={{ display: 'flex', gap: 8 }}>
+                  <div style={{ display: 'flex', gap: 4 }}>
                     {m.status === 'pending' && (
                       <>
                         <button
-                          className="btn-action-glass approve"
+                          className="btn btn-gold btn-sm"
                           onClick={() => approveMember(m.id)}
                           title="Approve"
                         >
                           ✓
                         </button>
                         <button
-                          className="btn-action-glass reject"
+                          className="btn btn-danger btn-sm"
                           onClick={() => rejectMember(m.id)}
                           title="Reject"
                         >
@@ -192,18 +192,19 @@ export default function AdminMembersPage() {
                       </>
                     )}
                     <button
-                      className="btn-action-glass edit"
+                      className="btn btn-ghost btn-sm"
                       onClick={() => openEdit(m)}
                       title="Edit"
                     >
-                      <OnlineLogoIcon name="edit" size={14} />
+                      <OnlineLogoIcon name="edit" size={16} />
                     </button>
                     <button
-                      className="btn-action-glass reject"
+                      className="btn btn-ghost btn-sm"
                       onClick={() => openDelete(m)}
                       title="Delete"
+                      style={{ color: 'var(--soft-red)' }}
                     >
-                      <OnlineLogoIcon name="trash-2" size={14} />
+                      <OnlineLogoIcon name="trash-2" size={16} color="var(--soft-red)" />
                     </button>
                   </div>
                 </td>

@@ -11,8 +11,8 @@ const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   // Extract modular domain logic
-  const auth = useAuth();
   const ui = useUI();
+  const auth = useAuth(ui.addToast);
   const membersData = useMembers(ui.addToast);
   const financeData = useFinance(ui.addToast);
   const commsData = useCommunications(ui.addToast);

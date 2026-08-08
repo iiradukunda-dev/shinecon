@@ -10,7 +10,13 @@ export function useAuth(addToast) {
       const savedUser = localStorage.getItem('smconnect_user');
       if (savedUser) {
         try {
-          setUser(JSON.parse(savedUser));
+          const parsed = JSON.parse(savedUser);
+          if (parsed.id === '1' && parsed.name === 'Admin User') {
+            localStorage.removeItem('smconnect_user');
+            setUser(null);
+          } else {
+            setUser(parsed);
+          }
         } catch (e) {
           console.error('Failed to parse saved user state', e);
         }
@@ -26,24 +32,28 @@ export function useAuth(addToast) {
   });
 
   const login = useCallback(
-    (email, password) => {
-      // Mock login
-      if (email && password) {
-        const newUser = {
-          id: '1',
-          name: 'Admin User',
-          email,
-          role: 'admin',
-          avatar: 'https://i.pravatar.cc/150?u=admin',
-        };
-        setUser(newUser);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('smconnect_user', JSON.stringify(newUser));
+    async (email, password) => {
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          setUser(data.user);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('smconnect_user', JSON.stringify(data.user));
+          }
+          addToast('Logged in successfully', 'success');
+          return { success: true, role: data.role };
+        } else {
+          return { success: false, error: data.error };
         }
-        addToast('Logged in successfully', 'success');
-        return true;
+      } catch (err) {
+        return { success: false, error: 'Network error' };
       }
-      return false;
     },
     [addToast]
   );
@@ -55,6 +65,17 @@ export function useAuth(addToast) {
     }
     addToast('Logged out successfully', 'info');
   }, [addToast]);
+
+  const updateUser = useCallback((updates) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updatedUser = { ...prev, ...updates };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('smconnect_user', JSON.stringify(updatedUser));
+      }
+      return updatedUser;
+    });
+  }, []);
 
   const updateChurchInfo = useCallback(
     (info) => {
@@ -68,6 +89,7 @@ export function useAuth(addToast) {
     user,
     isInitialized,
     setUser,
+    updateUser,
     login,
     logout,
     churchInfo,
